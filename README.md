@@ -1,4 +1,4 @@
-# YOUR PROJECT NAME
+NoteDoc App
 Departmental note and document repository. 
 --Control access and write authorization.
 --Track changes to notes by user/time stamp. 

@@ -1,11 +1,11 @@
 
-exports.onCreatePage = ({ page, actions }) => {
-    if (page.path.match(/404/)) {
-      return;
-    }
+// exports.onCreatePage = ({ page, actions }) => {
+//     if (page.path.match(/404/)) {
+//       return;
+//     }
   
-    // ...
-  };
+//     // ...
+//   };
   
 // const path = require(`path`)
 

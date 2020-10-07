@@ -1,16 +1,30 @@
-// import axios from "axios"
 import React from "react"
+// import { graphql } from "gatsby"
 import HomepageLayout from "../components/homepage"
-// import Homepage from "../components/homepage"
-// import Axios from "axios"
 
 export default function Home() {
   
   return(
-    <HomepageLayout>dkdkdk</HomepageLayout>
+    <HomepageLayout/>
     ) 
  
 }
+
+
+//-------------------------------------------------------------------------------------------------------------------
+
+// // import axios from "axios"
+// import React from "react"
+// import HomepageLayout from "../components/homepage"
+// // import Axios from "axios"
+
+// export default function Home() {
+  
+//   return(
+//     <HomepageLayout>dkdkdk</HomepageLayout>
+//     ) 
+ 
+// }
 
 // //gatsby starter index
 

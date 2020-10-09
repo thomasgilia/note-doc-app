@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { getClients } from "../../backendHookup"
+// import { getClients, getNotes } from "../../backendHookup"
 
 export default function HomepageLayout({ children }) {
     const [clientList, setClientList] = useState(null)

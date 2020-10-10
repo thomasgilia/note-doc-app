@@ -14,17 +14,25 @@ export default function HomepageLayout() {
     useEffect(() => {
         getAll().then(transferArr => {
             let response = transferArr[1].response;
+
             // let resource = transferArr[0].resource  //"clients"
-            // console.log(resource)       //is giving me the resource
+            console.log(response)       //is giving me the resource
             return setList(response)
         }
         )
-    }, [setList])
+    }, [setList]);
+    // console.log(list)
+    //list is now an array of objects, each object is a client
+
     // so I can have a collection saved in state but cannot directly access it unless in JSX???
     return (
         <>
-            <SortList {...list}></SortList>
+         {/* <SortList {...list}></SortList> */}
+                { list.map((item, i) => {
+                    return <SortList key={i} {...item}></SortList>
+                })}
             <h2>just wonder if it prints</h2>
         </>
     )
 }
+//return here is returning an array of jsx with each item as and obj....?

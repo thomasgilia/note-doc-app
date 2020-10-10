@@ -1,28 +1,30 @@
 import React, { useEffect, useState } from "react"
-import { getClients } from "../../backendHookup"
-// import { getClients, getNotes } from "../../backendHookup"
+import { getAll } from "../../backendHookup"
+import SortList from "./sortList"
+// import { getClients, getNotes, getDocs } from "../../backendHookup"
+// import SortList from "../components/sortList"
 
-export default function HomepageLayout({ children }) {
-    const [clientList, setClientList] = useState(null)
 
+export default function HomepageLayout() {
+    const [list, setList] = useState(null)
+    // const [listSubject, setListSubject] = useState(null)
 
+    //goal:  will call applicable data in from backend then send it through sort-list component
+    //sort-list has formatting for the list only then passes formatted list back to homepage (or wherever)
     useEffect(() => {
-        getClients().then(response => setClientList(response))
-    }, [setClientList])
-    // so i can have a collction savaed in state but cannot directly access it unless in jsx???
+        getAll().then(transferArr => {
+            let response = transferArr[1].response;
+            // let resource = transferArr[0].resource  //"clients"
+            // console.log(resource)       //is giving me the resource
+            return setList(response)
+        }
+        )
+    }, [setList])
+    // so I can have a collection saved in state but cannot directly access it unless in JSX???
     return (
         <>
-            <ul>
-                {clientList !== null &&
-                    <li className="list-group-item">It's currently {clientList[0].id} and !</li>
-                }
-            </ul>
-            {children}
-            { clientList !== null &&
-                <h1>{clientList[0].id}</h1>}
-
-            {/* { <h1>{clientList[0].id}</h1>} */}
-            {/* why does this clientlist0id no work but one above does??? and this one doesn twork either*/}
+            <SortList {...list}></SortList>
+            <h2>just wonder if it prints</h2>
         </>
     )
 }

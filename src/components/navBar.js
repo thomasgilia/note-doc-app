@@ -4,7 +4,7 @@ export default function NavBar() {
     return (
         <>
             {/* <nav class="navbar navbar-dark bg-dark"> */}
-            <ul class="nav nav-fill">
+            <ul class="nav bgCustomDark nav-fill">
             {/* <ul class="navbar nav nav-fill navbar-dark bg-dark"> */}
                 <li class="nav-item">
                     <a class="nav-link" href="#">Homepage</a>

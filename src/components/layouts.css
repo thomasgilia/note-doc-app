@@ -1,0 +1,31 @@
+/* div1 {
+  color: blue;
+} */
+
+/* .table {
+  color: blue;
+} */
+/* .navbar {
+  background-color: #4b5156;
+} */
+
+.nav {
+  background-color: #04313a;
+}
+
+body {
+  background-color: #0f789e;
+}
+/* #086375 */
+/*  lighter choice same tint background #0f789e, greener/ligher 06afab
+monochromatic 267e8f
+sidebar rainbow contrast a012ff 
+navy #0a0147*/
+
+.block-container {
+  background-color: #fff;
+  padding: 30px;
+}
+/* wrapper{
+    background-color: #086375;
+} */

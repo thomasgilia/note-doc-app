@@ -8,34 +8,36 @@ export default function SortListLayout(props) {
     console.log(props.resource)
     return (
         <>
-
-             <a class="btn btn-warning" href='/homepage/'>My homepage</a>
-            <a class="btn btn-primary" href='/clients/'>New Client</a>
-            <br></br>
-            <div class="container">
-                <p>Search the table:</p>
-                <input class="form-control" id="myInput" type="text" placeholder="Search.." />
+            <div className="block-container">
+                <a class="btn btn-warning" href='/homepage/'>My homepage</a>
+                <a class="btn btn-primary" href='/clients/'>New Client</a>
                 <br></br>
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>Client</th>
-                            <th>Client Id</th>
-                            <th>Client Owner</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="myTable">
-                        {props.list.map((item, i) => {
-                            item.resource = props.resource
-                            return <SortListItem key={i} {...item}></SortListItem>})
-                        }
+                <div class="container">
+                    <p>Search the table:</p>
+                    <input class="form-control" id="myInput" type="text" placeholder="Search.." />
+                    <br></br>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Client</th>
+                                <th>Client Id</th>
+                                <th>Client Owner</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="myTable">
+                            {props.list.map((item, i) => {
+                                item.resource = props.resource
+                                return <SortListItem key={i} {...item}></SortListItem>
+                            })
+                            }
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </>
-    ) 
+    )
 }
 
         //     <ul>

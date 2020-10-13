@@ -26,11 +26,12 @@ export default function SortListLayout(props) {
                             </tr>
                         </thead>
                         <tbody id="myTable">
-                            {/* {props.list.map((item, i) => {
+                            {props.list.map((item, i) => {
                                 item.resource = props.resource
                                 return <SortListItem key={i} {...item}></SortListItem>
-                            }) */}
-                            {/* } */}
+                            }
+                            )
+                            }
 
                         </tbody>
                     </table>

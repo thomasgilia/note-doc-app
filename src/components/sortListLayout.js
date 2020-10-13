@@ -29,10 +29,8 @@ export default function SortListLayout(props) {
                             {props.list.map((item, i) => {
                                 item.resource = props.resource
                                 return <SortListItem key={i} {...item}></SortListItem>
+                            })
                             }
-                            )
-                            }
-
                         </tbody>
                     </table>
                 </div>
@@ -40,9 +38,3 @@ export default function SortListLayout(props) {
         </>
     )
 }
-
-        //     <ul>
-                //         {/* {props !== null &&
-        //             <li className="list-group-item">It's currently {props[0].id} </li>
-        //         } */}
-        //     </ul>

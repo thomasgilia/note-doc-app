@@ -1,8 +1,9 @@
 import React from "react"
 
 export default function SortListItem(props) {
-//props = {single client object} //including resource type as key/value on single object
-console.log(props)
+    //props = {single client object including resource type} i.e. {id: , clientName: , resource: "clients"...} 
+
+    console.log(props)
     return (
         <tr>
             <td>{props.clientName}</td>

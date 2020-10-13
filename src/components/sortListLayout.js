@@ -3,9 +3,9 @@ import React from "react"
 import SortListItem from "../components/sortListItem"
 
 export default function SortListLayout(props) {
-    //props =[{},{}] and resource
+    //props = {list: [{},{}], resource: "clients"}
 
-    console.log(props.resource)
+    console.log(props.list)
     return (
         <>
             <div className="block-container">
@@ -26,11 +26,11 @@ export default function SortListLayout(props) {
                             </tr>
                         </thead>
                         <tbody id="myTable">
-                            {props.list.map((item, i) => {
+                            {/* {props.list.map((item, i) => {
                                 item.resource = props.resource
                                 return <SortListItem key={i} {...item}></SortListItem>
-                            })
-                            }
+                            }) */}
+                            {/* } */}
 
                         </tbody>
                     </table>

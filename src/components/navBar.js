@@ -1,25 +1,14 @@
 import React from "react"
+import { Link } from "gatsby"
 
 export default function NavBar() {
     return (
         <>
-            {/* <nav class="navbar navbar-dark bg-dark"> */}
-            <ul class="nav bgCustomDark nav-fill">
-                {/* <ul class="navbar nav nav-fill navbar-dark bg-dark"> */}
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Homepage</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Something</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
-            </ul>
-            {/* </nav> */}
+            <nav class="nav bgCustomDark nav-fill">
+                <Link to="/" className="nav-item nav-link" >Homepage</Link>
+                <Link to="/clients" className="nav-item nav-link" >Clients</Link>
+                <Link to="/login" className="nav-item nav-link" >Login</Link>
+            </nav>
         </>
     )
 }

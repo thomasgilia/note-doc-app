@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-export default function GetAll() {
+export function getAll() {
   const endpoint = `http://localhost:3000/getallclients`;
   let resource = "clients"
   // console.log(resource)

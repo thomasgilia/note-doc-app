@@ -1,5 +1,5 @@
 import React from "react"
-
+import { Link } from "gatsby"
 export default function SortListItem(props) {
     //props = {single client object including resource type} i.e. {id: , clientName: , resource: "clients"...} 
 
@@ -10,7 +10,7 @@ export default function SortListItem(props) {
             <td>{props.id}</td>
             <td>{props.ownedBy}</td>
             <td>
-                <a class="btn btn-secondary btn-sm" href="/clients/client{placeholder}">View Client</a>
+                <Link to={"/client/" + props.id} className="btn btn-secondary btn-sm">View Client</Link>
             </td>
         </tr>
     )

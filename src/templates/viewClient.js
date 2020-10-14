@@ -1,14 +1,19 @@
 // // import { response } from "express";
 import React from "react"
+import AllPageLayout from "../components/allPageLayout"
+
+
 export default function ViewClient({ pageContext }) {
-    const displayId = pageContext.oneId
+    const displayId = pageContext.clientId
     console.log(displayId)
     return (
-    <>
-    <h2>id is </h2>
-    <h3>i hope {displayId} </h3>
-    </>)
-    
+        <>
+        <AllPageLayout>
+            <h2>id is </h2>
+            <h3>i hope {displayId} and name is {pageContext.clientName}</h3>
+        </AllPageLayout>
+        </>)
+
 }
 // import { getClient } from "../../backendHookup"
 // // import { getClient, getNotes } from "../../backendHookup"

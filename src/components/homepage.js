@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import GetAll  from "../../backendHookup"
+import { getAll } from "../../backendHookup"
 import AllPageLayout from "./allPageLayout"
 import SortListLayout from "./sortListLayout"
 // import { getClients, getNotes, getDocs } from "../../backendHookup"
@@ -8,7 +8,7 @@ export default function HomepageLayout() {
     const [list, setList] = useState(null)
 
     useEffect(() => {
-        GetAll().then(transferArr => {
+        getAll().then(transferArr => {
             let response = transferArr[1].response;
             console.log(response)
             return setList(response)

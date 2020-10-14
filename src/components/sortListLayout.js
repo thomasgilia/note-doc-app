@@ -1,6 +1,7 @@
 import React from "react"
 // import React, { useEffect, useState } from "react"
 import SortListItem from "../components/sortListItem"
+import BlockContainer from "../components/blockContainer"
 
 export default function SortListLayout(props) {
     //props = {list: [{},{}], resource: "clients"}
@@ -8,7 +9,7 @@ export default function SortListLayout(props) {
     console.log(props.list)
     return (
         <>
-            <div className="block-container">
+            <BlockContainer>
                 <a class="btn btn-warning" href='/homepage/'>My homepage</a>
                 <a class="btn btn-primary" href='/clients/'>New Client</a>
                 <br></br>
@@ -34,7 +35,7 @@ export default function SortListLayout(props) {
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </BlockContainer>
         </>
     )
 }

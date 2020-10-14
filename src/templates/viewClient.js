@@ -1,17 +1,30 @@
 // // import { response } from "express";
 import React from "react"
 import AllPageLayout from "../components/allPageLayout"
-
+import BlockContainer from "../components/blockContainer"
 
 export default function ViewClient({ pageContext }) {
-    const displayId = pageContext.clientId
-    console.log(displayId)
+    //pageContext:  { clientName: client.clientName, clientId: client.id }
+    let color = "contrast-light"
     return (
         <>
-        <AllPageLayout>
-            <h2>id is </h2>
-            <h3>i hope {displayId} and name is {pageContext.clientName}</h3>
-        </AllPageLayout>
+            <AllPageLayout>
+                <BlockContainer color={color}>
+                    <h2>Client: {pageContext.clientName}</h2>
+                    <h3>Client Id: {pageContext.clientId}</h3>
+                </BlockContainer>
+                <BlockContainer>
+                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+                    voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate
+                    non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
+                    Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi
+                    optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est,
+                    omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
+                    eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a
+                    sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus
+                    asperiores repellat.
+                </BlockContainer>
+            </AllPageLayout>
         </>)
 
 }

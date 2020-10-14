@@ -42,7 +42,6 @@ exports.createPages = async ({ actions: { createPage } }) => {
                 path: `/client/${client.id}`,
                 component: path.resolve("./src/templates/viewClient.js"),
                 context: { clientName: client.clientName, clientId: client.id }
-    
             })
         })
 

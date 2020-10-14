@@ -2,6 +2,7 @@ import React from "react"
 import "./layouts.css"
 import NavBar from "../components/navBar"
 import FlagBarLayout from "../components/FlagBarLayout"
+import BlockContainer from "../components/blockContainer"
 
 export default function AllPageLayout({ children }) {
     return (
@@ -13,16 +14,15 @@ export default function AllPageLayout({ children }) {
                     <FlagBarLayout></FlagBarLayout>
                 </div>
                 <div class="col-md-8 col-lg-9">
-                    <div className="container my-3 p-3 bg-white rounded shadow-sm">
-                        <br></br>
-                        <br></br>
-                        <div1>{children}</div1>
-                    </div>
+                    <br></br>
+                    <br></br>
+                    {/* <BlockContainer>{children}</BlockContainer>      what to put here if we want to reserve space
+                    and control overall spacing of the main data area but dont know what mini-layout we need yet? */}
+                    {children}
                 </div>
                 <div class="col-md-1 col-lg-1">
                 </div>
             </div>
-
         </>
     )
 }

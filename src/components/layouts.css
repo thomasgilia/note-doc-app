@@ -22,9 +22,26 @@ body {
 }
 
 .block-container {
-  background-color: #fff;
+  /* background-color: #fff; */
   padding: 30px;
 }
 /* wrapper{
     background-color: #086375;
 } */
+.monochromatic {
+  background-color: 267e8f;
+}
+
+.contrast {
+  background-color: #a012ff;
+}
+
+.contrast-light {
+  background-color: #ffe2d6;
+}
+
+.cobalty-navy {
+  background-color: #0a0147;
+}
+
+/* GET SASSY IN HERE */

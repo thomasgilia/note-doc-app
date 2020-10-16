@@ -1,5 +1,5 @@
 import React from "react"
-import "./layouts.css"
+import "./layouts.scss"
 import NavBar from "../components/navBar"
 import FlagBarLayout from "../components/FlagBarLayout"
 import BlockContainer from "../components/blockContainer"

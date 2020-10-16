@@ -1,0 +1,50 @@
+// color palette //
+$color-primaryBg: #0f789e;
+$color-custom-dark: #04313a;
+$color-custom-med: #9db0b7;
+$color-monochromatic: #267e8f;
+$color-contrast-light: #ffe2d6;
+$color-cobalty-navy: #0a0147;
+
+.bgCustomDark {
+  background-color: $color-custom-dark;
+}
+
+.bgCustomMed {
+  background-color: $color-custom-med;
+}
+.contrast-light {
+  background-color: $color-contrast-light;
+}
+
+body {
+  // background-color: #fff;
+  background-color: $color-primaryBg;
+}
+
+.block-container {
+  background-color: #fff;
+  padding: 30px;
+  border-width: 30px;
+  border-radius: 50px;
+  border-color: black;
+}
+
+.shadow{
+  box-shadow: 0px 0px 5px 1px  $color-cobalty-navy !important;
+}
+
+/* wrapper{
+    background-color: #086375;
+} */
+
+/* div1 {
+  color: blue;
+} */
+
+/* .table {
+  color: blue;
+} */
+/* .navbar {
+  background-color: #4b5156;
+} */

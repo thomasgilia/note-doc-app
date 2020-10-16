@@ -2,11 +2,13 @@
 import React, { useEffect, useState } from "react"
 import AllPageLayout from "../components/allPageLayout"
 import BlockContainer from "../components/blockContainer"
-import { getClient } from "../../backendHookup"
+import { getClientNotes } from "../../backendHookup"
 
-export default function ViewClient({ pageContext }) {
+export default function ViewNote({ pageContext }) {
     //pageContext:  { clientName: client.clientName, clientId: client.id }
-    // let id = pageContext.clientId
+    //probaby need to add noteid to it as well
+
+    let id = pageContext.clientId
     const [client, setClient] = useState(null)
     const [id, setId] = useState(pageContext.clientId);
 // console.log(id)

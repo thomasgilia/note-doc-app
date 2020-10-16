@@ -4,11 +4,12 @@ module.exports = {
         title: "NoteDoc App",
         description: "Keep track of notes, files, and their origins for each of your clients",
     },
+    plugins: [`gatsby-plugin-sass`]
     // plugins: [`gatsby-plugin-react-helmet`]
     // plugins: [
     //   /* Rest of the plugins */
     //   `gatsby-plugin-nodejs`,
-    
+
     //   {
     //     resolve: 'gatsby-plugin-express',
     //     options: {
@@ -16,4 +17,4 @@ module.exports = {
     //     }
     //   }
     // ]
-  };
+};

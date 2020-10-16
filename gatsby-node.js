@@ -37,9 +37,9 @@ exports.createPages = async ({ actions: { createPage } }) => {
         // let clientList = clients.response;
         // console.log(clients)
         clients.forEach(client => {
-            console.log(client.clientName)
+            // console.log(client.clientName)
             createPage({
-                path: `/client/${client.id}`,
+                path: `/clients/client${client.id}`,
                 component: path.resolve("./src/templates/viewClient.js"),
                 context: { clientName: client.clientName, clientId: client.id }
             })

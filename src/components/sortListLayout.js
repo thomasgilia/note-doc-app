@@ -1,12 +1,12 @@
 import React from "react"
 // import React, { useEffect, useState } from "react"
-import SortListItem from "../components/sortListItem"
 import BlockContainer from "../components/blockContainer"
+import { Link } from "gatsby"
 
 export default function SortListLayout(props) {
     //props = {list: [{},{}], resource: "clients"}
 
-    console.log(props.list)
+    console.log(props.list[0])
     return (
         <>
             <BlockContainer>
@@ -22,14 +22,23 @@ export default function SortListLayout(props) {
                             <tr>
                                 <th>Client</th>
                                 <th>Client Id</th>
-                                <th>Client Owner</th>
+                                <th>{props.list[0].id}</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody id="myTable">
                             {props.list.map((item, i) => {
-                                item.resource = props.resource
-                                return <SortListItem key={i} {...item}></SortListItem>
+                                if (item !== null) {
+                                    item.resource = props.resource
+                                    return (<tr>
+                                        <td>{item.clientName}</td>
+                                        <td>{item.id}</td>
+                                        <td>{item.ownedBy}</td>
+                                        <td>
+                                            <Link to={"/client/" + item.id} className="btn btn-secondary btn-sm">View Client</Link>
+                                        </td>
+                                    </tr>)
+                                }
                             })
                             }
                         </tbody>

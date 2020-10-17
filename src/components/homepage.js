@@ -10,7 +10,7 @@ export default function HomepageLayout() {
     useEffect(() => {
         getAll().then(transferArr => {
             let response = transferArr[1].response;
-            console.log(response)
+            console.log(response)       //for now arr of client objs
             return setList(response)
         }
         )

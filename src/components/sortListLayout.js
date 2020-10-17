@@ -6,7 +6,7 @@ import { Link } from "gatsby"
 export default function SortListLayout(props) {
     //props = {list: [{},{}], resource: "clients"}
 
-    console.log(props.list[0])
+    // console.log(props.list[0])
     return (
         <>
             <BlockContainer>
@@ -35,7 +35,7 @@ export default function SortListLayout(props) {
                                         <td>{item.id}</td>
                                         <td>{item.ownedBy}</td>
                                         <td>
-                                            <Link to={"/client/" + item.id} className="btn btn-secondary btn-sm">View Client</Link>
+                                            <Link to={"/clients/client" + item.id} className="btn btn-secondary btn-sm">View Client</Link>
                                         </td>
                                     </tr>)
                                 }

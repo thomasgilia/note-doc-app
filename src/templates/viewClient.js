@@ -9,10 +9,10 @@ export default function ViewClient({ pageContext }) {
     // let id = pageContext.clientId
     const [client, setClient] = useState(null)
     const [id, setId] = useState(pageContext.clientId);
-// console.log(id)
+    // console.log(id)
 
-    useEffect((id) => {
-         getClient(id).then(transferArr => {
+    useEffect(() => {
+        getClient(id).then(transferArr => {
             let response = transferArr[1].response;
             // console.log(response)
             return setClient(response)
@@ -21,12 +21,13 @@ export default function ViewClient({ pageContext }) {
     }, [setClient]);
 
     let color = "contrast-light"
+    // console.log(client) //for now, gives single clinee object {id: , clientName: "", etc}
     return (
         <>
             <AllPageLayout>
                 <BlockContainer color={color}>
                     <h2>Client:  {client !== null && client.clientName}</h2>
-                    <h3>Client Id: {client !== null && client.clientId}</h3>
+                    <h3>Client Id: {client !== null && client.id}</h3>
                 </BlockContainer>
                 <BlockContainer>
 
@@ -42,24 +43,31 @@ export default function ViewClient({ pageContext }) {
                                 <th>Standard Discount(%):</th>
                             </tr>
                             <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 {/* <td>{client.id}</td>
                                 <td>{client.ownedByUser}Yes{else}No{}</td >
                                 <td>{client.ownedByUser}{client.ownedBy}{else}N/A{}</td >
                                 <td>{client.keyClient}Yes{else}No{}</td>
                                 <td>{client.reqQuote}Yes{else}No{}</td>
                                 <td>{client.reqQuoteApproval}Yes{else}No{}</td>
-                                <td>{client.standardDiscount}</td> */}
+                                <td>{client.standardDiscount}</td>
                             </tr>
                         </table>
                     </div>
                     <div class="container">
                         <table class="table">
                             <tr>
-                                {/* <th>Revision Log: <span style="color:blue">[last Update: {client.updatedAt}]</span></th> */}
+                                <th>Revision Log: <span style="color:blue">[last Update: {client.updatedAt}]</span></th> */}
                                 <th></th>
                             </tr>
                             <tr>
-                                {/* <td>{client.revisionLog}</td> */}
+                                {/*     <td>{client.revisionLog}</td> */}
                                 <td></td>
                             </tr>
                         </table>

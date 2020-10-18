@@ -9,7 +9,9 @@ let titleMap = {
   reqQuote: "Requires quote",
   reqQuoteApproval: "Requires quote approval",
   standardDiscount: "Standard discount",
-  revisionLog: "Revision Log"
+  revisionLog: "Revision Log",
+  createdAt: "Created",
+  updateAt: "Last update"     //ends up "" i think update populates afterwards...deal with it later
 };
 let titleMapArr = Object.entries(titleMap);
 
@@ -28,44 +30,34 @@ export function getAll() {
 
 export function getClient(id) {
   const endpoint = `http://localhost:3000/clients/client${id}`;
-  let resource = "clients"  //should be client?
-  // console.log(resource)
-  return axios.get(endpoint).then(function (response) {
-    // let dbConnectionCheck = response.data;
-    // let clientObj = response.data;
-    // let clientArr = Object.entries(clientObj)
-    // console.log(clientArr)
-    // clientArr.map(function (item) {
-    //   let key = item[0]
-    //   let newKey = ""
-    //   let value = item[1]
-    //   titleMapArr.forEach((key) => {
-    //     if (key == titleMapArr[0]) {
-    //       return key = titleMapArr[1]
-    //     }
-    //   }
-    //   )
-    //   console.log(key)
-    // })
-    // console.log(key)
-    // })
-    let transferArr = [{ resource: resource }, { response: response.data }]
-    // console.log(dbConnectionCheck)
-    // console.log(transferArr[0]);    //resource is at 0, response obj at 1
+  let resource = "client"
+  return (axios.get(endpoint).then(function (response) {
+    let clientArr = Object.entries(response.data)
+    console.log(clientArr)
+    clientArr.map((item) => {       //item is [id, 2] or ["created at", "2-22-2020"] etc
+      let key = item[0]
+      let newKey = ""
+      titleMapArr.forEach((item, index, arr) => {
+        if (arr[index][0] === key) {
+          newKey = arr[index][1]
+        }
+        return newKey
+      })
+      item[0] = newKey
+      return item
+    }
+    )
+    let transferArr = [{ resource: resource }, { response: clientArr }]
     return (transferArr);
   })
+  )
 };
-
 
 export function getClientNotes(id) {
   const endpoint = `http://localhost:3000/notes/note${id}`;
   let resource = "clients"
-  // console.log(resource)
   return axios.get(endpoint).then(function (response) {
-    // let dbConnectionCheck = response.data;
     let transferArr = [{ resource: resource, resourceId: id }, { response: response.data }]
-    // console.log(dbConnectionCheck)
-    // console.log(transferArr[0]);    //resource is at 0, response obj at 1
     return (transferArr);
   });
 }

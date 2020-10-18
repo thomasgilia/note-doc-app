@@ -15,28 +15,14 @@ let titleMap = {
 };
 let titleMapArr = Object.entries(titleMap);
 
-
-
-export function getAll() {
-  const endpoint = `http://localhost:3000/getallclients`;
-  let resource = "clients"
-  // console.log(resource)
-  return axios.get(endpoint).then(function (response) {
-    // let dbConnectionCheck = response.data;
-    let transferArr = [{ resource: resource }, { response: response.data }]
-    // console.log(dbConnectionCheck)
-    // console.log(transferArr[0]);    //resource is at 0, response obj at 1
-    return (transferArr);
-  });
-}
-
 //reusable module to turn data list object to array, then modify titles per map
 function toArray(incoming) {
+  // console.log(incoming[0])
   let arr = Object.entries(incoming)
   arr.map((item) => {       //item is [id, 2] or ["created at", "2-22-2020"] etc
     let key = item[0]
     let value = item[1].toString()    //without this, the boolean populated blank in table
-    console.log(value)
+    // console.log(value)
     let newKey = ""
     titleMapArr.forEach((item, index, arr) => {
       if (arr[index][0] === key) {
@@ -51,14 +37,44 @@ function toArray(incoming) {
   return arr
 }
 
+//need separate/additional fucntionality for getting mulitiple objects
+//back from axios call (i.e. a list of clients or multiple notes for a 
+//client). i think mapping within main function to call toArray
+//for each of the individual objects (like a single client) that are received
+//but then will have to add another mapping on the consumer
+//side to handle the extra level of nesting
+//...alternative is to build a new array with only the items
+//needed...
+//...or do a separate sortlistlayout - one with search for multiple 
+//results and handlign the nesting, one for simpler and not nested
+
+
+export function getClients() {
+  const endpoint = `http://localhost:3000/getallclients`;
+  let resource = "clients"
+  // console.log(resource)
+  return (axios.get(endpoint).then(function (response) {
+    // let dbConnectionCheck = response.data;
+    // let responseData = response.data
+    let newArr= response.data.map((element) => {
+      return toArray(element)
+    })
+    // console.log(newArr)  //works to give correct array of arrays/nested
+      let transferArr = [{ resource: resource }, { response: newArr }]
+    // console.log(transferArr[1]);    //resource is at 0, response obj at 1
+    return (transferArr);
+  })
+  )
+};
+
 export function getClient(id) {
   const endpoint = `http://localhost:3000/clients/client${id}`;
   let resource = "client"
   return (axios.get(endpoint).then(function (response) {
     // let clientArr = Object.entries(response.data)
     // console.log(clientArr)
-    let clientArr = toArray(response.data)
-    let transferArr = [{ resource: resource }, { response: clientArr }]
+    let newArr = toArray(response.data)
+    let transferArr = [{ resource: resource }, { response: newArr }]
     return (transferArr);
   })
   )

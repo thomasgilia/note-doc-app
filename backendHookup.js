@@ -33,9 +33,11 @@ export function getClient(id) {
   let resource = "client"
   return (axios.get(endpoint).then(function (response) {
     let clientArr = Object.entries(response.data)
-    console.log(clientArr)
+    // console.log(clientArr)
     clientArr.map((item) => {       //item is [id, 2] or ["created at", "2-22-2020"] etc
       let key = item[0]
+      let value = item[1].toString()    //without this, the boolean populated blank in table
+      console.log(value)
       let newKey = ""
       titleMapArr.forEach((item, index, arr) => {
         if (arr[index][0] === key) {
@@ -44,6 +46,7 @@ export function getClient(id) {
         return newKey
       })
       item[0] = newKey
+      item[1] = value
       return item
     }
     )

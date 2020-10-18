@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react"
 import AllPageLayout from "../components/allPageLayout"
 import BlockContainer from "../components/blockContainer"
+import SortListLayout from "../components/sortListLayout"
 import { getClient } from "../../backendHookup"
 
 export default function ViewClient({ pageContext }) {
@@ -21,58 +22,17 @@ export default function ViewClient({ pageContext }) {
     }, [setClient]);
 
     let color = "contrast-light"
-    // console.log(client) //for now, gives single clinee object {id: , clientName: "", etc}
-    return (
-        <>
-            <AllPageLayout>
-                <BlockContainer color={color}>
-                    <h2>Client:  {client !== null && client.clientName}</h2>
-                    <h3>Client Id: {client !== null && client.id}</h3>
-                </BlockContainer>
-                <BlockContainer>
-
-                    <div class="container">
-                        <table class="table">
-                            <tr>
-                                <th>Client Id:</th>
-                                <th>Has Owner?:</th>
-                                <th>Owned By:</th>
-                                <th>Key Client?:</th>
-                                <th>Requires Quote?:</th>
-                                <th>Requires Quote Approval?:</th>
-                                <th>Standard Discount(%):</th>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                {/* <td>{client.id}</td>
-                                <td>{client.ownedByUser}Yes{else}No{}</td >
-                                <td>{client.ownedByUser}{client.ownedBy}{else}N/A{}</td >
-                                <td>{client.keyClient}Yes{else}No{}</td>
-                                <td>{client.reqQuote}Yes{else}No{}</td>
-                                <td>{client.reqQuoteApproval}Yes{else}No{}</td>
-                                <td>{client.standardDiscount}</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="container">
-                        <table class="table">
-                            <tr>
-                                <th>Revision Log: <span style="color:blue">[last Update: {client.updatedAt}]</span></th> */}
-                                <th></th>
-                            </tr>
-                            <tr>
-                                {/*     <td>{client.revisionLog}</td> */}
-                                <td></td>
-                            </tr>
-                        </table>
-                    </div>
-
+    // console.log(client) // array of arrays repping 1 clinet with pretty titles [["Client", "Stucky's], ["Client Id", 1]]
+    if (client !== null) {
+        return (
+            <>
+                <AllPageLayout>
+                    <BlockContainer color={color}>
+                        <h2>{client[1][0]}: {client[1][1]}</h2>
+                        <h4>{client[0][0]}: {client[0][1]}</h4>
+                    </BlockContainer>
+                    <BlockContainer>
+                        <SortListLayout list={client} resource="client"></SortListLayout>
                     At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
                     voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate
                     non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
@@ -83,7 +43,50 @@ export default function ViewClient({ pageContext }) {
                     sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus
                     asperiores repellat.
                 </BlockContainer>
-            </AllPageLayout>
-        </>)
-
+                </AllPageLayout>
+            </>)
+    } else { return null }
 }
+
+//   {/* <div class="containe
+// r">
+//                             <table class="table">
+//                                 <tr>
+//                                     <th>Client Id:</th>
+//                                     <th>Has Owner?:</th>
+//                                     <th>Owned By:</th>
+//                                     <th>Key Client?:</th>
+//                                     <th>Requires Quote?:</th>
+//                                     <th>Requires Quote Approval?:</th>
+//                                     <th>Standard Discount(%):</th>
+//                                 </tr>
+//                                 <tr>
+//                                     <td></td>
+//                                     <td></td>
+//                                     <td></td>
+//                                     <td></td>
+//                                     <td></td>
+//                                     <td></td>
+//                                     <td></td>
+//                                     {/* <td>{client.id}</td>
+//                                 <td>{client.ownedByUser}Yes{else}No{}</td >
+//                                 <td>{client.ownedByUser}{client.ownedBy}{else}N/A{}</td >
+//                                 <td>{client.keyClient}Yes{else}No{}</td>
+//                                 <td>{client.reqQuote}Yes{else}No{}</td>
+//                                 <td>{client.reqQuoteApproval}Yes{else}No{}</td>
+//                                 <td>{client.standardDiscount}</td>
+//                             </tr>
+//                         </table>
+//                     </div>
+//                     <div class="container">
+//                         <table class="table">
+//                             <tr>
+//                                 <th>Revision Log: <span style="color:blue">[last Update: {client.updatedAt}]</span></th> */}
+//                                     <th></th>
+//                                 </tr>
+//                                 <tr>
+//                                     {/*     <td>{client.revisionLog}</td> */}
+//                                     <td></td>
+//                                 </tr>
+//                             </table>
+//                         </div> */}

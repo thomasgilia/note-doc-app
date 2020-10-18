@@ -4,47 +4,42 @@ import BlockContainer from "../components/blockContainer"
 import { Link } from "gatsby"
 
 export default function SortListLayout(props) {
-    //props = {list: [{},{}], resource: "clients"}
-
-    // console.log(props.list[0])
+    //old way:    props = {list: [{},{}], resource: "client"}
+    //new way:    props = {list: [[],[]], resource: "client"}
+    //props.list=[[],[]...] i.e. ["Client Id", 1], ["Client", "Stucky's"]...
+    // console.log(props.list)
     return (
         <>
             <BlockContainer>
-                <a class="btn btn-warning" href='/homepage/'>My homepage</a>
-                <a class="btn btn-primary" href='/clients/'>New Client</a>
-                <br></br>
                 <div class="container">
                     <p>Search the table:</p>
                     <input class="form-control" id="myInput" type="text" placeholder="Search.." />
                     <br></br>
                     <table class="table table-bordered table-striped">
                         <thead>
+                           <tr>
+                            {props.list.map(item => {
+                                return (
+                                    <th>
+                                        {item[0]}
+                                    </th>
+                                )
+                            })} 
+                            </tr>
                             <tr>
-                                <th>Client</th>
-                                <th>Client Id</th>
-                                <th>{props.list[0].id}</th>
-                                <th></th>
+                            {props.list.map(item => {
+                                return (
+                                    <td>
+                                        {item[1]}
+                                    </td>
+                                )
+                            })} 
                             </tr>
                         </thead>
-                        <tbody id="myTable">
-                            {props.list.map((item, i) => {
-                                if (item !== null) {
-                                    item.resource = props.resource
-                                    return (<tr>
-                                        <td>{item.clientName}</td>
-                                        <td>{item.id}</td>
-                                        <td>{item.ownedBy}</td>
-                                        <td>
-                                            <Link to={"/clients/client" + item.id} className="btn btn-secondary btn-sm">View Client</Link>
-                                        </td>
-                                    </tr>)
-                                }
-                            })
-                            }
-                        </tbody>
                     </table>
                 </div>
-            </BlockContainer>
+        </BlockContainer>
         </>
     )
 }
+

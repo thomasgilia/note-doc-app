@@ -11,11 +11,11 @@ export default function SortListLayout(props) {
     //old way:    props = {list: [{},{}], resource: "client"}
     //new way:    props = {list: [[],[]], resource: "client"}
     //props.list=[[],[]...] i.e. ["Client Id", 1], ["Client", "Stucky's"]...
-    
-    console.log(props.list)
+
+    // console.log(props)
     if (props.list !== null) {
         if (props.list[0].length < 3) {
-                   return (
+            return (
                 <>
                     <BlockContainer>
                         <div class="container">
@@ -35,7 +35,7 @@ export default function SortListLayout(props) {
                                             }
                                         </tr>
                                     </thead>
-                                    <ListItemSingle list={props.list}></ListItemSingle>
+                                    <ListItemSingle list={props.list} resource={props.resource}></ListItemSingle>
                                 </table>
                             </div>
                         </div>
@@ -59,7 +59,7 @@ export default function SortListLayout(props) {
                                             }
                                         </tr>
                                     </thead>
-                                    <ListItemMulti list={props.list}></ListItemMulti>
+                                    <ListItemMulti list={props.list} resource={props.resource}></ListItemMulti>
                                 </table>
                             </div>
                         </div>

@@ -1,4 +1,6 @@
 import axios from "axios";
+import SortListLayout from "./src/components/sortListLayout";
+import React from "react"
 
 let titleMap = {
   id: "Client Id",
@@ -56,11 +58,11 @@ export function getClients() {
   return (axios.get(endpoint).then(function (response) {
     // let dbConnectionCheck = response.data;
     // let responseData = response.data
-    let newArr= response.data.map((element) => {
+    let newArr = response.data.map((element) => {
       return toArray(element)
     })
     // console.log(newArr)  //works to give correct array of arrays/nested
-      let transferArr = [{ resource: resource }, { response: newArr }]
+    let transferArr = [{ resource: resource }, { response: newArr }]
     // console.log(transferArr[1]);    //resource is at 0, response obj at 1
     return (transferArr);
   })
@@ -81,11 +83,16 @@ export function getClient(id) {
 };
 
 export function getClientNotes(id) {
-  const endpoint = `http://localhost:3000/notes/note${id}`;
-  let resource = "clients"
+  const endpoint = `http://localhost:3000/notes/client${id}`;
+  // console.log("this is client's id: " + id)
+  let resource = "notes"
   return axios.get(endpoint).then(function (response) {
-    let transferArr = [{ resource: resource, resourceId: id }, { response: response.data }]
-    return (transferArr);
+    // console.log(response.data)
+    let newArr = Object.entries(response.data);  //not titlemapped
+    let transferArr = [{ resource: resource }, { response: newArr }, { clientId: id }]   
+    // console.log(transferArr)
+    return (transferArr)
+    // return (<SortListLayout props={transferArr}>transferArr</SortListLayout>);
   });
 }
 

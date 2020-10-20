@@ -13,6 +13,11 @@ export default function SortListLayout(props) {
     //props.list=[[],[]...] i.e. ["Client Id", 1], ["Client", "Stucky's"]...
 
     // console.log(props)
+    let resourceDisplay = props.resource
+    if (resourceDisplay === "clients") {
+        resourceDisplay = "client"
+    }
+
     if (props.list !== null) {
         if (props.list[0].length < 3) {
             return (
@@ -24,6 +29,7 @@ export default function SortListLayout(props) {
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
+                                            <th></th>
                                             {
                                                 props.list.map(item => {
                                                     return (
@@ -52,9 +58,10 @@ export default function SortListLayout(props) {
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
+                                            <th></th> <th></th>
                                             {
                                                 props.list.map((element, index) => {
-                                                    return (<th>{element[index][0]}</th>)
+                                                    return (<th>{element[index]}</th>)
                                                 })
                                             }
                                         </tr>

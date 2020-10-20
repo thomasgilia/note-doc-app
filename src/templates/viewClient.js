@@ -27,21 +27,21 @@ export default function ViewClient({ pageContext }) {
             return setClient(response)
         }
         )
-        getClientNotes(id)
-        .then(transferArr => {
-            let response = transferArr[1].response;
-            // console.log(transferArr)
-            return setCallData(response)
-        }
-        )
+        // getClientNotes(id)
+        // .then(transferArr => {
+        //     return setCallData(transferArr)
+        // }
+        // )
     }, [setClient, setCallData]);
     let color = "contrast-light"
-
-    // let call = async function (id) {
-    //     let results = await getClientNotes(id)
-    //     // console.log(results)
-    //     // return (<SortListLayout props={results.response}>transferArr</SortListLayout>)  //try sending to veiwresource instaed?
-
+    // console.log(callData)
+    let call = async function (e) {
+        e.preventDefault()
+        let results = await getClientNotes(id)
+        // console.log(results)
+        // return (<SortListLayout props={results.response}>transferArr</SortListLayout>)  //try sending to veiwresource instaed?
+        setCallData(results)
+    }
     // let callData = {id: {id}, callData: call(id)}
     // console.log(callData)
 
@@ -58,14 +58,15 @@ export default function ViewClient({ pageContext }) {
                     </BlockContainer>
                     <BlockContainer>
                         <SortListLayout list={client} resource="client"></SortListLayout>
-                        <Link
+                        <SortListLayout list={callData} resource="notes"></SortListLayout>
+                        {/* <Link
                             to={`/viewResources`}
                             state={{ callData }}
                         >
                             View Client Notes
                          </Link>
-                        <br></br>
-                        {/* <button onClick={() => call()}>Get Client Notes</button> */}
+                        <br></br> */}
+                        <button onClick={(e) => call(e)}>Get Client Notes</button>
                         {/* {const call = async function (id) {
                             <button
                                 onClick={event => {

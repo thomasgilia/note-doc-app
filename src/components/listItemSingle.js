@@ -8,12 +8,19 @@ export default function ListItemSingle(props) {
     // console.log(props.resource)
     let route = ""
     if (props.resource === ("clients" || "client")) {
-        route = "/clients/client"                      
+        route = "/clients/client"
+    }
+    let resourceDisplay = props.resource
+    if (resourceDisplay === "clients") {
+        resourceDisplay = "client"
     }
 
     if (props.list !== null) {
         return (
             <>
+                <td>
+                    <Link to={route + props.list[0][1]} className="btn btn-secondary btn-sm">View {resourceDisplay}</Link>
+                </td>
                 {
                     props.list.map(item => {
                         // console.log(item)
@@ -25,7 +32,7 @@ export default function ListItemSingle(props) {
                         )
                     })
                 }
-                <Link to={route + props.list[0][1]} className="btn btn-secondary btn-sm">View {props.resource}</Link>
+
             </>
         )
     } else { return null }

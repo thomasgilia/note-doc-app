@@ -17,7 +17,7 @@ export default function ListItemMulti(props) {
             <>
                 <tbody>
                         {props.list.map((element, index) => {
-                            return (<tr><ListItemSingle key={index} list={element} resource={props.resource}></ListItemSingle></tr>)
+                            return (<tr><th></th><ListItemSingle key={index} list={element} resource={props.resource}></ListItemSingle></tr>)
                         })}
                     
                 </tbody>

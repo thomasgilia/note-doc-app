@@ -1,7 +1,7 @@
 import React from "react"
 import "./layouts.scss"
-import NavBar from "../components/navBar"
-import FlagBarLayout from "../components/FlagBarLayout"
+import NavBar from "./navBar"
+import FlagBarLayout from "./FlagBarLayout"
 // import BlockContainer from "../components/blockContainer"
 
 export default function AllPageLayout({ children }) {

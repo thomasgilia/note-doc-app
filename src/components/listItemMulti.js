@@ -1,6 +1,6 @@
 import React from "react"
 // import { Link } from "gatsby"
-import ListItemSingle from "../components/listItemSingle"
+import ListItemSingle from "./listItemSingle"
 
 export default function ListItemMulti(props) {
     //props = array of client arrays that whose key/value are in array form

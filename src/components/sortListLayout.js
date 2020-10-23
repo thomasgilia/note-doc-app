@@ -1,5 +1,4 @@
-import BlockContainer from "../components/blockContainer"
-import SearchList from "../components/searchList"
+import SearchList from "./searchList"
 import ListItemMulti from "./listItemMulti"
 import { titleMapper } from "../../backendHookup"
 import React, { useEffect, useState } from "react"

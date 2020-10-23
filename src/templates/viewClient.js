@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react"
 import AllPageLayout from "../components/allPageLayout"
 import BlockContainer from "../components/blockContainer"
 import SortListLayout from "../components/sortListLayout"
+// import NoteForm from "../components/noteForm"
+import ClientForm from "../components/clientForm"
 import { getClient, getClientNotes } from "../../backendHookup"
 import { Link } from "gatsby"
 
@@ -17,84 +19,63 @@ export default function ViewClient({ pageContext }) {
     // }
     const [client, setClient] = useState(null)
     const [id] = useState(pageContext.clientId);
-    const [callData, setCallData] = useState(null)
-    // console.log(id)
+    const [thisClient] = useState(pageContext.clientName)
+    const [callNotes, setCallNotes] = useState(null)
+    const [newClient, setNewClient] = useState(null)
+
+    // console.log(clientName2)
 
     useEffect(() => {
         getClient(id).then(transferArr => {
             let response = transferArr[1].response;
+            // console.log(transferArr)
+            // if (response.length < 2) {
+            //     response.push([null])
+            // }
             // console.log(response)
             return setClient(response)
         }
         )
-        // getClientNotes(id)
-        // .then(transferArr => {
-        //     return setCallData(transferArr)
-        // }
-        // )
-    }, [setClient, setCallData]);
+    }, [setClient, setCallNotes]);
     let color = "contrast-light"
     // console.log(callData)
-    let call = async function (e) {
+    let callClientNotes = async function (e) {
         e.preventDefault()
-        let results = await getClientNotes(id)
-        // console.log(results)
-        // return (<SortListLayout props={results.response}>transferArr</SortListLayout>)  //try sending to veiwresource instaed?
-        setCallData(results)
+        let transferArr = await getClientNotes(id)
+        let response = transferArr[1].response;
+        // console.log(response)
+        setCallNotes(response)
     }
-    // let callData = {id: {id}, callData: call(id)}
-    // console.log(callData)
+    // console.log(callNotes)
 
-    // console.log(call(id))
+    let callClientForm = async function (e) {
+        e.preventDefault()
+        let newClientRequested = true;
+        setNewClient(newClientRequested)
+    }
+
     // console.log(client) // array of arrays repping 1 clinet with pretty titles [["Client", "Stucky's], ["Client Id", 1]]
     if (client !== null) {
         return (
             <>
                 <AllPageLayout>
                     <BlockContainer color={color}>
-                        <h2>{client[1][0]}: {client[1][1]}</h2>
-                        <h4>{client[0][0]}: {client[0][1]}</h4>
-
+                        <h2>Client: {thisClient}</h2>
+                        <h4>Client Id: {id}</h4>
                     </BlockContainer>
                     <BlockContainer>
                         <SortListLayout list={client} resource="client"></SortListLayout>
-                        <SortListLayout list={callData} resource="notes"></SortListLayout>
-                        {/* <Link
-                            to={`/viewResources`}
-                            state={{ callData }}
-                        >
-                            View Client Notes
-                         </Link>
-                        <br></br> */}
-                        <button onClick={(e) => call(e)}>Get Client Notes</button>
-                        {/* {const call = async function (id) {
-                            <button
-                                onClick={event => {
-                                    event.preventDefault()
-                                    let results = getClientNotes(id)
-                                    // TODO: do something with form values
-                                    navigate(
-                                        "./viewResources/",
-                                        {
-                                            state: { results },
-                                        }
-                                    )
-                                }}
-                            >
-                                Notes for this client
-        </button>}
-                        } */}
-                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-                    voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate
-                    non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
-                    Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi
-                    optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est,
-                    omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
-                    eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a
-                    sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus
-                    asperiores repellat.
-                </BlockContainer>
+                        <br></br>
+                        <button onClick={(e) => callClientNotes(e)}>Get Client Notes</button>
+                        <button onClick={(e) => callClientForm(e)}>Create New Client</button>
+                        {/* <NoteForm clientId={id} thisClient={thisClient} resource="note"></NoteForm> */}
+                    </BlockContainer>
+                        {callNotes !== null && (<><BlockContainer><h4>Notes for client: {thisClient}</h4>
+                            <SortListLayout list={callNotes} resource="notes"></SortListLayout></BlockContainer></>)}
+                        {newClient !== null && (<> <BlockContainer><h4>Create new Client</h4>
+                            <ClientForm></ClientForm></BlockContainer></>)}
                 </AllPageLayout>
             </>)
+
     } else { return null }
 }

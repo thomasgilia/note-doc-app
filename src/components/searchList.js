@@ -2,7 +2,7 @@ import React from "react"
 
 export default function SearchList(props) {
     // console.log(props.resource)
-    if (props.resource === ("clients" || "notes" || "docs")) {
+    if (props.resource === ("clients" || "notes")) {
         return (<>
             <p>Search the table:</p>
             <input class="form-control" id="myInput" type="text" placeholder="Search.." />

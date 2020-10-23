@@ -17,6 +17,24 @@ let titleMap = {
 };
 let titleMapArr = Object.entries(titleMap);
 
+let titleMapNotes = {
+  id: "x",
+  clientName: "y",
+};
+let titleMapNotesArr = Object.entries(titleMapNotes);
+
+export function titleMapper(resource) {
+  // console.log(resource)
+  let titleList = []
+  if (resource === ("notes" || "note")) {
+    titleList = titleMapNotesArr
+    return titleList
+  } else if (resource = ("clients" || "client")) {
+    titleList = titleMapArr
+    return titleList
+  }
+  return titleList
+}
 //reusable module to turn data list object to array, then modify titles per map
 function toArray(incoming) {
   // console.log(incoming[0])
@@ -60,7 +78,7 @@ export function getClients() {
     // let responseData = response.data
     let newArr = response.data.map((element) => {
       return toArray(element)
-    })
+    })                                            //prop need a bug fix - if there is only one client in db, need to add null
     // console.log(newArr)  //works to give correct array of arrays/nested
     let transferArr = [{ resource: resource }, { response: newArr }]
     // console.log(transferArr[1]);    //resource is at 0, response obj at 1
@@ -69,14 +87,49 @@ export function getClients() {
   )
 };
 
+export async function createClient(input) {
+  const endpoint = `http://localhost:3000/clients`;
+  axios.post(endpoint, input
+  ).then((res) => {
+    console.log("RESPONSE RECEIVED: ", res.data);
+    getClient(res.data.id)    //need to return anything?  this gives me the transfer arr but i need to redirect
+  })                          //wrinkle: clients are created with createPages adn have pagecontext instead of props
+    .catch((err) => {
+      console.log("AXIOS ERROR: ", err);
+    })
+};
+
+
+// export async function createClient(input) {
+//   const endpoint = `http://localhost:3000/clients`;
+//   axios.post(endpoint, {
+//     clientName: "kkdkd",
+//     ownedByUser: "true",
+//     ownedBy: "Ann",
+//     keyClient: "true", //check for boolean
+//     reqQuote: "true",
+//     reqQuoteApproval: "true",
+//     standardDiscount: 15,
+//     revisionLog: "kdkdkdkdk"
+//     // Created: new Date()
+//   })
+// };
+
 export function getClient(id) {
   const endpoint = `http://localhost:3000/clients/client${id}`;
   let resource = "client"
   return (axios.get(endpoint).then(function (response) {
+    // console.log(response.data)
     // let clientArr = Object.entries(response.data)
-    // console.log(clientArr)
-    let newArr = toArray(response.data)
+
+    // let newArr = [[toArray(response.data)], [null]]
+    let newArr = [toArray(response.data)]
+    // console.log(newArr)
+    //   if (response.length < 2) {
+    //     response.push([null])
+    // }
     let transferArr = [{ resource: resource }, { response: newArr }]
+    // console.log(newArr)
     return (transferArr);
   })
   )
@@ -87,12 +140,10 @@ export function getClientNotes(id) {
   // console.log("this is client's id: " + id)
   let resource = "notes"
   return axios.get(endpoint).then(function (response) {
-    // console.log(response.data)
-    let newArr = Object.entries(response.data);  //not titlemapped
-    let transferArr = [{ resource: resource }, { response: newArr }, { clientId: id }]   
-    // console.log(transferArr)
+    let newArr = response.data.map((element) =>
+      Object.entries(element))
+    let transferArr = [{ resource: resource }, { response: newArr }, { clientId: id }]
     return (transferArr)
-    // return (<SortListLayout props={transferArr}>transferArr</SortListLayout>);
   });
 }
 

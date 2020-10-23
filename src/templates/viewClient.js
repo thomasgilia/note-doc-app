@@ -36,7 +36,7 @@ export default function ViewClient({ pageContext }) {
             return setClient(response)
         }
         )
-    }, [setClient, setCallNotes]);
+    }, [setClient]);
     let color = "contrast-light"
     // console.log(callData)
     let callClientNotes = async function (e) {
@@ -67,7 +67,7 @@ export default function ViewClient({ pageContext }) {
                         <SortListLayout list={client} resource="client"></SortListLayout>
                         <br></br>
                         <button onClick={(e) => callClientNotes(e)}>Get Client Notes</button>
-                        <button onClick={(e) => callClientForm(e)}>Create New Client</button>
+                        <button onClick={(e) => callClientForm(e)}>New Client form</button>
                         {/* <NoteForm clientId={id} thisClient={thisClient} resource="note"></NoteForm> */}
                     </BlockContainer>
                         {callNotes !== null && (<><BlockContainer><h4>Notes for client: {thisClient}</h4>

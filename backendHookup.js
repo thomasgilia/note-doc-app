@@ -70,7 +70,8 @@ function toArray(incoming) {
 
 
 export function getClients() {
-  const endpoint = `http://localhost:3000/getallclients`;
+  // const endpoint = `http://localhost:3000/getallclients`;
+  const endpoint = `https://client-note-app.herokuapp.com/getallclients`;
   let resource = "clients"
   // console.log(resource)
   return (axios.get(endpoint).then(function (response) {
@@ -88,7 +89,8 @@ export function getClients() {
 };
 
 export async function createClient(input) {
-  const endpoint = `http://localhost:3000/clients`;
+  // const endpoint = `http://localhost:3000/clients`;
+  const endpoint = `https://client-note-app.herokuapp.com/clients`;
   axios.post(endpoint, input
   ).then((res) => {
     console.log("RESPONSE RECEIVED: ", res.data);
@@ -116,7 +118,8 @@ export async function createClient(input) {
 // };
 
 export function getClient(id) {
-  const endpoint = `http://localhost:3000/clients/client${id}`;
+  // const endpoint = `http://localhost:3000/clients/client${id}`;
+  const endpoint = `https://client-note-app.herokuapp.com/clients/client${id}`;
   let resource = "client"
   return (axios.get(endpoint).then(function (response) {
     // console.log(response.data)
@@ -136,7 +139,8 @@ export function getClient(id) {
 };
 
 export function getClientNotes(id) {
-  const endpoint = `http://localhost:3000/notes/client${id}`;
+  // const endpoint = `http://localhost:3000/notes/client${id}`;
+  const endpoint = `https://client-note-app.herokuapp.com/client/${id}`;
   // console.log("this is client's id: " + id)
   let resource = "notes"
   return axios.get(endpoint).then(function (response) {

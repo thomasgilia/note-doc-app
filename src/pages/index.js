@@ -3,9 +3,11 @@ import { getClients } from "../../backendHookup"
 import AllPageLayout from "../components/allPageLayout"
 import BlockContainer from "../components/blockContainer"
 import SortListLayout from "../components/sortListLayout"
+import ClientForm from "../components/clientForm"
 
 export default function Home() {
   const [list, setList] = useState(null)
+  const [newClient, setNewClient] = useState(null)
 
   useEffect(() => {
     getClients().then(transferArr => {
@@ -18,16 +20,26 @@ export default function Home() {
   //list = array of clients with arrays of property pairs i.e.
   //list = [[["id", 1],["clientName", "Stucky's"],...]],[next client...],...]
   // console.log(list)
+  let callClientForm = async function (e) {
+    e.preventDefault()
+    let newClientRequested = true;
+    setNewClient(newClientRequested)
+  }
+
   if (list !== null) {
     return (
       <>
         <AllPageLayout>
+
+
           <BlockContainer>
-            <h1>Client list</h1>
+            <h1>Clients</h1>
           </BlockContainer>
+          {newClient !== null && (<> <BlockContainer><h4>New Client form</h4>
+            <ClientForm></ClientForm></BlockContainer></>)}
           <BlockContainer>
-            <SortListLayout list={list} resource="clients"></SortListLayout>
-          </BlockContainer>
+            <button onClick={(e) => callClientForm(e)}>Create New Client</button>
+            <SortListLayout list={list} resource="clients"></SortListLayout></BlockContainer>
         </AllPageLayout>
       </>
     )

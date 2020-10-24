@@ -21,7 +21,8 @@ export default function SortListLayout(props) {
 //        x = x.shift()
 //        return x
 //     }
-    // console.log(x)
+    // console.log(props.list.length)
+    // console.log(props.list)
     if (props.list !== null) {
         return (
             <>

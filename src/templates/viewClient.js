@@ -6,6 +6,7 @@ import BlockContainer from "../components/blockContainer"
 import SortListLayout from "../components/sortListLayout"
 // import NoteForm from "../components/noteForm"
 import ClientForm from "../components/clientForm"
+import NoteForm from "../components/noteForm"
 import { getClient, getClientNotes } from "../../backendHookup"
 import { Link } from "gatsby"
 
@@ -43,7 +44,7 @@ export default function ViewClient({ pageContext }) {
         e.preventDefault()
         let transferArr = await getClientNotes(id)
         let response = transferArr[1].response;
-        // console.log(response)
+        // console.log(transferArr)
         setCallNotes(response)
     }
     // console.log(callNotes)
@@ -68,7 +69,7 @@ export default function ViewClient({ pageContext }) {
                         <br></br>
                         <button onClick={(e) => callClientNotes(e)}>Get Client Notes</button>
                         <button onClick={(e) => callClientForm(e)}>New Client form</button>
-                        {/* <NoteForm clientId={id} thisClient={thisClient} resource="note"></NoteForm> */}
+                        <NoteForm clientId={id} thisClient={thisClient} resource="note"></NoteForm>
                     </BlockContainer>
                         {callNotes !== null && (<><BlockContainer><h4>Notes for client: {thisClient}</h4>
                             <SortListLayout list={callNotes} resource="notes"></SortListLayout></BlockContainer></>)}

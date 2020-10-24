@@ -11,7 +11,7 @@ export default function ListItemMulti(props) {
     // let thingy = props.list
     // //props.list[0][0][0]) to get to "Client Id" for one client
     // // props.list[0] to get one whole client as array of array
-    // console.log(props.list)
+    // console.log(props)
     let listCount = null;
     // console.log(props.list.length)
     if (props.list.length < 2) {

@@ -18,8 +18,17 @@ let titleMap = {
 let titleMapArr = Object.entries(titleMap);
 
 let titleMapNotes = {
-  id: "x",
-  clientName: "y",
+  id: "Note Id",
+  category: "Category",
+  title: "Subject",
+  note: "Note body",
+  setUrgent: "Flag as urgent?",
+  flagExpires: "Flag end date",
+  revisionLog: "Revision Log",
+  createdAt: "Created",
+  updateAt: "Last Update",
+  clientId: "Client Id"
+
 };
 let titleMapNotesArr = Object.entries(titleMapNotes);
 
@@ -70,8 +79,8 @@ function toArray(incoming) {
 
 
 export function getClients() {
-  // const endpoint = `http://localhost:3000/getallclients`;
-  const endpoint = `https://client-note-app.herokuapp.com/getallclients`;
+  const endpoint = `http://localhost:3000/getallclients`;
+  // const endpoint = `https://client-note-app.herokuapp.com/getallclients`;
   let resource = "clients"
   // console.log(resource)
   return (axios.get(endpoint).then(function (response) {
@@ -89,33 +98,42 @@ export function getClients() {
 };
 
 export async function createClient(input) {
-  // const endpoint = `http://localhost:3000/clients`;
-  const endpoint = `https://client-note-app.herokuapp.com/clients`;
+  const endpoint = `http://localhost:3000/clients`;
+  // const endpoint = `https://client-note-app.herokuapp.com/clients`;
   axios.post(endpoint, input
   ).then((res) => {
     console.log("RESPONSE RECEIVED: ", res.data);
     getClient(res.data.id)    //need to return anything?  this gives me the transfer arr but i need to redirect
   })                          //wrinkle: clients are created with createPages adn have pagecontext instead of props
+    // .then(axios.post(`https://api.netlify.com/build_hooks/5f92416876a5163859e835d1`, "SuccessfulRebuild"))
+    .catch((err) => {
+      console.log("AXIOS ERROR: ", err);
+    })
+};
+
+export async function createNote(transferObj) {
+  let transferObjData = { ...transferObj }
+  // let input = transferObjData.input
+  let id = transferObjData.id
+  // console.log(id)
+  // export async function createNote(input, id) {
+  const endpoint = `http://localhost:3000/notes/client${id}`;
+  // const endpoint = `https://client-note-app.herokuapp.com/notes/client${id}`;
+
+  // console.log("clientId passed from Note form is: " + id)
+
+  axios.post(endpoint, transferObjData
+  ).then((res) => {
+    console.log("RESPONSE RECEIVED: ", res.data);
+    getClient(res.data)    //needed? but may use in redirect. howvefr, as is, it erroes out if anything other
+    //than the client's id is passed back
+  })
     .catch((err) => {
       console.log("AXIOS ERROR: ", err);
     })
 };
 
 
-// export async function createClient(input) {
-//   const endpoint = `http://localhost:3000/clients`;
-//   axios.post(endpoint, {
-//     clientName: "kkdkd",
-//     ownedByUser: "true",
-//     ownedBy: "Ann",
-//     keyClient: "true", //check for boolean
-//     reqQuote: "true",
-//     reqQuoteApproval: "true",
-//     standardDiscount: 15,
-//     revisionLog: "kdkdkdkdk"
-//     // Created: new Date()
-//   })
-// };
 
 export function getClient(id) {
   // const endpoint = `http://localhost:3000/clients/client${id}`;
@@ -139,30 +157,16 @@ export function getClient(id) {
 };
 
 export function getClientNotes(id) {
-  // const endpoint = `http://localhost:3000/notes/client${id}`;
-  const endpoint = `https://client-note-app.herokuapp.com/client/${id}`;
+  const endpoint = `http://localhost:3000/notes/client${id}`;
+  // const endpoint = `https://client-note-app.herokuapp.com/notes/client${id}`;  //check
   // console.log("this is client's id: " + id)
   let resource = "notes"
   return axios.get(endpoint).then(function (response) {
     let newArr = response.data.map((element) =>
       Object.entries(element))
     let transferArr = [{ resource: resource }, { response: newArr }, { clientId: id }]
+    // console.log(transferArr)
     return (transferArr)
   });
 }
 
-// export function getNotes() {
-//   const endpoint = `http://localhost:3000/getallnotes`;
-//   return axios.get(endpoint).then(function (response) {
-//     // console.log(response);
-//     return response.data;
-//   });
-// }
-
-// export function getDocs() {
-//   const endpoint = `http://localhost:3000/getalldocs`;
-//   return axios.get(endpoint).then(function (response) {
-//     // console.log(response);
-//     return response.data;
-//   });
-// }

@@ -53,7 +53,7 @@ function toArray(incoming) {
     let value = item[1].toString()    //without this, the boolean populated blank in table
     // console.log(value)
     let newKey = ""
-    console.log(item)
+    // console.log(item)
     titleMapArr.forEach((item, index, arr) => {
       if (arr[index][0] === key) {
         newKey = arr[index][1]
@@ -141,9 +141,7 @@ export async function createNote(transferObj) {
   // export async function createNote(input, id) {
   const endpoint = `http://localhost:3000/notes/client${id}`;
   // const endpoint = `https://client-note-app.herokuapp.com/notes/client${id}`;
-
   // console.log("clientId passed from Note form is: " + id)
-
   axios.post(endpoint, transferObjData
   ).then((res) => {
     console.log("RESPONSE RECEIVED: ", res.data);
@@ -178,6 +176,25 @@ export function getClient(id) {
   })
   )
 };
+
+export function deleteClient(id) {
+  const endpoint = `http://localhost:3000/delete/client${id}`;
+  // const endpoint = `https://client-note-app.herokuapp.com/delete/client${id}`;
+  console.log(id)
+  // let resource = "client"
+  axios.get(endpoint).then(function (res) {
+    // console.log(newArr)
+    console.log(res.data)
+    if (res.data === 'client was deleted') {
+      window.location = "http://localhost:8000/";
+    }
+    return res.data
+  }
+  ).catch((err) => {
+    console.log("AXIOS ERROR: ", err);
+  })
+};
+
 
 export function getNote(id) {
   const endpoint = `http://localhost:3000/notes/note${id}`;

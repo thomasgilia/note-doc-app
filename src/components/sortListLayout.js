@@ -8,25 +8,23 @@ export default function SortListLayout(props) {
     //props = {list: [[],[]], resource: "client"}
     //props.list=[[],[]...] i.e. ["Client Id", 1], ["Client", "Stucky's"]...
     //NOW: list always [[listItem]] at least, with multiples providing [[listItem],[listItem2]]
-    // console.log(props.list[0])
-    
-    const [noteId, setNoteId] = useState(props.noteId)
-    const [clientId, setClientId] = useState(props.clientId)
-    const [resource, setResource] = useState(props.resource)
+    // console.log(props.list)
+    // const [list, setList] = useState(props)
+    // const [noteId, setNoteId] = useState(props.noteId)
+    // const [clientId, setClientId] = useState(props.clientId)
+    // const [resource, setResource] = useState(props.resource)
     const [titles, setTitles] = useState([])
     // console.log(list)
     useEffect(() => {
-        let result = titleMapper(resource)
+        let result = titleMapper(props.resource)
         // console.log(result)
         return setTitles(result)
     }, [setTitles]);
-    const [list, setList] = useState([])
-    useEffect((props) => {
-        setList(props.list)
-    }, [setList]);
-// let shuttle = {list: props.list, noteId: noteId, clientId: clientId, resource: resource}
-   
-    console.log(list)
+
+
+    let shuttle = { list: props.list, noteId: props.noteId, clientId: props.clientId, resource: props.resource }
+
+    // console.log(shuttle)
     if (props.list !== null) {
         return (
             <>
@@ -43,11 +41,12 @@ export default function SortListLayout(props) {
                 {/* <BlockContainer> */}
                 <div class="container">
                     <h2></h2>
-                    {resource !==null && <SearchList resource={resource}></SearchList>}
+                    {/* {resource !==null && <SearchList resource={resource}></SearchList>} */}
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
+                                    
                                     {props.list.length > 1 && <th></th>}
                                     {titles && titles.map(element => {
                                         // console.log(element)
@@ -66,8 +65,8 @@ export default function SortListLayout(props) {
                                         } */}
                                 </tr>
                             </thead>
-                            {/* {shuttle !== null &&
-                                <ListItemMulti {...shuttle} ></ListItemMulti>} */}
+                            {shuttle !== null &&
+                                <ListItemMulti {...shuttle} ></ListItemMulti>}
                             {/* {props.list.noteId === null &&
                                 <ListItemMulti list={props.list} resource={props.resource} clientId={props.clientId}></ListItemMulti>} */}
 

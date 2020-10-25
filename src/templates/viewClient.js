@@ -30,11 +30,6 @@ export default function ViewClient({ pageContext }) {
     useEffect(() => {
         getClient(id).then(transferArr => {
             let response = transferArr[1].response;
-            // console.log(transferArr)
-            // if (response.length < 2) {
-            //     response.push([null])
-            // }
-            // console.log(response)
             return setClient(response)
         }
         )

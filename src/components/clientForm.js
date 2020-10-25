@@ -74,7 +74,7 @@ export default function ClientForm() {
                     <br></br>
                  Revision Log: <input type="text" name="revisionLog" required onChange={e => setRevisionLog(e.target.value)} />
                     <br></br>
-                    <button type="submit">Create Client</button>
+                    <button type="submit">Submit</button>
                 </div>
             </form>
         </>

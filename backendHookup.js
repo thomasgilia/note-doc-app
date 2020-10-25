@@ -136,9 +136,30 @@ export async function createNote(transferObj) {
 
 
 export function getClient(id) {
-  // const endpoint = `http://localhost:3000/clients/client${id}`;
-  const endpoint = `https://client-note-app.herokuapp.com/clients/client${id}`;
+  const endpoint = `http://localhost:3000/clients/client${id}`;
+  // const endpoint = `https://client-note-app.herokuapp.com/clients/client${id}`;
   let resource = "client"
+  return (axios.get(endpoint).then(function (response) {
+    // console.log(response.data)
+    // let clientArr = Object.entries(response.data)
+
+    // let newArr = [[toArray(response.data)], [null]]
+    let newArr = [toArray(response.data)]
+    // console.log(newArr)
+    //   if (response.length < 2) {
+    //     response.push([null])
+    // }
+    let transferArr = [{ resource: resource }, { response: newArr }]
+    // console.log(newArr)
+    return (transferArr);
+  })
+  )
+};
+
+export function getNote(id) {
+  const endpoint = `http://localhost:3000/notes/note${id}`;
+  // const endpoint = `https://client-note-app.herokuapp.com/notes/note${id}`;
+  let resource = "note"
   return (axios.get(endpoint).then(function (response) {
     // console.log(response.data)
     // let clientArr = Object.entries(response.data)

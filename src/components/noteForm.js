@@ -10,7 +10,7 @@ export default function NoteForm(props) {
     const [note, setNote] = useState(null)
     const [clientId, setClientId] = useState(props.clientId)
     const [category, setCategory] = useState(null)
-    const [setUrgent, setSetUrgent] = useState(null)    
+    const [flagUrgent, setFlagUrgent] = useState(null)    
     const [flagExpires, setFlagExpires] = useState(new Date())
     const [revisionLog, setRevisionLog] = useState(null)
     // props has clientId={id} thisClient={thisClient} resource="note"
@@ -21,7 +21,7 @@ export default function NoteForm(props) {
             title: title,
             note: note,
             category: category,
-            setUrgent: setUrgent === "true", //check for boolean
+            flagUrgent: flagUrgent === "true", //check for boolean
             flagExpires: flagExpires,
             revisionLog: revisionLog
         }
@@ -51,8 +51,8 @@ export default function NoteForm(props) {
                     </select>
                     <br>
                     </br>
-                    <label for="setUrgent">Set Urgent Flag?</label>
-                    <select name="setUrgent" id="setUrgent" required onChange={e => setSetUrgent(e.target.value)}>
+                    <label for="flagUrgent">Set Urgent Flag?</label>
+                    <select name="flagUrgent" id="flagUrgent" required onChange={e => setFlagUrgent(e.target.value)}>
                         <option selected></option>
                         <option value="true">Yes</option>
                         <option value="false">No</option>
@@ -71,7 +71,7 @@ export default function NoteForm(props) {
                     <br></br>
                  Revision Log: <input type="text" name="revisionLog" required onChange={e => setRevisionLog(e.target.value)} />
                     <br></br>
-                    <button type="submit">Create Note</button>
+                    <button type="submit">Submit</button>
                 </div>
             </form>
         </>

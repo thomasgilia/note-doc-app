@@ -6,8 +6,11 @@ import SortListLayout from "../components/sortListLayout"
 import ClientForm from "../components/clientForm"
 
 export default function Home() {
-  const [list, setList] = useState(null)
+  const [list, setList] = useState([])
   const [newClient, setNewClient] = useState(null)
+  const [noteId, setNoteId] = useState(null)
+  const [clientId, setClientId] = useState(null)
+  const [resource, setResource] = useState("clients")
 
   useEffect(() => {
     getClients().then(transferArr => {
@@ -17,21 +20,20 @@ export default function Home() {
     }
     )
   }, [setList]);
+  // console.log(list)
   //list = array of clients with arrays of property pairs i.e.
   //list = [[["id", 1],["clientName", "Stucky's"],...]],[next client...],...]
   // console.log(list)
-  let callClientForm = async function (e) {
+  let callClientForm = function (e) {
     e.preventDefault()
     let newClientRequested = true;
     setNewClient(newClientRequested)
   }
 
-  if (list !== null) {
+  if (list !== []) {
     return (
       <>
         <AllPageLayout>
-
-
           <BlockContainer>
             <h1>Clients</h1>
           </BlockContainer>
@@ -39,7 +41,8 @@ export default function Home() {
             <ClientForm></ClientForm></BlockContainer></>)}
           <BlockContainer>
             <button onClick={(e) => callClientForm(e)}>Create New Client</button>
-            <SortListLayout list={list} resource="clients"></SortListLayout></BlockContainer>
+            <SortListLayout list={list} resource="clients" clientId={clientId} noteId={noteId}></SortListLayout>
+          </BlockContainer>
         </AllPageLayout>
       </>
     )

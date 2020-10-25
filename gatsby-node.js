@@ -22,8 +22,8 @@ const axios = require("axios");
 exports.createPages = async ({ actions: { createPage } }) => {
     try {
         const getAllClients = async function () {
-            const endpoint = `https://client-note-app.herokuapp.com/getallclients`;
-            // const endpoint = `http://localhost:3000/getallclients`;
+            // const endpoint = `https://client-note-app.herokuapp.com/getallclients`;
+            const endpoint = `http://localhost:3000/getallclients`;
             // let resource = "clients"
             // console.log(resource)
             let axiosCall = await axios.get(endpoint)

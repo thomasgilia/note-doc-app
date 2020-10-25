@@ -23,6 +23,7 @@ export default function ViewClient({ pageContext }) {
     const [thisClient] = useState(pageContext.clientName)
     const [callNotes, setCallNotes] = useState(null)
     const [newClient, setNewClient] = useState(null)
+    const [newNote, setNewNote] = useState(null)
 
     // console.log(clientName2)
 
@@ -54,7 +55,11 @@ export default function ViewClient({ pageContext }) {
         let newClientRequested = true;
         setNewClient(newClientRequested)
     }
-
+    let callNoteForm = async function (e) {
+        e.preventDefault()
+        let newNoteRequested = true;
+        setNewNote(newNoteRequested)
+    }
     // console.log(client) // array of arrays repping 1 clinet with pretty titles [["Client", "Stucky's], ["Client Id", 1]]
     if (client !== null) {
         return (
@@ -69,12 +74,17 @@ export default function ViewClient({ pageContext }) {
                         <br></br>
                         <button onClick={(e) => callClientNotes(e)}>Get Client Notes</button>
                         <button onClick={(e) => callClientForm(e)}>New Client form</button>
-                        <NoteForm clientId={id} thisClient={thisClient} resource="note"></NoteForm>
+                        <button onClick={(e) => callNoteForm(e)}>New Note form</button>
+                        {/* <NoteForm clientId={id} thisClient={thisClient} resource="note"></NoteForm> */}
                     </BlockContainer>
-                        {callNotes !== null && (<><BlockContainer><h4>Notes for client: {thisClient}</h4>
-                            <SortListLayout list={callNotes} resource="notes"></SortListLayout></BlockContainer></>)}
+                        {/* {callNotes !== null && (<><BlockContainer><h4>Notes for client: {thisClient}</h4>
+                            <NoteForm thisClient={thisClient} clientId={id} resource="notes"></NoteForm></BlockContainer></>)} */}
+                            {callNotes !== null && (<><BlockContainer><h4>Notes for client: {thisClient}</h4>
+                            <SortListLayout list={callNotes} resource="notes" clientId={id}></SortListLayout></BlockContainer></>)}
                         {newClient !== null && (<> <BlockContainer><h4>Create new Client</h4>
                             <ClientForm></ClientForm></BlockContainer></>)}
+                            {newNote !== null && (<> <BlockContainer>
+                            <NoteForm thisClient={thisClient} clientId={id} resource="notes"></NoteForm></BlockContainer></>)}
                 </AllPageLayout>
             </>)
 

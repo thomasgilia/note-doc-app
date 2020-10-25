@@ -1,20 +1,18 @@
 module.exports = {
-    /* Site config */
     siteMetadata: {
-        title: "NoteDoc App",
-        description: "Keep track of notes, files, and their origins for each of your clients",
+        title: "Client Note App",
+        description: "Keep track of notes and their origins for each of your clients",
     },
-    plugins: [`gatsby-plugin-sass`]
-    // plugins: [`gatsby-plugin-react-helmet`]
-    // plugins: [
-    //   /* Rest of the plugins */
-    //   `gatsby-plugin-nodejs`,
-
-    //   {
-    //     resolve: 'gatsby-plugin-express',
-    //     options: {
-    //       output: 'config/gatsby-express.json',
-    //     }
-    //   }
-    // ]
+    plugins: [
+        `gatsby-plugin-sass`,
+        `gatsby-plugin-react-helmet`,
+        {
+            resolve: "gatsby-plugin-page-progress",
+            options: {
+                height: 10,
+                prependToBody: true,
+                color: `#ffe2d6`,
+            }
+        }
+    ]
 };

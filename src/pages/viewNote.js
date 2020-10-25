@@ -63,6 +63,7 @@ export default function Home({ location }) {
         // let clientName = client[1][1]
     return (
         <>
+        <AllPageLayout>
             <BlockContainer>
                 <h2>Note for Client: {thisClient !== null && thisClient}</h2>
                 <h4>Note Id: {id}</h4>
@@ -78,6 +79,7 @@ export default function Home({ location }) {
                             <NoteForm thisClient={thisClient} clientId={clientId} resource="notes"></NoteForm></BlockContainer></>)}
             {/* {newNote !== null && (<> <BlockContainer>
                     <NoteForm thisClient={thisClient} clientId={clientId} resource="notes"></NoteForm></BlockContainer></>)} */}
+       </AllPageLayout>
         </>)
 
     // } else { return null }

@@ -75,7 +75,7 @@ function toNoteArray(incoming) {
     let value = item[1].toString()    //without this, the boolean populated blank in table
     // console.log(value)
     let newKey = ""
-    console.log(item)
+    // console.log(item)
     titleMapNotesArr.forEach((item, index, arr) => {
       if (arr[index][0] === key) {
         newKey = arr[index][1]
@@ -144,7 +144,7 @@ export async function createNote(transferObj) {
   // console.log("clientId passed from Note form is: " + id)
   axios.post(endpoint, transferObjData
   ).then((res) => {
-    console.log("RESPONSE RECEIVED: ", res.data);
+    // console.log("RESPONSE RECEIVED: ", res.data);
     getClient(res.data)    //needed? but may use in redirect. howvefr, as is, it erroes out if anything other
     //than the client's id is passed back
   })
@@ -158,7 +158,7 @@ export async function createNote(transferObj) {
 export function getClient(id) {
   const endpoint = `http://localhost:3000/clients/client${id}`;
   // const endpoint = `https://client-note-app.herokuapp.com/clients/client${id}`;
-  console.log(id)
+  // console.log(id)
   let resource = "client"
   return (axios.get(endpoint).then(function (response) {
     // console.log(response.data)
@@ -180,7 +180,7 @@ export function getClient(id) {
 export function deleteClient(id) {
   const endpoint = `http://localhost:3000/delete/client${id}`;
   // const endpoint = `https://client-note-app.herokuapp.com/delete/client${id}`;
-  console.log(id)
+  // console.log(id)
   // let resource = "client"
   axios.get(endpoint).then(function (res) {
     // console.log(newArr)
@@ -231,3 +231,23 @@ export function getClientNotes(id) {
   });
 }
 
+export function deleteNote(ids) {
+  let theIds = {...ids}
+  let clientId = theIds.clientId
+  let id = theIds.id
+  const endpoint = `http://localhost:3000/delete/note${id}`;
+  // const endpoint = `https://client-note-app.herokuapp.com/delete/note${id}`;
+  console.log(id)
+  axios.get(endpoint).then(function (res) {
+    console.log(res.data)
+    if (res.data === 'note was deleted') {
+      window.location = `http://localhost:8000/clients/client${clientId}`;    //3000?
+    }
+    return res.data
+  }
+  )
+  // .then((clientId)=>{getClientNotes(clientId)}).
+  .catch((err) => {
+    console.log("AXIOS ERROR: ", err);
+  })
+};

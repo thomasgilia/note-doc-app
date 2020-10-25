@@ -8,7 +8,6 @@ import SortListLayout from "../components/sortListLayout"
 import ClientForm from "../components/clientForm"
 import NoteForm from "../components/noteForm"
 import { getClient, getClientNotes, deleteClient, getClients } from "../../backendHookup"
-import BackToIndex from "../components/redirections"
 import { Link } from "gatsby"
 
 export default function ViewClient({ pageContext }) {
@@ -67,7 +66,7 @@ export default function ViewClient({ pageContext }) {
     //   window.location = "http://localhost:3000/";
     // }
     }
-    console.log(callDeleteClient)
+    // console.log(callDeleteClient)
     let shuttle = { list: client, noteId: null, clientId: hardcodeClientId, resource: "client" }
     // console.log(shuttle) // array of arrays repping 1 clinet with pretty titles [["Client", "Stucky's], ["Client Id", 1]]
     if (client !== null) {

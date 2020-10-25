@@ -5,7 +5,7 @@ import AllPageLayout from "../components/allPageLayout"
 // import NoteForm from "../components/noteForm"
 import ClientForm from "../components/clientForm"
 import NoteForm from "../components/noteForm"
-import { getNote, getClient } from "../../backendHookup"
+import { getNote, getClient, deleteNote, getClientNotes } from "../../backendHookup"
 
 export default function Home({ location }) {
     // console.log(props)
@@ -43,7 +43,7 @@ export default function Home({ location }) {
         }
         )
     }, [setThisClient]);
-// console.log(thisClient)
+    // console.log(thisClient)
     let callClientForm = async function (e) {
         e.preventDefault()
         let newClientRequested = true;
@@ -60,26 +60,33 @@ export default function Home({ location }) {
     // console.log(props) // array of arrays repping 1 clinet with pretty titles [["Client", "Stucky's], ["Client Id", 1]]
     // if (note !== null) 
     // {
-        // let clientName = client[1][1]
+    // let clientName = client[1][1]
+    let ids = { id: id, clientId: clientId }
+    // console.log(ids)
+    let callDeleteNote = async function (e) {
+        e.preventDefault()
+        let response = await deleteNote(ids)
+            }
     return (
         <>
-        <AllPageLayout>
-            <BlockContainer>
-                <h2>Note for Client: {thisClient !== null && thisClient}</h2>
-                <h4>Note Id: {id}</h4>
-            </BlockContainer>
-            <BlockContainer>
-                <SortListLayout thisClient={thisClient} clientId={clientId} list={note} noteId={id}
-                    resource="note"></SortListLayout>
-                <br></br>
-                <button onClick={(e) => callClientForm(e)}>New Client form</button>
-                <button onClick={(e) => callNoteForm(e)}>New Note form</button>
-            </BlockContainer>
-            {newNote !== null && (<> <BlockContainer>
-                            <NoteForm thisClient={thisClient} clientId={clientId} resource="notes"></NoteForm></BlockContainer></>)}
-            {/* {newNote !== null && (<> <BlockContainer>
+            <AllPageLayout>
+                <BlockContainer>
+                    <h2>Note for Client: {thisClient !== null && thisClient}</h2>
+                    <h4>Note Id: {id}</h4>
+                </BlockContainer>
+                <BlockContainer>
+                    <SortListLayout thisClient={thisClient} clientId={clientId} list={note} noteId={id}
+                        resource="note"></SortListLayout>
+                    <br></br>
+                    <button onClick={(e) => callClientForm(e)}>New Client form</button>
+                    <button onClick={(e) => callNoteForm(e)}>New Note form</button>
+                    <button class="btn-danger" onClick={(e) => callDeleteNote(e)}>Delete Note</button>
+                </BlockContainer>
+                {newNote !== null && (<> <BlockContainer>
+                    <NoteForm thisClient={thisClient} clientId={clientId} resource="notes"></NoteForm></BlockContainer></>)}
+                {/* {newNote !== null && (<> <BlockContainer>
                     <NoteForm thisClient={thisClient} clientId={clientId} resource="notes"></NoteForm></BlockContainer></>)} */}
-       </AllPageLayout>
+            </AllPageLayout>
         </>)
 
     // } else { return null }

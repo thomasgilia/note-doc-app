@@ -7,18 +7,19 @@ import ClientForm from "../components/clientForm"
 import NoteForm from "../components/noteForm"
 import { getNote, getClient } from "../../backendHookup"
 
-export default function Home({location}) {
+export default function Home({ location }) {
     // console.log(props)
     const [note, setNote] = useState(null)
     // const [id] = useState(props.noteId);
-    // const [thisClient] = useState(props.clientName)
-    // const [clientId] = useState(props.clientId);
-let stateDataObj = {...location.state.stateData}
-// console.log(stateDataObj)
-    const [id] = useState(location.state.stateData.noteId);
     const [thisClient, setThisClient] = useState(null)
-    const [clientId] = useState(location.state.stateData.clientId);
+    // const [clientId] = useState(props.clientId);
+    // let stateDataObj = { ...location.state.stateData }
+    // console.log(stateDataObj)
+    const [id] = useState(location.state.stateData.noteId);
+    const [newNote, setNewNote] = useState(null)
+    // const [clientId] = useState(location.state.stateData.clientId);
     const [newClient, setNewClient] = useState(null)
+    const clientId = location.state.stateData.clientId;
 
     useEffect(() => {
         getNote(id).then(transferArr => {
@@ -28,31 +29,56 @@ let stateDataObj = {...location.state.stateData}
         )
     }, [setNote]);
 
+    // const [client, setClient] = useState(null)
+    // console.log(note)
+    let clientName = null
+    useEffect(() => {
+        let id = clientId
+        // console.log(id)
+        getClient(id).then(transferArr => {
+            let response = transferArr[1].response;
+            clientName = response[0][1][1]
+            // console.log(clientName)
+            setThisClient(clientName)
+        }
+        )
+    }, [setThisClient]);
+// console.log(thisClient)
     let callClientForm = async function (e) {
         e.preventDefault()
         let newClientRequested = true;
         setNewClient(newClientRequested)
     }
-    // console.log(id)
-// let x = location.state.stateData
+
+    let callNoteForm = async function (e) {
+        e.preventDefault()
+        let newNoteRequested = true;
+        setNewNote(newNoteRequested)
+    }
+    // console.log(client)
+    // let x = location.state.stateData
     // console.log(props) // array of arrays repping 1 clinet with pretty titles [["Client", "Stucky's], ["Client Id", 1]]
     // if (note !== null) 
     // {
-        return (
-            <>
-                <BlockContainer>
-                    <h2>Note for Client: {thisClient}</h2>
-                    <h4>Note Id: {id}</h4>
-                </BlockContainer>
-                <BlockContainer>
-                    <SortListLayout thisClient={thisClient} clientId={clientId} list={note} noteId={id}
-                        resource="note"></SortListLayout>
-                    <br></br>
-                    <button onClick={(e) => callClientForm(e)}>New Client form</button>
-                </BlockContainer>
-                {/* {newNote !== null && (<> <BlockContainer>
+        // let clientName = client[1][1]
+    return (
+        <>
+            <BlockContainer>
+                <h2>Note for Client: {thisClient !== null && thisClient}</h2>
+                <h4>Note Id: {id}</h4>
+            </BlockContainer>
+            <BlockContainer>
+                <SortListLayout thisClient={thisClient} clientId={clientId} list={note} noteId={id}
+                    resource="note"></SortListLayout>
+                <br></br>
+                <button onClick={(e) => callClientForm(e)}>New Client form</button>
+                <button onClick={(e) => callNoteForm(e)}>New Note form</button>
+            </BlockContainer>
+            {newNote !== null && (<> <BlockContainer>
+                            <NoteForm thisClient={thisClient} clientId={clientId} resource="notes"></NoteForm></BlockContainer></>)}
+            {/* {newNote !== null && (<> <BlockContainer>
                     <NoteForm thisClient={thisClient} clientId={clientId} resource="notes"></NoteForm></BlockContainer></>)} */}
-            </>)
+        </>)
 
-        // } else { return null }
-    }
+    // } else { return null }
+}

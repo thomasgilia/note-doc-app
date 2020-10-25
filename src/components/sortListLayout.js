@@ -14,46 +14,56 @@ export default function SortListLayout(props) {
     // const [clientId, setClientId] = useState(props.clientId)
     // const [resource, setResource] = useState(props.resource)
     const [titles, setTitles] = useState([])
-    // console.log(list)
+    // console.log(props.resource)
     useEffect(() => {
         let result = titleMapper(props.resource)
         // console.log(result)
         return setTitles(result)
     }, [setTitles]);
 
+    let listCount = null
 
-    let shuttle = { list: props.list, noteId: props.noteId, clientId: props.clientId, resource: props.resource }
+    if (!props.list) {
+        listCount = null
+    } else {
+        if (props.list.length < 2) {
+            listCount = "single";
+        }
+    }
+        let shuttle = { list: props.list, noteId: props.noteId, clientId: props.clientId, resource: props.resource, listCount: listCount }
+        // console.log(shuttle.listCount)
+        // if (props.list !== null) { console.log(shuttle) }
+        if (props.list !== null) {
+            return (
+                <>
+                    <Helmet>
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+                        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+                    </Helmet>
 
-    // console.log(shuttle)
-    if (props.list !== null) {
-        return (
-            <>
-                <Helmet>
-                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
-                    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-                </Helmet>
-
-                {/* <i class="fa fa-file-text" aria-hidden="true"></i>
+                    {/* <i class="fa fa-file-text" aria-hidden="true"></i>
                 <i class="fa fa-handshake-o" aria-hidden="true"></i>
                 <i class="fa fa-arrow-down" aria-hidden="true"></i>
                 <i class="fa fa-arrow-up" aria-hidden="true"></i>
                 <h1 class="animate__animated animate__flash"><i class="fa fa-arrow-up" aria-hidden="true"></i></h1> */}
-                {/* <BlockContainer> */}
-                <div class="container">
-                    <h2></h2>
-                    {/* {resource !==null && <SearchList resource={resource}></SearchList>} */}
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    
-                                    {props.list.length > 1 && <th></th>}
-                                    {titles && titles.map(element => {
-                                        // console.log(element)
-                                        return (<th>{element[1]}</th>)
-                                    })
-                                    }
-                                    {/* {
+                    {/* <BlockContainer> */}
+                    <div class="container">
+                        <h2></h2>
+                        {listCount === null && <SearchList></SearchList>}
+                        {/* {listCount === null && <SearchList resource={props.resource}></SearchList>} */}
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+
+                                        {((listCount === null)||(props.resource === "note")||(props.resource === "notes")) && <th></th>}
+                                        {titles && titles.map(element => {
+                                            // console.log(element)
+                                            return (<th>{element[1]}</th>)
+                                        })
+                                        }
+                                        {/* {
                                             props.list.map((element, index) => {
                                                 if (props.resource === ("notes" || "clients")) {
                                                     return (<th>{element[index]}</th>)
@@ -63,19 +73,19 @@ export default function SortListLayout(props) {
                                             }
                                             )
                                         } */}
-                                </tr>
-                            </thead>
-                            {shuttle !== null &&
-                                <ListItemMulti {...shuttle} ></ListItemMulti>}
-                            {/* {props.list.noteId === null &&
+                                    </tr>
+                                </thead>
+                                {shuttle !== null &&
+                                    <ListItemMulti {...shuttle} ></ListItemMulti>}
+                                {/* {props.list.noteId === null &&
                                 <ListItemMulti list={props.list} resource={props.resource} clientId={props.clientId}></ListItemMulti>} */}
 
-                        </table>
+                            </table>
+                        </div>
                     </div>
-                </div>
-                {/* </BlockContainer> */}
-            </>
-        )
-        // }
-    } else { return null }
-}
+                    {/* </BlockContainer> */}
+                </>
+            )
+            // }
+        } else { return null }
+    }

@@ -17,20 +17,35 @@ export default function ListItemSingle(props) {
     let resourceDisplay = ""
     let clientIdHolder;
     let noteIdHolder;
-    // console.log(list[0][1])
+
+    // console.log(props.listCount)
     if ((props.resource === "note") || (props.resource === "notes")) {
         // console.log(props.list)
         resourceDisplay = "Note"
         route = "/notes/note"
-        clientIdHolder = props.list[0][5]   //update with correct position...
-        noteIdHolder = props.list[0][1]
+        // clientIdHolder = props.list[0][9]   //update with correct position...
+        if (props.clientId) {
+            clientIdHolder = props.clientId
+        } else {
+            // clientIdHolder = parseInt(props.list[0][9])
+            clientIdHolder = props.list[0][9]
+        }
+        noteIdHolder = parseInt(props.list[0][1])
         // setNoteId(newNoteId)
     }
+
     if ((props.resource === "client") || (props.resource === "clients")) {
         // console.log(props.list)
         resourceDisplay = "Client"
         route = "/clients/client"
         clientIdHolder = props.list[0][1]
+        // clientIdHolder = props.clientId
+        // if (props.clientId) {
+        //     clientIdHolder = props.clientId
+        // } else {
+        //     // clientIdHolder = parseInt(props.list[0][9])
+        //     clientIdHolder = props.list[0][9]
+        // }
         noteIdHolder = null
         // console.log(clientIdHolder)
         //    return itemClientId
@@ -41,14 +56,13 @@ export default function ListItemSingle(props) {
     // //     props.list.
     // // }
     let stateData = { clientId: clientIdHolder, noteId: noteIdHolder }
-    // // console.log(props.list[0][1])
-    console.log(stateData)
+    // console.log(clientIdHolder)
     if (props.list !== null) {
         return (
             <>
                 {(props.listCount === null && resourceDisplay === "Client") && <td>
                     {/* {(props.listCount === null || props.resource === "notes") && <td> */}
-                    <Link to={route + stateData.clientId} className="btn btn-secondary btn-sm">View {resourceDisplay}</Link>
+                    <Link to={route + clientIdHolder} className="btn btn-secondary btn-sm">View {resourceDisplay}</Link>
                 </td>}
 
                 {(resourceDisplay === "Note") && <td>

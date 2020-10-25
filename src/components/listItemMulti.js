@@ -12,11 +12,9 @@ export default function ListItemMulti(props) {
     // let shuttle = {list, noteId: noteId, clientId: clientId, resource: resource}
     // let shuttle = { list: props.list, noteId: props.noteId, clientId: props.clientId, resource: props.resource }
 
-    let listCount = null;
-    // console.log(list)
-    if (props.list.length < 2) {
-        listCount = "single";
-    }
+    // let listCount = null;
+    // console.log(props)      //here client id devined, note id not. then by tiem gets to single, is revers
+ 
 
     if (props.list !== null) {
         // console.log(listCount)
@@ -37,7 +35,8 @@ export default function ListItemMulti(props) {
                     {props.list.map((element, index) => {
                         // console.log(element)
                         let shuttle = { list: element, noteId: props.noteId, clientId: props.clientId, resource: props.resource }
-                        return (<tr><ListItemSingle key={index} {...shuttle} listCount={listCount}
+                        // console.log(shuttle)
+                        return (<tr><ListItemSingle key={index} {...shuttle} listCount={props.listCount}
                         ></ListItemSingle></tr>)
                     })}
                 </tbody>

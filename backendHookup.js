@@ -22,7 +22,7 @@ let titleMapNotes = {
   category: "Category",
   title: "Subject",
   note: "Note body",
-  setUrgent: "Flag as urgent?",
+  flagUrgent: "Flag as urgent?",
   flagExpires: "Flag end date",
   revisionLog: "Revision Log",
   createdAt: "Created",
@@ -35,7 +35,7 @@ let titleMapNotesArr = Object.entries(titleMapNotes);
 export function titleMapper(resource) {
   // console.log(resource)
   let titleList = []
-  if (resource === ("notes" || "note")) {
+  if ((resource === "notes") || (resource === "note")) {
     titleList = titleMapNotesArr
     return titleList
   } else if (resource = ("clients" || "client")) {
@@ -53,6 +53,7 @@ function toArray(incoming) {
     let value = item[1].toString()    //without this, the boolean populated blank in table
     // console.log(value)
     let newKey = ""
+    console.log(item)
     titleMapArr.forEach((item, index, arr) => {
       if (arr[index][0] === key) {
         newKey = arr[index][1]
@@ -65,7 +66,28 @@ function toArray(incoming) {
   })
   return arr
 }
-
+//reusable module to turn data list object to array, then modify titles per map
+function toNoteArray(incoming) {
+  // console.log(incoming[0])
+  let arr = Object.entries(incoming)
+  arr.map((item) => {       //item is [id, 2] or ["created at", "2-22-2020"] etc
+    let key = item[0].toString()
+    let value = item[1].toString()    //without this, the boolean populated blank in table
+    // console.log(value)
+    let newKey = ""
+    console.log(item)
+    titleMapNotesArr.forEach((item, index, arr) => {
+      if (arr[index][0] === key) {
+        newKey = arr[index][1]
+      }
+      return newKey
+    })
+    item[0] = newKey
+    item[1] = value
+    return item
+  })
+  return arr
+}
 //need separate/additional fucntionality for getting mulitiple objects
 //back from axios call (i.e. a list of clients or multiple notes for a 
 //client). i think mapping within main function to call toArray
@@ -138,6 +160,7 @@ export async function createNote(transferObj) {
 export function getClient(id) {
   const endpoint = `http://localhost:3000/clients/client${id}`;
   // const endpoint = `https://client-note-app.herokuapp.com/clients/client${id}`;
+  console.log(id)
   let resource = "client"
   return (axios.get(endpoint).then(function (response) {
     // console.log(response.data)
@@ -165,7 +188,7 @@ export function getNote(id) {
     // let clientArr = Object.entries(response.data)
 
     // let newArr = [[toArray(response.data)], [null]]
-    let newArr = [toArray(response.data)]
+    let newArr = [toNoteArray(response.data)]
     // console.log(newArr)
     //   if (response.length < 2) {
     //     response.push([null])

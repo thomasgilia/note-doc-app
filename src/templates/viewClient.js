@@ -20,12 +20,12 @@ export default function ViewClient({ pageContext }) {
     // }
     const [client, setClient] = useState(null)
     const [id] = useState(pageContext.clientId);
-    const [thisClient] = useState(pageContext.clientName)
+    const [thisClient] = useState(pageContext.clientName)   //not using?
     const [callNotes, setCallNotes] = useState(null)
     const [newClient, setNewClient] = useState(null)
     const [newNote, setNewNote] = useState(null)
 
-    // console.log(clientName2)
+    // console.log(pageContext)
 
     useEffect(() => {
         getClient(id).then(transferArr => {
@@ -36,14 +36,16 @@ export default function ViewClient({ pageContext }) {
     }, [setClient]);
     let color = "contrast-light"
     // console.log(callData)
+    let hardcodeClientId = id
     let callClientNotes = async function (e) {
         e.preventDefault()
         let transferArr = await getClientNotes(id)
         let response = transferArr[1].response;
+        
         // console.log(transferArr)
         setCallNotes(response)
     }
-    // console.log(callNotes)
+    // console.log(client)
 
     let callClientForm = async function (e) {
         e.preventDefault()
@@ -55,7 +57,8 @@ export default function ViewClient({ pageContext }) {
         let newNoteRequested = true;
         setNewNote(newNoteRequested)
     }
-    // console.log(client) // array of arrays repping 1 clinet with pretty titles [["Client", "Stucky's], ["Client Id", 1]]
+    let shuttle = { list: client, noteId: null, clientId: hardcodeClientId, resource: "client" }
+    // console.log(shuttle) // array of arrays repping 1 clinet with pretty titles [["Client", "Stucky's], ["Client Id", 1]]
     if (client !== null) {
         return (
             <>
@@ -65,7 +68,9 @@ export default function ViewClient({ pageContext }) {
                         <h4>Client Id: {id}</h4>
                     </BlockContainer>
                     <BlockContainer>
-                        <SortListLayout list={client} resource="client"></SortListLayout>
+                    {shuttle !== null &&
+                                <SortListLayout {...shuttle} ></SortListLayout>}
+                        {/* <SortListLayout list={client} resource="client"></SortListLayout> */}
                         <br></br>
                         <button onClick={(e) => callClientNotes(e)}>Get Client Notes</button>
                         <button onClick={(e) => callClientForm(e)}>New Client form</button>
@@ -75,11 +80,13 @@ export default function ViewClient({ pageContext }) {
                         {/* {callNotes !== null && (<><BlockContainer><h4>Notes for client: {thisClient}</h4>
                             <NoteForm thisClient={thisClient} clientId={id} resource="notes"></NoteForm></BlockContainer></>)} */}
                             {callNotes !== null && (<><BlockContainer><h4>Notes for client: {thisClient}</h4>
-                            <SortListLayout list={callNotes} resource="notes" clientId={id}></SortListLayout></BlockContainer></>)}
+                            <SortListLayout list={callNotes} resource="notes" clientId={hardcodeClientId}></SortListLayout></BlockContainer></>)}
+                       {/* need to update client here */}
+
                         {newClient !== null && (<> <BlockContainer><h4>Create new Client</h4>
                             <ClientForm></ClientForm></BlockContainer></>)}
                             {newNote !== null && (<> <BlockContainer>
-                            <NoteForm thisClient={thisClient} clientId={id} resource="notes"></NoteForm></BlockContainer></>)}
+                            <NoteForm thisClient={thisClient} clientId={hardcodeClientId} resource="notes"></NoteForm></BlockContainer></>)}
                 </AllPageLayout>
             </>)
 

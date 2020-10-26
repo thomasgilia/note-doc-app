@@ -7,7 +7,7 @@ import SortListLayout from "../components/sortListLayout"
 // import NoteForm from "../components/noteForm"
 import ClientForm from "../components/clientForm"
 import NoteForm from "../components/noteForm"
-import { getClient, getClientNotes, deleteClient, getClients } from "../../backendHookup"
+import { getClient, getClientNotes, deleteClient, getClients, editClient } from "../../backendHookup"
 import { Link } from "gatsby"
 
 export default function ViewClient({ pageContext }) {
@@ -60,12 +60,11 @@ export default function ViewClient({ pageContext }) {
     let callDeleteClient = async function (e) {
         e.preventDefault()
        let response = await deleteClient(id)
-        // BackToIndex()
-        console.log(response)
-    //     if (res.data === 'client was deleted') {
-    //   window.location = "http://localhost:3000/";
-    // }
     }
+    // let callEditClient = async function (e) {
+    //     e.preventDefault()
+    //    let response = await editClient(id)
+    // }
     // console.log(callDeleteClient)
     let shuttle = { list: client, noteId: null, clientId: hardcodeClientId, resource: "client" }
     // console.log(shuttle) // array of arrays repping 1 clinet with pretty titles [["Client", "Stucky's], ["Client Id", 1]]
@@ -85,6 +84,7 @@ export default function ViewClient({ pageContext }) {
                         <button onClick={(e) => callClientNotes(e)}>Get Client Notes</button>
                         <button onClick={(e) => callClientForm(e)}>New Client form</button>
                         <button onClick={(e) => callNoteForm(e)}>New Note form</button>
+                        {/* <button onClick={(e) => callEditClient(e)}>Edit Client</button> */}
                         <button class="btn-danger" onClick={(e) => callDeleteClient(e)}>Delete Client</button>
                         {/* <NoteForm clientId={id} thisClient={thisClient} resource="note"></NoteForm> */}
                     </BlockContainer>

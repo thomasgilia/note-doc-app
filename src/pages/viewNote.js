@@ -5,7 +5,7 @@ import AllPageLayout from "../components/allPageLayout"
 // import NoteForm from "../components/noteForm"
 import ClientForm from "../components/clientForm"
 import NoteForm from "../components/noteForm"
-import { getNote, getClient, deleteNote, getClientNotes } from "../../backendHookup"
+import { getNote, getClient, deleteNote, getClientNotes, editNote } from "../../backendHookup"
 
 export default function Home({ location }) {
     // console.log(props)
@@ -17,6 +17,7 @@ export default function Home({ location }) {
     // console.log(stateDataObj)
     const [id] = useState(location.state.stateData.noteId);
     const [newNote, setNewNote] = useState(null)
+    const [editNote, setEditNote] = useState(null)
     // const [clientId] = useState(location.state.stateData.clientId);
     const [newClient, setNewClient] = useState(null)
     const clientId = location.state.stateData.clientId;
@@ -55,7 +56,16 @@ export default function Home({ location }) {
         let newNoteRequested = true;
         setNewNote(newNoteRequested)
     }
-    // console.log(client)
+    let callEditNoteForm = async function (e) {
+        e.preventDefault()
+        let updateNoteRequested = true;
+        setEditNote(updateNoteRequested)
+    }
+    // let callEditNoteForm = async function (e) {
+    //     e.preventDefault()
+    // // editNote(note)
+    // }
+    // console.log(note)
     // let x = location.state.stateData
     // console.log(props) // array of arrays repping 1 clinet with pretty titles [["Client", "Stucky's], ["Client Id", 1]]
     // if (note !== null) 
@@ -80,10 +90,13 @@ export default function Home({ location }) {
                     <br></br>
                     <button onClick={(e) => callClientForm(e)}>New Client form</button>
                     <button onClick={(e) => callNoteForm(e)}>New Note form</button>
+                    <button onClick={(e) => callEditNoteForm(e)}>Edit Note</button>
                     <button class="btn-danger" onClick={(e) => callDeleteNote(e)}>Delete Note</button>
                 </BlockContainer>
                 {newNote !== null && (<> <BlockContainer>
                     <NoteForm thisClient={thisClient} clientId={clientId} resource="notes"></NoteForm></BlockContainer></>)}
+                    {editNote !== null && (<> <BlockContainer>
+                    <NoteForm thisClient={thisClient} clientId={clientId} resource="notes" note={note}></NoteForm></BlockContainer></>)}
                 {/* {newNote !== null && (<> <BlockContainer>
                     <NoteForm thisClient={thisClient} clientId={clientId} resource="notes"></NoteForm></BlockContainer></>)} */}
             </AllPageLayout>

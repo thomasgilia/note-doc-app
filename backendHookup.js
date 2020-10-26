@@ -177,6 +177,24 @@ export function getClient(id) {
   )
 };
 
+// export function editClient(id) {
+//   const endpoint = `http://localhost:3000/delete/client${id}`;
+//   // const endpoint = `https://client-note-app.herokuapp.com/delete/client${id}`;
+//   // console.log(id)
+//   // let resource = "client"
+//   axios.get(endpoint).then(function (res) {
+//     // console.log(newArr)
+//     console.log(res.data)
+//     if (res.data === 'client was deleted') {
+//       window.location = "http://localhost:8000/";
+//     }
+//     return res.data
+//   }
+//   ).catch((err) => {
+//     console.log("AXIOS ERROR: ", err);
+//   })
+// };
+
 export function deleteClient(id) {
   const endpoint = `http://localhost:3000/delete/client${id}`;
   // const endpoint = `https://client-note-app.herokuapp.com/delete/client${id}`;
@@ -232,7 +250,7 @@ export function getClientNotes(id) {
 }
 
 export function deleteNote(ids) {
-  let theIds = {...ids}
+  let theIds = { ...ids }
   let clientId = theIds.clientId
   let id = theIds.id
   const endpoint = `http://localhost:3000/delete/note${id}`;
@@ -246,8 +264,26 @@ export function deleteNote(ids) {
     return res.data
   }
   )
-  // .then((clientId)=>{getClientNotes(clientId)}).
-  .catch((err) => {
+    // .then((clientId)=>{getClientNotes(clientId)}).
+    .catch((err) => {
+      console.log("AXIOS ERROR: ", err);
+    })
+};
+export function editNote(transferObj) {
+  let transferObjData = { ...transferObj }
+  let id = transferObjData.id
+  const endpoint = `http://localhost:3000/edit/Note${id}`;
+  // const endpoint = `https://client-note-app.herokuapp.com/edit/Note${id}`;
+
+  axios.post(endpoint, transferObjData).then(function (res) {
+    // console.log(newArr)
+    console.log(res.data)
+    // if (res.data === 'note was updated') {
+    //   window.location = `http://localhost:8000/clients/client${clientId}`;    //3000?
+    // }
+    // return res.data
+  }
+  ).catch((err) => {
     console.log("AXIOS ERROR: ", err);
   })
 };

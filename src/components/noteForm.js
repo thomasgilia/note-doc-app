@@ -25,6 +25,7 @@ export default function NoteForm(props) {
             flagExpires: flagExpires,
             revisionLog: revisionLog
         }
+        console.log(input)
         let transferObj = {
             id: id,
             input
@@ -34,6 +35,7 @@ export default function NoteForm(props) {
         // console.log(input.setUrgent)
         createNote(transferObj)
     }
+    
     const updateNoteHandler = async e => {
         e.preventDefault()
         let originalNote = props.note
@@ -55,42 +57,48 @@ export default function NoteForm(props) {
         // console.log(input.setUrgent)
         createNote(transferObj)
     }
-    let originalNote = [...props.note]
-    let originalNoteZero = originalNote[0]
-    console.log(originalNoteZero)
-    let titleMapNotes = {
-        id: "Note Id",
-        category: "Category",
-        title: "Subject",
-        note: "Note body",
-        flagUrgent: "Flag as urgent?",
-        flagExpires: "Flag end date",
-        revisionLog: "Revision Log",
-        createdAt: "Created",
-        updateAt: "Last Update",
-        clientId: "Client Id"
-    };
-    let titleMapNotesArr = Object.entries(titleMapNotes)
-    let forgoodnesssake = [...titleMapNotesArr]
+    let originalNoteObj;
+    // console.log(props)
+    if ((props.note !== null)&&(props.note !== undefined)) {
+        let originalNote = [...props.note]
+        let originalNoteZero = originalNote[0]
+        // console.log(originalNoteZero)
+        let titleMapNotes = {
+            id: "Note Id",
+            category: "Category",
+            title: "Subject",
+            note: "Note body",
+            flagUrgent: "Flag as urgent?",
+            flagExpires: "Flag end date",
+            revisionLog: "Revision Log",
+            createdAt: "Created",
+            updateAt: "Last Update",
+            clientId: "Client Id"
+        };
+        let titleMapNotesArr = Object.entries(titleMapNotes)
+        let titleMaps = [...titleMapNotesArr]
 
-    let fixedArray =[]
-    fixedArray = originalNoteZero.map((element, index)=>{
-        // console.log(element[1])
-        // fixedArray.push([forgoodnesssake[index][0], element[index][1]]) 
-        return  [forgoodnesssake[index][0], element[1]]
-    })
-console.log(fixedArray)
-   
-    let obj = []
-    originalNote.forEach(element => {
-        let pairs = Object.fromEntries(element)
-        obj.push(pairs)
-    });
-    let originalNoteObj = obj[0]
+        let fixedArray = []
+        fixedArray = originalNoteZero.map((element, index) => {
+            // console.log(element[1])
+            // fixedArray.push([forgoodnesssake[index][0], element[index][1]]) 
+            return [titleMaps[index][0], element[1]]
+        })
+        // console.log(fixedArray)
 
+        // let obj = []
+        // fixedArray.map(element => {
+        //     let pairs = Object.fromEntries(element)
+        //     // obj.push(pairs)
+        //     console.log(pairs)
+        // });
+        // let originalNoteObj = obj[0]
+        originalNoteObj = Object.fromEntries(fixedArray)
+        // console.log(parseISO(originalNoteObj.flagExpires))
+    }
     // console.log(originalNoteObj)
 
-    if (props.note === null) {
+    if ((props.note === null)||(props.note === undefined)) {
         return (
             <>
                 <h4>New note for client: {props.thisClient}</h4>
@@ -119,7 +127,9 @@ console.log(fixedArray)
                         {/* <input type="date" id="flagExpires" name="flagExpires" value="2020-01-01"
                         required onChange={e => setFlagExpires(e.target.value)} /> */}
                         {/* <input type="date" id="flagExpires" name="flagExpires"  /> */}
-                        <DatePicker selected={flagExpires} onChange={date => setFlagExpires(date)} />
+                        <input type="date" id="flagExpires" name="flagExpires" 
+                            required onChange={date => setFlagExpires(date)} />
+                        {/* <DatePicker selected={flagExpires} onChange={date => setFlagExpires(date)} /> */}
                         {/* <DatePicker selected={flagExpires} onChange={date => setFlagExpires(date)} /> */}
                         {/* <DatePickerReact></DatePickerReact> */}
                         <br></br>
@@ -135,14 +145,14 @@ console.log(fixedArray)
     } else {
         return (
             <>
-                <h4>New note for client: {props.thisClient}</h4>
+                <h4>Update note for client: {props.thisClient}</h4>
                 <form onSubmit={e => newNoteHandler(e)}>
-                    Title: <input type="text" name="title" value={originalNoteObj.Subject} required onChange={e => setTitle(e.target.value)} />
+                    Title: <input type="text" name="title" value={originalNoteObj.title} required onChange={e => setTitle(e.target.value)} />
                     <br></br>
                     <div>
                         <label for="category">Choose a category:</label>
                         <select name="category" id="category" required onChange={e => setCategory(e.target.value)}>
-                            <option selected>{originalNoteObj.Category} </option>
+                            <option selected>{originalNoteObj.category} </option>
                             <option value="Financial">Financial</option>
                             <option value="Project details">Project details</option>
                             <option value="Contacts">Contacts</option>
@@ -161,7 +171,6 @@ console.log(fixedArray)
                         {/* <input type="date" id="flagExpires" name="flagExpires" value="2020-01-01"
                     required onChange={e => setFlagExpires(e.target.value)} /> */}
                         {/* <input type="date" id="flagExpires" name="flagExpires"  /> */}
-                        <DatePicker selected={originalNoteObj.flagExpires} onChange={date => setFlagExpires(date)} />
                         {/* <DatePicker selected={flagExpires} onChange={date => setFlagExpires(date)} /> */}
                         {/* <DatePickerReact></DatePickerReact> */}
                         <br></br>

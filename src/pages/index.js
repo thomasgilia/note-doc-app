@@ -29,6 +29,14 @@ export default function Home() {
     let newClientRequested = true;
     setNewClient(newClientRequested)
   }
+  // const timestamp = new Date(comment.Created.toDate())
+  // const tsMonth = timestamp.getMonth() + 1
+  // const tsDay = timestamp.getDate()
+  // const tsYear = timestamp.getFullYear()
+  // Created: new Date()
+
+let thisDate = new Date()
+console.log(thisDate)
 
   if (list !== []) {
     return (

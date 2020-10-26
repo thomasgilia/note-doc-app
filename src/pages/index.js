@@ -30,13 +30,14 @@ export default function Home() {
     setNewClient(newClientRequested)
   }
   // const timestamp = new Date(comment.Created.toDate())
-  // const tsMonth = timestamp.getMonth() + 1
-  // const tsDay = timestamp.getDate()
-  // const tsYear = timestamp.getFullYear()
+
   // Created: new Date()
 
 let thisDate = new Date()
-console.log(thisDate)
+const tsMonth = thisDate.getMonth() + 1
+const tsDay = thisDate.getDate()
+const tsYear = thisDate.getFullYear()
+// console.log(thisDate)
 
   if (list !== []) {
     return (

@@ -13,7 +13,7 @@ let titleMap = {
   standardDiscount: "Standard discount (%)",
   revisionLog: "Revision Log",
   createdAt: "Created",
-  updateAt: "Last update"     //ends up "" i think update populates afterwards...deal with it later
+  updatedAt: "Last update"     //ends up "" i think update populates afterwards...deal with it later
 };
 let titleMapArr = Object.entries(titleMap);
 
@@ -26,7 +26,7 @@ let titleMapNotes = {
   flagExpires: "Flag end date",
   revisionLog: "Revision Log",
   createdAt: "Created",
-  updateAt: "Last Update",
+  updatedAt: "Last Update",
   clientId: "Client Id"
 
 };
@@ -137,14 +137,14 @@ export async function createNote(transferObj) {
   let transferObjData = { ...transferObj }
   // let input = transferObjData.input
   let id = transferObjData.id
-  // console.log(id)
+  console.log(transferObj)
   // export async function createNote(input, id) {
   const endpoint = `http://localhost:3000/notes/client${id}`;
   // const endpoint = `https://client-note-app.herokuapp.com/notes/client${id}`;
   // console.log("clientId passed from Note form is: " + id)
   axios.post(endpoint, transferObjData
   ).then((res) => {
-    // console.log("RESPONSE RECEIVED: ", res.data);
+    console.log("RESPONSE RECEIVED: ", res.data);
     getClient(res.data)    //needed? but may use in redirect. howvefr, as is, it erroes out if anything other
     //than the client's id is passed back
   })

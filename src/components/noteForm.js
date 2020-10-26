@@ -14,18 +14,31 @@ export default function NoteForm(props) {
     const [flagExpires, setFlagExpires] = useState(new Date())
     const [revisionLog, setRevisionLog] = useState(null)
 
+    const dateHelper = () => {
+
+        const month = flagExpires.getMonth() + 1
+        const day = flagExpires.getDate()
+        const year = flagExpires.getFullYear()
+        // let officialDate = `${year}-${month}-${day}`
+        let userDate = `${month}-${day}-${year}`
+        // console.log(userDate)
+        return userDate
+    }
+
     const newNoteHandler = async e => {
         e.preventDefault()
         let id = clientId
+
+        let date = dateHelper(setFlagExpires)
         let input = {
             title: title,
             note: note,
             category: category,
             flagUrgent: flagUrgent === "true", //check for boolean
-            flagExpires: flagExpires,
+            flagExpires: date,
             revisionLog: revisionLog
         }
-        console.log(input)
+        // console.log(input)
         let transferObj = {
             id: id,
             input
@@ -35,7 +48,8 @@ export default function NoteForm(props) {
         // console.log(input.setUrgent)
         createNote(transferObj)
     }
-    
+
+
     const updateNoteHandler = async e => {
         e.preventDefault()
         let originalNote = props.note
@@ -72,7 +86,7 @@ export default function NoteForm(props) {
             flagExpires: "Flag end date",
             revisionLog: "Revision Log",
             createdAt: "Created",
-            updateAt: "Last Update",
+            updatedAt: "Last Update",
             clientId: "Client Id"
         };
         let titleMapNotesArr = Object.entries(titleMapNotes)
@@ -98,7 +112,7 @@ export default function NoteForm(props) {
     }
     // console.log(originalNoteObj)
 
-    if ((props.note === null)||(props.note === undefined)) {
+    if ((props.note === null) || (props.note === undefined)) {
         return (
             <>
                 <h4>New note for client: {props.thisClient}</h4>
@@ -127,9 +141,9 @@ export default function NoteForm(props) {
                         {/* <input type="date" id="flagExpires" name="flagExpires" value="2020-01-01"
                         required onChange={e => setFlagExpires(e.target.value)} /> */}
                         {/* <input type="date" id="flagExpires" name="flagExpires"  /> */}
-                        <input type="date" id="flagExpires" name="flagExpires" 
-                            required onChange={date => setFlagExpires(date)} />
-                        {/* <DatePicker selected={flagExpires} onChange={date => setFlagExpires(date)} /> */}
+                        {/* <input type="date" id="flagExpires" name="flagExpires" value="2020-01-01"
+                            required onChange={date => setFlagExpires(date)} /> */}
+                        <DatePicker selected={flagExpires} onChange={date => setFlagExpires(date)} />
                         {/* <DatePicker selected={flagExpires} onChange={date => setFlagExpires(date)} /> */}
                         {/* <DatePickerReact></DatePickerReact> */}
                         <br></br>
@@ -145,7 +159,7 @@ export default function NoteForm(props) {
     } else {
         return (
             <>
-                <h4>Update note for client: {props.thisClient}</h4>
+<h4>Update note for client: {props.thisClient}</h4>
                 <form onSubmit={e => newNoteHandler(e)}>
                     Title: <input type="text" name="title" value={originalNoteObj.title} required onChange={e => setTitle(e.target.value)} />
                     <br></br>
@@ -173,6 +187,7 @@ export default function NoteForm(props) {
                         {/* <input type="date" id="flagExpires" name="flagExpires"  /> */}
                         {/* <DatePicker selected={flagExpires} onChange={date => setFlagExpires(date)} /> */}
                         {/* <DatePickerReact></DatePickerReact> */}
+                        <DatePicker selected={originalNoteObj.flagExpires} onChange={date => setFlagExpires(date)} />
                         <br></br>
                 Note: <input type="text" name="note" value={originalNoteObj.note} required onChange={e => setNote(e.target.value)} />
                         <br></br>

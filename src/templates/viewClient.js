@@ -30,18 +30,19 @@ export default function ViewClient({ pageContext }) {
     useEffect(() => {
         getClient(id).then(transferArr => {
             let response = transferArr[1].response;
+            // console.log(response)
             return setClient(response)
         }
         )
     }, [setClient]);
     let color = "contrast-light"
-    // console.log(callData)
+    // console.log(client)
     let hardcodeClientId = id
     let callClientNotes = async function (e) {
         e.preventDefault()
         let transferArr = await getClientNotes(id)
         let response = transferArr[1].response;
-        
+
         // console.log(transferArr)
         setCallNotes(response)
     }
@@ -59,7 +60,7 @@ export default function ViewClient({ pageContext }) {
     }
     let callDeleteClient = async function (e) {
         e.preventDefault()
-       let response = await deleteClient(id)
+        let response = await deleteClient(id)
     }
     // let callEditClient = async function (e) {
     //     e.preventDefault()
@@ -77,8 +78,8 @@ export default function ViewClient({ pageContext }) {
                         <h4>Client Id: {id}</h4>
                     </BlockContainer>
                     <BlockContainer resource="client">
-                    {shuttle !== null &&
-                                <SortListLayout {...shuttle} ></SortListLayout>}
+                        {shuttle !== null &&
+                            <SortListLayout {...shuttle} ></SortListLayout>}
                         {/* <SortListLayout list={client} resource="client"></SortListLayout> */}
                         <br></br>
                         <button onClick={(e) => callClientNotes(e)}>Get Client Notes</button>
@@ -89,16 +90,16 @@ export default function ViewClient({ pageContext }) {
                         {/* <NoteForm clientId={id} thisClient={thisClient} resource="note"></NoteForm> */}
                     </BlockContainer>
                     {newClient !== null && (<> <BlockContainer resource="client"><h4>Create new Client</h4>
-                            <ClientForm></ClientForm></BlockContainer></>)}
-                            {newNote !== null && (<> <BlockContainer resource="note">
-                            <NoteForm thisClient={thisClient} clientId={hardcodeClientId} resource="notes"></NoteForm></BlockContainer></>)}
-                        {/* {callNotes !== null && (<><BlockContainer><h4>Notes for client: {thisClient}</h4>
+                        <ClientForm></ClientForm></BlockContainer></>)}
+                    {newNote !== null && (<> <BlockContainer resource="note">
+                        <NoteForm thisClient={thisClient} clientId={hardcodeClientId} resource="notes"></NoteForm></BlockContainer></>)}
+                    {/* {callNotes !== null && (<><BlockContainer><h4>Notes for client: {thisClient}</h4>
                             <NoteForm thisClient={thisClient} clientId={id} resource="notes"></NoteForm></BlockContainer></>)} */}
-                            {callNotes !== null && (<><BlockContainer resource="note"><h4>Notes for client: {thisClient}</h4>
-                            <SortListLayout list={callNotes} resource="notes" clientId={hardcodeClientId}></SortListLayout></BlockContainer></>)}
-                       {/* need to update client here */}
+                    {callNotes !== null && (<><BlockContainer resource="note"><h4>Notes for client: {thisClient}</h4>
+                        <SortListLayout list={callNotes} resource="notes" clientId={hardcodeClientId}></SortListLayout></BlockContainer></>)}
+                    {/* need to update client here */}
 
-                        
+
                 </AllPageLayout>
             </>)
 

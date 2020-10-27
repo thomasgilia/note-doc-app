@@ -134,7 +134,7 @@ export default function NoteForm(props) {
     } else {
         return (
             <>
-                <h4>Update note for client: {props.thisClient}</h4>
+                <h4>Update note {noteId} for client: {props.thisClient}</h4>
                 <form onSubmit={e => updateNoteHandler(e)}>
                     Title: <input type="text" name="title" value={title} required onChange={(e) => { setTitle(e.target.value) }} />
                     <br></br>

@@ -65,7 +65,7 @@ export default function ListItemSingle(props) {
                     <Link to={route + clientIdHolder} className="btn btn-secondary btn-sm">View {resourceDisplay}</Link>
                 </td>}
 
-                {(resourceDisplay === "Note") && <td>
+                {(props.resource === "notes") && <td>
                     <button onClick={(e) => {
                         e.preventDefault()
                         navigate("/viewNote", {
@@ -79,7 +79,7 @@ export default function ListItemSingle(props) {
                         <button onClick={(e) => callNoteForm(e)}>New Note form</button> */}
                 {
                     props.list.map(item => {
-                        console.log(item)
+                        // console.log(item)
                         if((item[1] === true)||(item[1] === "true")){
                             return (
                                 <td>

@@ -26,7 +26,8 @@ let titleMapNotes = {
   revisionLog: "Revision Log",
   createdAt: "Created",
   updatedAt: "Last Update",
-  clientId: "Client Id"
+  clientId: "Client Id",
+  clientName: "Client"
 
 };
 let titleMapNotesArr = Object.entries(titleMapNotes);
@@ -65,9 +66,15 @@ function toArray(incoming) {
 //reusable module to turn data list object to array, then modify titles per map
 function toNoteArray(incoming) {
   let arr = Object.entries(incoming)
+  // console.log(arr)
   arr.map((item) => {       //item is [id, 2] or ["created at", "2-22-2020"] etc
-    let key = item[0].toString()
-    let value = item[1].toString()    //without this, the boolean populated blank in table
+    // let key = item[0].toString()
+    let key = item[0]
+    // console.log(item[1])
+    let value
+    if (item[1] !== null) { value = item[1].toString() }
+    // let value = item[1].toString()    //without this, the boolean populated blank in table
+
     let newKey = ""
     titleMapNotesArr.forEach((item, index, arr) => {
       if (arr[index][0] === key) {
@@ -106,7 +113,9 @@ export function getClients() {
     let transferArr = [{ resource: resource }, { response: newArr }]
     return (transferArr);
   })
-  )
+    .catch((err) => {
+      console.log("AXIOS ERROR: ", err);
+    }))
 };
 
 export function getAllNotes() {
@@ -114,31 +123,66 @@ export function getAllNotes() {
   // const endpoint = `https://client-note-app.herokuapp.com/getallnotes`;
   let resource = "notes"
   return (axios.get(endpoint).then(function (response) {
+    // console.log(response.data)
     let flagged = response.data.filter((element) => {
       if (element.flagUrgent === true) {
         return element
       }
     })
     let sorted = flagged.sort((a, b) => 0 - (a.updatedAt > b.updatedAt ? 1 : -1))
-    let newArr = sorted.map((element) => {
-      return toNoteArray(element)
+    // console.log(sorted)
+
+    let newArr = []
+    sorted.map((el) => {
+      let thisClientId = el.clientId
+      //----working except name problem
+      // getClient(thisClientId).then((response) => {
+      //   el.clientName = response[1].response[0][1][1]
+      //   // console.log(el)
+      //   // console.log(response[1].response[0][1][1])
+      //   return el
+      // })
+      //-------
+     let newArrayElement = getClient(thisClientId).then((res) => {
+        // el = toNoteArray(el)
+        // element.clientName = response[1].response[0][1][1]
+        let elClientname = res[1].res[0][1][1]
+        newArr.push(["clientName", elClientname])
+        // console.log(element[9][1])
+        // console.log(response[1].response[0][1][1])
+        // return 
+      })
+
+      // return toNoteArray(element)
+      // console.log(element)
+      // return newArr
     })
-    let transferArr = [{ resource: resource }, { response: newArr }]
-    return (transferArr);
+    // let arr = [...newArr]
+    // let transferArr = [{ resource: resource }, { response: [...newArr] }]
+    // console.log(transferArr[1].response[0].clientName)
+    // let test = [...arr]
+    // let testName = {...test}
+    // console.log(sorted)
+    return newArr;
   })
     .catch((err) => {
       console.log("AXIOS ERROR: ", err);
     })
   )
 };
+
+
 export async function createClient(input) {
   const endpoint = `http://localhost:3000/clients`;
   // const endpoint = `https://client-note-app.herokuapp.com/clients`;
   axios.post(endpoint, input
   ).then((res) => {
     console.log("RESPONSE RECEIVED: ", res.data);
-    getClient(res.data.id)    //need to return anything?  this gives me the transfer arr but i need to redirect
+    // getClient(res.data.id)    //need to return anything?  this gives me the transfer arr but i need to redirect
     alert("Client was created. Please allow a few moments for the client page to be created")
+    if (res.data === 'client was created') {
+      window.location = `http://localhost:8000/`;
+    }
   })                          //wrinkle: clients are created with createPages adn have pagecontext instead of props
     // .then(axios.post(`https://api.netlify.com/build_hooks/5f92416876a5163859e835d1`, "SuccessfulRebuild"))
     .catch((err) => {
@@ -160,6 +204,9 @@ export async function createNote(transferObj) {
     console.log("RESPONSE RECEIVED: ", res.data);
     getClient(res.data)    //needed? but may use in redirect. howvefr, as is, it erroes out if anything other
     //than the client's id is passed back
+    if (res.data === 'Note was created') {
+      window.location = `http://localhost:8000/clients/client${clientId}`;
+    }
     alert("Note was created")
   })
     .catch((err) => {
@@ -177,18 +224,15 @@ export function getClient(id) {
   return (axios.get(endpoint).then(function (response) {
     // console.log(response.data)
     // let clientArr = Object.entries(response.data)
-
-    // let newArr = [[toArray(response.data)], [null]]
     let newArr = [toArray(response.data)]
     // console.log(newArr)
-    //   if (response.length < 2) {
-    //     response.push([null])
-    // }
     let transferArr = [{ resource: resource }, { response: newArr }]
-    // console.log(newArr)
+    // console.log(transferArr)
     return (transferArr);
   })
-  )
+  ).catch((err) => {
+    console.log("AXIOS ERROR: ", err);
+  })
 };
 
 // export function editClient(id) {
@@ -300,19 +344,17 @@ export function deleteNote(ids) {
 };
 export function editNote(transferObj) {
   let transferObjData = { ...transferObj }
-  // let clientId = transferObjData.clientId
+  let clientId = transferObjData.input.clientId
   let noteId = transferObjData.id
-  // console.log(transferObjData)
   const endpoint = `http://localhost:3000/edit/Note${noteId}`;
   // const endpoint = `https://client-note-app.herokuapp.com/edit/Note${id}`;
 
   axios.post(endpoint, transferObjData).then(function (res) {
-    // console.log(newArr)
-    // console.log(res.data)
-    // if (res.data === 'note was updated') {
-    //   window.location = `http://localhost:8000/clients/client${clientId}`;    //3000?
-    // }
-    // return res.data
+
+    if (res.data === 'note was updated') {
+      window.location = `http://localhost:8000/clients/client${clientId}`;    //3000?
+    }
+    return res.data
   }
   ).catch((err) => {
     console.log("AXIOS ERROR: ", err);

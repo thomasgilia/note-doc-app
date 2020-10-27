@@ -59,8 +59,9 @@ export default function SortListLayout(props) {
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
+                                {/* {((listCount === null) || (props.resource === "note") || (props.resource === "notes")) && <th></th>} */}
 
-                                    {((listCount === null) || (props.resource === "note") || (props.resource === "notes")) && <th></th>}
+                                    {((listCount === null) || (props.resource === "notes")) && <th></th>}
                                     {titles && titles.map(element => {
                                         // console.log(element)
                                         return (<th>{element[1]}</th>)

@@ -65,7 +65,7 @@ export default function Home({ location }) {
     //     e.preventDefault()
     // // editNote(note)
     // }
-    // console.log(note)
+                                // if(note){console.log(note[0][2][1])}
     // let x = location.state.stateData
     // console.log(props) // array of arrays repping 1 clinet with pretty titles [["Client", "Stucky's], ["Client Id", 1]]
     // if (note !== null) 
@@ -75,14 +75,16 @@ export default function Home({ location }) {
     // console.log(ids)
     let callDeleteNote = async function (e) {
         e.preventDefault()
-        let response = await deleteNote(ids)
-            }
+        let response = await deleteNote(ids)    
+    }
+    
     return (
         <>
             <AllPageLayout>
                 <BlockContainer resource="note">
-                    <h2>Note for Client: {thisClient !== null && thisClient}</h2>
+                    <h2>Note Subject: {note !== null && note[0][2][1]}</h2>
                     <h4>Note Id: {id}</h4>
+                    <h4>For Client: {thisClient !== null && thisClient}</h4>
                 </BlockContainer>
                 <BlockContainer resource="note">
                     <SortListLayout thisClient={thisClient} clientId={clientId} list={note} noteId={id}
@@ -95,7 +97,7 @@ export default function Home({ location }) {
                 </BlockContainer>
                 {newNote !== null && (<> <BlockContainer resource="note">
                     <NoteForm thisClient={thisClient} clientId={clientId} resource="notes"></NoteForm></BlockContainer></>)}
-                    {editNote !== null && (<> <BlockContainer resource="note">
+                {editNote !== null && (<> <BlockContainer resource="note">
                     <NoteForm thisClient={thisClient} clientId={clientId} resource="notes" note={note}></NoteForm></BlockContainer></>)}
                 {/* {newNote !== null && (<> <BlockContainer>
                     <NoteForm thisClient={thisClient} clientId={clientId} resource="notes"></NoteForm></BlockContainer></>)} */}

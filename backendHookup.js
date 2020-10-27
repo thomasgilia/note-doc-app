@@ -5,8 +5,8 @@ import React from "react"
 let titleMap = {
   id: "Client Id",
   clientName: "Client",
-  ownedByUser: "Client Owner",
   ownedBy: "Has owner?",
+  ownedByUser: "Client Owner",
   keyClient: "Key client?",
   reqQuote: "Requires quote",
   reqQuoteApproval: "Requires quote approval",
@@ -23,7 +23,6 @@ let titleMapNotes = {
   title: "Subject",
   note: "Note body",
   flagUrgent: "Flag as urgent?",
-  flagExpires: "Flag end date",
   revisionLog: "Revision Log",
   createdAt: "Created",
   updatedAt: "Last Update",
@@ -33,7 +32,6 @@ let titleMapNotes = {
 let titleMapNotesArr = Object.entries(titleMapNotes);
 
 export function titleMapper(resource) {
-  // console.log(resource)
   let titleList = []
   if ((resource === "notes") || (resource === "note")) {
     titleList = titleMapNotesArr
@@ -46,14 +44,12 @@ export function titleMapper(resource) {
 }
 //reusable module to turn data list object to array, then modify titles per map
 function toArray(incoming) {
-  // console.log(incoming[0])
   let arr = Object.entries(incoming)
   arr.map((item) => {       //item is [id, 2] or ["created at", "2-22-2020"] etc
     let key = item[0]
     let value = item[1].toString()    //without this, the boolean populated blank in table
-    // console.log(value)
+    // let value = item[1].toString()    //without this, the boolean populated blank in table
     let newKey = ""
-    // console.log(item)
     titleMapArr.forEach((item, index, arr) => {
       if (arr[index][0] === key) {
         newKey = arr[index][1]
@@ -68,14 +64,11 @@ function toArray(incoming) {
 }
 //reusable module to turn data list object to array, then modify titles per map
 function toNoteArray(incoming) {
-  // console.log(incoming[0])
   let arr = Object.entries(incoming)
   arr.map((item) => {       //item is [id, 2] or ["created at", "2-22-2020"] etc
     let key = item[0].toString()
     let value = item[1].toString()    //without this, the boolean populated blank in table
-    // console.log(value)
     let newKey = ""
-    // console.log(item)
     titleMapNotesArr.forEach((item, index, arr) => {
       if (arr[index][0] === key) {
         newKey = arr[index][1]
@@ -104,21 +97,40 @@ export function getClients() {
   const endpoint = `http://localhost:3000/getallclients`;
   // const endpoint = `https://client-note-app.herokuapp.com/getallclients`;
   let resource = "clients"
-  // console.log(resource)
   return (axios.get(endpoint).then(function (response) {
     // let dbConnectionCheck = response.data;
     // let responseData = response.data
     let newArr = response.data.map((element) => {
       return toArray(element)
     })                                            //prop need a bug fix - if there is only one client in db, need to add null
-    // console.log(newArr)  //works to give correct array of arrays/nested
     let transferArr = [{ resource: resource }, { response: newArr }]
-    // console.log(transferArr[1]);    //resource is at 0, response obj at 1
     return (transferArr);
   })
   )
 };
 
+export function getAllNotes() {
+  const endpoint = `http://localhost:3000/getallnotes`;
+  // const endpoint = `https://client-note-app.herokuapp.com/getallnotes`;
+  let resource = "notes"
+  return (axios.get(endpoint).then(function (response) {
+    let flagged = response.data.filter((element) => {
+      if (element.flagUrgent === true) {
+        return element
+      }
+    })
+    let sorted = flagged.sort((a, b) => 0 - (a.updatedAt > b.updatedAt ? 1 : -1))
+    let newArr = sorted.map((element) => {
+      return toNoteArray(element)
+    })
+    let transferArr = [{ resource: resource }, { response: newArr }]
+    return (transferArr);
+  })
+    .catch((err) => {
+      console.log("AXIOS ERROR: ", err);
+    })
+  )
+};
 export async function createClient(input) {
   const endpoint = `http://localhost:3000/clients`;
   // const endpoint = `https://client-note-app.herokuapp.com/clients`;
@@ -126,6 +138,7 @@ export async function createClient(input) {
   ).then((res) => {
     console.log("RESPONSE RECEIVED: ", res.data);
     getClient(res.data.id)    //need to return anything?  this gives me the transfer arr but i need to redirect
+    alert("Client was created. Please allow a few moments for the client page to be created")
   })                          //wrinkle: clients are created with createPages adn have pagecontext instead of props
     // .then(axios.post(`https://api.netlify.com/build_hooks/5f92416876a5163859e835d1`, "SuccessfulRebuild"))
     .catch((err) => {
@@ -136,17 +149,18 @@ export async function createClient(input) {
 export async function createNote(transferObj) {
   let transferObjData = { ...transferObj }
   // let input = transferObjData.input
-  let id = transferObjData.id
-  console.log(transferObj)
+  let clientId = transferObjData.clientId
+  // console.log(transferObj)
   // export async function createNote(input, id) {
-  const endpoint = `http://localhost:3000/notes/client${id}`;
-  // const endpoint = `https://client-note-app.herokuapp.com/notes/client${id}`;
+  const endpoint = `http://localhost:3000/notes/client${clientId}`;
+  // const endpoint = `https://client-note-app.herokuapp.com/notes/client${clientId}`;
   // console.log("clientId passed from Note form is: " + id)
   axios.post(endpoint, transferObjData
   ).then((res) => {
     console.log("RESPONSE RECEIVED: ", res.data);
     getClient(res.data)    //needed? but may use in redirect. howvefr, as is, it erroes out if anything other
     //than the client's id is passed back
+    alert("Note was created")
   })
     .catch((err) => {
       console.log("AXIOS ERROR: ", err);
@@ -202,9 +216,10 @@ export function deleteClient(id) {
   // let resource = "client"
   axios.get(endpoint).then(function (res) {
     // console.log(newArr)
-    console.log(res.data)
+    // console.log(res.data)
     if (res.data === 'client was deleted') {
       window.location = "http://localhost:8000/";
+      alert("Client was deleted")
     }
     return res.data
   }
@@ -241,11 +256,24 @@ export function getClientNotes(id) {
   // console.log("this is client's id: " + id)
   let resource = "notes"
   return axios.get(endpoint).then(function (response) {
+
+    // console.log(response.data[0].id)
     let newArr = response.data.map((element) =>
       Object.entries(element))
     let transferArr = [{ resource: resource }, { response: newArr }, { clientId: id }]
-    // console.log(transferArr)
+    // console.log()
+    // if (response.data[0].id > 1) {
+    //   alert("See notes below")
+    // }else{
+    //   alert("No notes yet. Use \"New Note Form\" to add note for this client.")
+
+    // }
+    if (response.data[0] === undefined) {
+      alert("No notes yet. Use \"New Note Form\" to add note for this client.")
+    }
     return (transferArr)
+  }).catch((err) => {
+    console.log("AXIOS ERROR: ", err);
   });
 }
 
@@ -255,11 +283,12 @@ export function deleteNote(ids) {
   let id = theIds.id
   const endpoint = `http://localhost:3000/delete/note${id}`;
   // const endpoint = `https://client-note-app.herokuapp.com/delete/note${id}`;
-  console.log(id)
+  // console.log(id)
   axios.get(endpoint).then(function (res) {
-    console.log(res.data)
+    // console.log(res.data)
     if (res.data === 'note was deleted') {
       window.location = `http://localhost:8000/clients/client${clientId}`;    //3000?
+      alert("Note was deleted")
     }
     return res.data
   }
@@ -271,13 +300,15 @@ export function deleteNote(ids) {
 };
 export function editNote(transferObj) {
   let transferObjData = { ...transferObj }
-  let id = transferObjData.id
-  const endpoint = `http://localhost:3000/edit/Note${id}`;
+  // let clientId = transferObjData.clientId
+  let noteId = transferObjData.id
+  // console.log(transferObjData)
+  const endpoint = `http://localhost:3000/edit/Note${noteId}`;
   // const endpoint = `https://client-note-app.herokuapp.com/edit/Note${id}`;
 
   axios.post(endpoint, transferObjData).then(function (res) {
     // console.log(newArr)
-    console.log(res.data)
+    // console.log(res.data)
     // if (res.data === 'note was updated') {
     //   window.location = `http://localhost:8000/clients/client${clientId}`;    //3000?
     // }

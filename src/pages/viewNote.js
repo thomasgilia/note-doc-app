@@ -80,11 +80,11 @@ export default function Home({ location }) {
     return (
         <>
             <AllPageLayout>
-                <BlockContainer>
+                <BlockContainer resource="note">
                     <h2>Note for Client: {thisClient !== null && thisClient}</h2>
                     <h4>Note Id: {id}</h4>
                 </BlockContainer>
-                <BlockContainer>
+                <BlockContainer resource="note">
                     <SortListLayout thisClient={thisClient} clientId={clientId} list={note} noteId={id}
                         resource="note"></SortListLayout>
                     <br></br>
@@ -93,9 +93,9 @@ export default function Home({ location }) {
                     <button onClick={(e) => callEditNoteForm(e)}>Edit Note</button>
                     <button class="btn-danger" onClick={(e) => callDeleteNote(e)}>Delete Note</button>
                 </BlockContainer>
-                {newNote !== null && (<> <BlockContainer>
+                {newNote !== null && (<> <BlockContainer resource="note">
                     <NoteForm thisClient={thisClient} clientId={clientId} resource="notes"></NoteForm></BlockContainer></>)}
-                    {editNote !== null && (<> <BlockContainer>
+                    {editNote !== null && (<> <BlockContainer resource="note">
                     <NoteForm thisClient={thisClient} clientId={clientId} resource="notes" note={note}></NoteForm></BlockContainer></>)}
                 {/* {newNote !== null && (<> <BlockContainer>
                     <NoteForm thisClient={thisClient} clientId={clientId} resource="notes"></NoteForm></BlockContainer></>)} */}

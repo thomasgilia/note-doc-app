@@ -79,12 +79,24 @@ export default function ListItemSingle(props) {
                         <button onClick={(e) => callNoteForm(e)}>New Note form</button> */}
                 {
                     props.list.map(item => {
-                        // console.log(item)
+                        console.log(item)
+                        if((item[1] === true)||(item[1] === "true")){
+                            return (
+                                <td>
+                                    Yes
+                                </td>
+                            )
+                        }else if((item[1] === false)||(item[1] === "false")){return (
+                            <td>
+                                No
+                            </td>
+                        )}else{
                         return (
                             <td>
                                 {item[1]}
                             </td>
                         )
+                    }
                     })
                 }
 

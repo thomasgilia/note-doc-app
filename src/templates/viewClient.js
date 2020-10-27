@@ -72,11 +72,11 @@ export default function ViewClient({ pageContext }) {
         return (
             <>
                 <AllPageLayout>
-                    <BlockContainer color={color}>
+                    <BlockContainer resource="client">
                         <h2>Client: {thisClient}</h2>
                         <h4>Client Id: {id}</h4>
                     </BlockContainer>
-                    <BlockContainer>
+                    <BlockContainer resource="client">
                     {shuttle !== null &&
                                 <SortListLayout {...shuttle} ></SortListLayout>}
                         {/* <SortListLayout list={client} resource="client"></SortListLayout> */}
@@ -88,16 +88,17 @@ export default function ViewClient({ pageContext }) {
                         <button class="btn-danger" onClick={(e) => callDeleteClient(e)}>Delete Client</button>
                         {/* <NoteForm clientId={id} thisClient={thisClient} resource="note"></NoteForm> */}
                     </BlockContainer>
+                    {newClient !== null && (<> <BlockContainer resource="client"><h4>Create new Client</h4>
+                            <ClientForm></ClientForm></BlockContainer></>)}
+                            {newNote !== null && (<> <BlockContainer resource="note">
+                            <NoteForm thisClient={thisClient} clientId={hardcodeClientId} resource="notes"></NoteForm></BlockContainer></>)}
                         {/* {callNotes !== null && (<><BlockContainer><h4>Notes for client: {thisClient}</h4>
                             <NoteForm thisClient={thisClient} clientId={id} resource="notes"></NoteForm></BlockContainer></>)} */}
-                            {callNotes !== null && (<><BlockContainer><h4>Notes for client: {thisClient}</h4>
+                            {callNotes !== null && (<><BlockContainer resource="note"><h4>Notes for client: {thisClient}</h4>
                             <SortListLayout list={callNotes} resource="notes" clientId={hardcodeClientId}></SortListLayout></BlockContainer></>)}
                        {/* need to update client here */}
 
-                        {newClient !== null && (<> <BlockContainer><h4>Create new Client</h4>
-                            <ClientForm></ClientForm></BlockContainer></>)}
-                            {newNote !== null && (<> <BlockContainer>
-                            <NoteForm thisClient={thisClient} clientId={hardcodeClientId} resource="notes"></NoteForm></BlockContainer></>)}
+                        
                 </AllPageLayout>
             </>)
 

@@ -7,7 +7,6 @@
 //     const [clientId, setClientId] = useState(props.clientId)
 //     const [category, setCategory] = useState(null)
 //     const [setUrgent, setSetUrgent] = useState(null)    
-//     const [flagExpires, setFlagExpires] = useState(new Date())
 //     const [revisionLog, setRevisionLog] = useState(null)
 //     // props has clientId={id} thisClient={thisClient} resource="note"
 //     const newNoteHandler = async e => {
@@ -18,7 +17,6 @@
 //             note: note,
 //             category: category,
 //             setUrgent: setUrgent === "true", //check for boolean
-//             flagExpires: flagExpires,
 //             revisionLog: revisionLog
 //         }
 //         let transferObj = {

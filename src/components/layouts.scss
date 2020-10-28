@@ -10,8 +10,8 @@ $color-cobalty-navy: #0a0147;
 .bgCustomDark {
   background-color: $color-custom-dark;
 }
-ul {
-  background-color: $color-custom-dark !important;
+.transparent {
+  background-color: transparent !important;
 }
 .bgCustomMed {
   background-color: $color-custom-med;
@@ -28,15 +28,29 @@ body {
 .note-text {
   color: $color-cobalty-navy;
 }
-
+.nav-text {
+  color: #fff;
+}
 .block-container {
   background-color: #fff;
-  padding: 30px;
+  padding: 20px;
   border-width: 300px;
   border-radius: 50px;
   border-color: black;
 }
-
+.bold{
+  font-weight: bold;
+}
+.flag {
+  // background-color: $color-custom-dark;
+  padding: 30px;
+  border-width: 300px;
+  border-color: black;
+}
+.heading {
+  // background-color: $color-custom-dark;
+  padding-left: 30px;
+}
 .gradient {
   background: rgb(255, 226, 214);
   background: radial-gradient(

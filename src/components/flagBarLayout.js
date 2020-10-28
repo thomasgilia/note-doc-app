@@ -28,10 +28,10 @@ export default function FlagBarLayout() {
                 <div class="sidebar-sticky">
                     <form className="form-inline">
                         {/* {flaggedNotes.length > 0 && */}
-                        <div className="bgCustomDark">
+                        <div className="flag">
 
                             <ul class="list-group">
-                                <li class="list-group-item">
+                                <li class="list-group-item bold">
                                     Urgent Flags in order of update:
                             </li>
                                 {((flaggedNotes !== null) && (flaggedNotes !== undefined)) &&

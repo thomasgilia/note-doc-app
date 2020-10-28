@@ -83,7 +83,6 @@ export default function Home({ location }) {
             <AllPageLayout>
                 <BlockContainer resource="note">
                     <h2 class="note-text">Note Subject: {note !== null && note[0][2][1]}</h2>
-                    <h4 class="note-text">Note Id: {id}</h4>
                     <h4 class="note-text">For Client: {thisClient !== null && thisClient}</h4>
                 </BlockContainer>
                 <BlockContainer resource="note">

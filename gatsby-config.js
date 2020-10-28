@@ -13,6 +13,12 @@ module.exports = {
                 prependToBody: true,
                 color: `#ffe2d6`,
             }
+        },
+        {
+            resolve: `gatsby-plugin-google-analytics`,
+            options: {
+                trackingId: "G-R2N16M8W1Z"
+            }
         }
     ]
 };

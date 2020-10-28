@@ -50,8 +50,6 @@ export default function NoteForm(props) {
             id: noteId,
             input
         }
-        // setVisitor("")       //resetting values after form sent
-        // setMessage("")
         editNote(transferObj)
     }
     //-----------------------------------------------

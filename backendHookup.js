@@ -27,7 +27,7 @@ let titleMapNotes = {
   createdAt: "Created",
   updatedAt: "Last Update",
   clientId: "Client Id",
-  clientName: "Client"
+  // clientName: "Client"
 
 };
 let titleMapNotesArr = Object.entries(titleMapNotes);
@@ -239,12 +239,16 @@ export async function createNote(transferObj) {
   return axios.post(endpoint, transferObjData
   ).then((res) => {
     console.log("RESPONSE RECEIVED: ", res.data);
-    getClient(res.data)    //needed? but may use in redirect. howvefr, as is, it erroes out if anything other
+    console.log(transferObjData)
+    // getClient(res.data)    //needed? but may use in redirect. howvefr, as is, it erroes out if anything other
     //than the client's id is passed back
-    if (res.data === 'Note was created') {
+    if (res.data) {
+      let clientId = res.data
+      // console.log(res.data)
       window.location = `http://localhost:8000/clients/client${clientId}`;
+      alert("Note was created")
     }
-    alert("Note was created")
+
   })
     .catch((err) => {
       console.log("AXIOS ERROR: ", err);

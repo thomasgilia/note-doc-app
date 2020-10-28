@@ -100,6 +100,8 @@ export default function Home({ location }) {
                     <NoteForm thisClient={thisClient} clientId={clientId} resource="notes"></NoteForm></BlockContainer></>)}
                 {editNote !== null && (<> <BlockContainer resource="note">
                     <NoteForm thisClient={thisClient} clientId={clientId} resource="notes" note={note}></NoteForm></BlockContainer></>)}
+                    {newClient !== null && (<> <BlockContainer resource="client"><h4>Create new Client</h4>
+                        <ClientForm></ClientForm></BlockContainer></>)}
                 {/* {newNote !== null && (<> <BlockContainer>
                     <NoteForm thisClient={thisClient} clientId={clientId} resource="notes"></NoteForm></BlockContainer></>)} */}
             </AllPageLayout>

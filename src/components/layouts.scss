@@ -10,9 +10,9 @@ $color-cobalty-navy: #0a0147;
 .bgCustomDark {
   background-color: $color-custom-dark;
 }
-.transparent {
-  background-color: transparent !important;
-}
+// .transparent {
+//   background-color: transparent !important;
+// }
 .bgCustomMed {
   background-color: $color-custom-med;
 }
@@ -26,8 +26,9 @@ body {
 }
 
 .note-text {
-  color: $color-cobalty-navy;
+  color: #0a0147;
 }
+
 .nav-text {
   color: #fff;
 }
@@ -67,17 +68,3 @@ body {
   box-shadow: 0px 0px 5px 1px $color-contrast-light !important;
 }
 
-/* wrapper{
-    background-color: #086375;
-} */
-
-/* div1 {
-  color: blue;
-} */
-
-/* .table {
-  color: blue;
-} */
-/* .navbar {
-  background-color: #4b5156;
-} */

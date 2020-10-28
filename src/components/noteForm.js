@@ -101,33 +101,34 @@ export default function NoteForm(props) {
         return (
             <>
                 <h4 class="note-text">New note for client: {props.thisClient}</h4>
-                <br></br>
                 <form onSubmit={e => newNoteHandler(e)}>
-                    Title: <input type="text" name="title" class="note-text" required onChange={e => setTitle(e.target.value)} />
-                    <br></br>
-                    <div>
-                        <label for="category">Choose a category:</label>
-                        <select name="category" id="category" required onChange={e => setCategory(e.target.value)}>
+                    <div class="form-group">
+                        Title: <input type="text" name="title" class="form-control" required onChange={e => setTitle(e.target.value)} />
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Choose a category: </label>
+                        <select name="category" id="category" class="form-control" required onChange={e => setCategory(e.target.value)}>
                             <option selected></option>
                             <option value="Financial">Financial</option>
                             <option value="Project details">Project details</option>
                             <option value="Contacts">Contacts</option>
                         </select>
-                        <br></br>
+                    </div>
+                    <div class="form-group">
                         <label for="flagUrgent">Set Urgent Flag?</label>
-                        <select name="flagUrgent" id="flagUrgent" required onChange={e => setFlagUrgent(e.target.value)}>
+                        <select name="flagUrgent" id="flagUrgent" class="form-control" required onChange={e => setFlagUrgent(e.target.value)}>
                             <option selected></option>
                             <option value="true">Yes</option>
                             <option value="false">No</option>
                         </select>
-                        <br></br>
-                        Note: <input type="text" name="note" required onChange={e => setNote(e.target.value)} />
-                        <br></br>
-                        Revision Log: <input type="text" name="revisionLog" required onChange={e => setRevisionLog(e.target.value)} />
-                        <br></br>
-                        <br></br>
-                        <button class="btn btn-dark" type="submit">Submit</button>
                     </div>
+                    <div class="form-group">
+                        Note: <input type="text" name="note" class="form-control" required onChange={e => setNote(e.target.value)} />
+                    </div>
+                    <div class="form-group">
+                        Revision Log: <input type="text" name="revisionLog" class="form-control" required onChange={e => setRevisionLog(e.target.value)} />
+                    </div>
+                    <button class="btn btn-dark" type="submit">Submit</button>
                 </form>
             </>
         )
@@ -135,33 +136,34 @@ export default function NoteForm(props) {
         return (
             <>
                 <h4 class="note-text">Update note {noteId} for client: {props.thisClient}</h4>
-                <br></br>
                 <form onSubmit={e => updateNoteHandler(e)}>
-                    Title: <input type="text" name="title" value={title} required onChange={(e) => { setTitle(e.target.value) }} />
-                    <br></br>
-                    <div>
+                    <div class="form-group">
+                        Title: <input type="text" name="title" class="form-control" value={title} required onChange={(e) => { setTitle(e.target.value) }} />
+                    </div>
+                    <div class="form-group">
                         <label for="category">Choose a category:</label>
-                        <select name="category" id="category" required onChange={e => setCategory(e.target.value)}>
+                        <select name="category" id="category" class="form-control" required onChange={e => setCategory(e.target.value)}>
                             <option selected>{category} </option>
                             <option value="Financial">Financial</option>
                             <option value="Project details">Project details</option>
                             <option value="Contacts">Contacts</option>
                         </select>
-                        <br></br>
+                    </div>
+                    <div class="form-group">
                         <label for="flagUrgent">Flag as Urgent?</label>
-                        <select name="flagUrgent" id="flagUrgent" required onChange={e => setFlagUrgent(e.target.value)}>
+                        <select name="flagUrgent" id="flagUrgent" class="form-control" required onChange={e => setFlagUrgent(e.target.value)}>
                             <option selected>{flagUrgent} </option>
                             <option value="true">Yes</option>
                             <option value="false">No</option>
                         </select>
-                        <br></br>
-                        Note: <input type="text" name="note" value={note} required onChange={e => setNote(e.target.value)} />
-                        <br></br>
-                        Revision Log: <input type="text" name="revisionLog" value={revisionLog} required onChange={e => setRevisionLog(e.target.value)} />
-                        <br></br>
-                        <br></br>
-                        <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
+                    <div class="form-group">
+                        Note: <input type="text" name="note" class="form-control" value={note} required onChange={e => setNote(e.target.value)} />
+                    </div>
+                    <div class="form-group">
+                        Revision Log: <input type="text" name="revisionLog" class="form-control" value={revisionLog} required onChange={e => setRevisionLog(e.target.value)} />
+                    </div>
+                    <button class="btn btn-primary" type="submit">Submit</button>
                 </form>
             </>
         )

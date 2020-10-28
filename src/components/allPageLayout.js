@@ -2,16 +2,22 @@ import React from "react"
 import "./layouts.scss"
 import NavBar from "./navBar"
 import FlagBarLayout from "./flagBarLayout"
-// import BlockContainer from "../components/blockContainer"
-// export default function AllPageLayout({ children }) {
+import Helmet from "react-helmet"
+
 export default function AllPageLayout(props) {
     // console.log(props)
     return (
         <>
+        <Helmet>
+            <title>
+                Client-Note App
+            </title>
+            <meta name="description" content="Keep your company's client notes organized and easy to access"/>
+        </Helmet>
             {/* <NavBar></NavBar> */}
             {/* <div class="container-fluid"> */}
             <div class="row nav-text bgCustomDark heading">
-                <h1 class="nav-text">Client-Notes App</h1>
+                <h1 class="nav-text">Client-Note App</h1>
             </div>
             <div class="row nav-text bgCustomDark heading">
                 <p class="nav-text">Keep track of important details for clients and their projects</p>

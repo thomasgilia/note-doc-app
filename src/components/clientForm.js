@@ -33,51 +33,52 @@ export default function ClientForm() {
 
     return (
         <>
-        <br></br>
             <form onSubmit={e => newClientHandler(e)}>
-                Client Name: <input type="text" name="clientName" required onChange={e => setClientName(e.target.value)} />
-                <br></br>
-                <div>
-                    <label for="ownedByUser">Has owner?</label>
-                    <select name="ownedByUser" id="ownedByUser" required onChange={e => setOwnedByUser(e.target.value)}>
-                        <option selected></option>
-                        <option value="true">Yes</option>
-                        <option value="false">No</option>
-                    </select>
-                    <br>
-                    </br>
-                    Owned By: <input type="text" name="ownedBy" required onChange={e => setOwnedBy(e.target.value)} />
-                    <br>
-                    </br>
-                    <label for="keyClient">Key Client?</label>
-                    <select name="keyClient" id="keyClient" required onChange={e => setKeyClient(e.target.value)}>
-                        <option selected></option>
-                        <option value="true">Yes</option>
-                        <option value="false">No</option>
-                    </select>
-                    <br>
-                    </br>
-                    <label for="reqQuote">Requires Quote?</label>
-                    <select name="reqQuote" id="reqQuote" required onChange={e => setReqQuote(e.target.value)}>
-                        <option selected></option>
-                        <option value="true">Yes</option>
-                        <option value="false">No</option>
-                    </select>
-                    <br>
-                    </br>
-                    <label for="reqQuoteApproval">Requires Quote Approval?</label>
-                    <select name="reqQuoteApproval" id="reqQuoteApproval" required onChange={e => setReqQuoteApproval(e.target.value)}>
-                        <option selected></option>
-                        <option value="true">Yes</option>
-                        <option value="false">No</option>
-                    </select>
-                    Discount: <input type="text" name="standardDiscount" required onChange={e => setStandardDiscount(e.target.value)} />
-                    <br></br>
-                 Revision Log: <input type="text" name="revisionLog" required onChange={e => setRevisionLog(e.target.value)} />
-                    <br></br>
-                    <br></br>
-                    <button class="btn btn-dark" type="submit">Submit</button>
+                <div class="form-group">
+                    Client Name: <input type="text" name="clientName" class="form-control" required onChange={e => setClientName(e.target.value)} />
                 </div>
+                <div class="form-group">
+                    <label for="ownedByUser">Has owner?</label>
+                    <select name="ownedByUser" id="ownedByUser" class="form-control" required onChange={e => setOwnedByUser(e.target.value)}>
+                        <option selected></option>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    Owned By: <input type="text" name="ownedBy" class="form-control" required onChange={e => setOwnedBy(e.target.value)} />
+                </div>
+                <div class="form-group">
+                    <label for="keyClient">Key Client?</label>
+                    <select name="keyClient" id="keyClient" class="form-control" required onChange={e => setKeyClient(e.target.value)}>
+                        <option selected></option>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reqQuote">Requires Quote?</label>
+                    <select name="reqQuote" id="reqQuote" class="form-control" required onChange={e => setReqQuote(e.target.value)}>
+                        <option selected></option>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reqQuoteApproval">Requires Quote Approval?</label>
+                    <select name="reqQuoteApproval" class="form-control" id="reqQuoteApproval" required onChange={e => setReqQuoteApproval(e.target.value)}>
+                        <option selected></option>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    Discount: <input type="text" class="form-control" name="standardDiscount" required onChange={e => setStandardDiscount(e.target.value)} />
+                </div>
+                <div class="form-group">
+                    Revision Log: <input type="text" class="form-control" name="revisionLog" required onChange={e => setRevisionLog(e.target.value)} />
+                </div>
+                <button class="btn btn-dark" type="submit">Submit</button>
             </form>
         </>
     )

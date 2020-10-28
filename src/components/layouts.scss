@@ -10,7 +10,9 @@ $color-cobalty-navy: #0a0147;
 .bgCustomDark {
   background-color: $color-custom-dark;
 }
-
+ul {
+  background-color: $color-custom-dark !important;
+}
 .bgCustomMed {
   background-color: $color-custom-med;
 }
@@ -21,6 +23,10 @@ $color-cobalty-navy: #0a0147;
 body {
   // background-color: #fff;
   background-color: $color-primaryBg;
+}
+
+.note-text {
+  color: $color-cobalty-navy;
 }
 
 .block-container {

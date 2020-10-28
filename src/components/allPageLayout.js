@@ -13,6 +13,7 @@ export default function AllPageLayout(props) {
             <div class="row">
                 <div class="col-md-3 col-lg-2">
                     <FlagBarLayout></FlagBarLayout>
+
                     {/* <FlagBarLayout list={props.flaggedNotes}></FlagBarLayout> */}
                 </div>
                 <div class="col-md-8 col-lg-9">

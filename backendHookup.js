@@ -118,59 +118,98 @@ export function getClients() {
     }))
 };
 
+// export function getAllNotes() {
+//   const endpoint = `http://localhost:3000/getallnotes`;
+//   // const endpoint = `https://client-note-app.herokuapp.com/getallnotes`;
+//   // let resource = "notes"
+//   return (axios.get(endpoint).then(function (response) {
+//     let flagged = response.data.filter((element) => {
+//       if (element.flagUrgent === true) {
+//         return element
+//       }
+//     })
+//     let sorted = flagged.sort((a, b) => 0 - (a.updatedAt > b.updatedAt ? 1 : -1))
+//     let newArr = []
+//     sorted.map((el) => {
+//       let thisClientId = el.clientId
+//       // ----working except name problem
+//       return getClient(thisClientId).then((res) => {
+//         el.clientName = res[1].response[0][1][1]
+//         // console.log(res)
+//         // console.log(response[1].response[0][1][1])
+//         // return Promise.resolve(el)
+//         // let obj = {
+//         //   clientId: thisClientId,
+//         //   clientName: res[1].response[0][1][1]
+//         // }
+//         let obj = [
+//           ["clientId", thisClientId],
+//           ["clientName", res[1].response[0][1][1]]
+//         ]
+//         newArr.push(obj)
+//       })
+
+//     })
+//     console.log(newArr)
+//     //-------
+//     return newArr
+//   }
+//   )
+//   )
+// };
+
 export function getAllNotes() {
   const endpoint = `http://localhost:3000/getallnotes`;
   // const endpoint = `https://client-note-app.herokuapp.com/getallnotes`;
-  let resource = "notes"
+  // let resource = "notes"
   return (axios.get(endpoint).then(function (response) {
-    // console.log(response.data)
     let flagged = response.data.filter((element) => {
       if (element.flagUrgent === true) {
         return element
       }
     })
     let sorted = flagged.sort((a, b) => 0 - (a.updatedAt > b.updatedAt ? 1 : -1))
-    // console.log(sorted)
 
-    let newArr = []
-    sorted.map((el) => {
-      let thisClientId = el.clientId
-      //----working except name problem
-      // getClient(thisClientId).then((response) => {
-      //   el.clientName = response[1].response[0][1][1]
-      //   // console.log(el)
-      //   // console.log(response[1].response[0][1][1])
-      //   return el
-      // })
-      //-------
-     let newArrayElement = getClient(thisClientId).then((res) => {
-        // el = toNoteArray(el)
-        // element.clientName = response[1].response[0][1][1]
-        let elClientname = res[1].res[0][1][1]
-        newArr.push(["clientName", elClientname])
-        // console.log(element[9][1])
-        // console.log(response[1].response[0][1][1])
-        // return 
-      })
-
-      // return toNoteArray(element)
+    sorted.forEach((element) => {
+      let thisDate = element.updatedAt
+      // thisDate.parseISO
+      let x = thisDate.split("T")
+      let dateSection = x[0]
+      let parts = dateSection.split('-')
+      let mydate = `${parts[1]}-${parts[2]}-${parts[0]}`;
+      element.updatedAt = mydate
       // console.log(element)
-      // return newArr
     })
-    // let arr = [...newArr]
-    // let transferArr = [{ resource: resource }, { response: [...newArr] }]
-    // console.log(transferArr[1].response[0].clientName)
-    // let test = [...arr]
-    // let testName = {...test}
+
+
+    // let newArr = []
+    // sorted.forEach((el) => {
+    //   let thisClientId = el.clientId
+    //   // ----working except name problem
+    //   return getClient(thisClientId).then((res) => {
+    //     el.clientName = res[1].response[0][1][1]
+    //     // console.log(res)
+    //     // console.log(response[1].response[0][1][1])
+    //     // return Promise.resolve(el)
+    //     // let obj = {
+    //     //   clientId: thisClientId,
+    //     //   clientName: res[1].response[0][1][1]
+    //     // }
+    //     let obj = [
+    //       ["clientId", thisClientId],
+    //       ["clientName", res[1].response[0][1][1]]
+    //     ]
+    //     newArr.push(obj)
+    //   })
+
+    // })
     // console.log(sorted)
-    return newArr;
-  })
-    .catch((err) => {
-      console.log("AXIOS ERROR: ", err);
-    })
+    //-------
+    return sorted
+  }
+  )
   )
 };
-
 
 export async function createClient(input) {
   const endpoint = `http://localhost:3000/clients`;
@@ -183,11 +222,9 @@ export async function createClient(input) {
     if (res.data === 'client was created') {
       window.location = `http://localhost:8000/`;
     }
-  })                          //wrinkle: clients are created with createPages adn have pagecontext instead of props
-    // .then(axios.post(`https://api.netlify.com/build_hooks/5f92416876a5163859e835d1`, "SuccessfulRebuild"))
-    .catch((err) => {
-      console.log("AXIOS ERROR: ", err);
-    })
+  }).catch((err) => {
+    console.log("AXIOS ERROR: ", err);
+  })
 };
 
 export async function createNote(transferObj) {
@@ -199,7 +236,7 @@ export async function createNote(transferObj) {
   const endpoint = `http://localhost:3000/notes/client${clientId}`;
   // const endpoint = `https://client-note-app.herokuapp.com/notes/client${clientId}`;
   // console.log("clientId passed from Note form is: " + id)
-  axios.post(endpoint, transferObjData
+  return axios.post(endpoint, transferObjData
   ).then((res) => {
     console.log("RESPONSE RECEIVED: ", res.data);
     getClient(res.data)    //needed? but may use in redirect. howvefr, as is, it erroes out if anything other

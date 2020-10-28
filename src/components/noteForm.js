@@ -35,7 +35,7 @@ export default function NoteForm(props) {
     const updateNoteHandler = async e => {
         e.preventDefault()
         let id = parseInt(noteId)
-// console.log("note Id is " + note)
+        // console.log("note Id is " + note)
         let input = {
             id: id,
             title: title,
@@ -88,7 +88,7 @@ export default function NoteForm(props) {
             // });
             // let originalNoteObj = obj[0]
             originalNoteObj = Object.fromEntries(fixedArray)
-// console.log(originalNoteObj)
+            // console.log(originalNoteObj)
             setTitle(originalNoteObj.title)//build out rest of field states to update like title here
             setNote(originalNoteObj.note)
             // setClientId(originalNoteObj.clientId)   //dont need unless decide to hookup change client functionality
@@ -102,9 +102,10 @@ export default function NoteForm(props) {
     if ((props.note === null) || (props.note === undefined)) {
         return (
             <>
-                <h4>New note for client: {props.thisClient}</h4>
+                <h4 class="note-text">New note for client: {props.thisClient}</h4>
+                <br></br>
                 <form onSubmit={e => newNoteHandler(e)}>
-                    Title: <input type="text" name="title" required onChange={e => setTitle(e.target.value)} />
+                    Title: <input type="text" name="title" class="note-text" required onChange={e => setTitle(e.target.value)} />
                     <br></br>
                     <div>
                         <label for="category">Choose a category:</label>
@@ -126,7 +127,8 @@ export default function NoteForm(props) {
                         <br></br>
                         Revision Log: <input type="text" name="revisionLog" required onChange={e => setRevisionLog(e.target.value)} />
                         <br></br>
-                        <button type="submit">Submit</button>
+                        <br></br>
+                        <button class="btn btn-dark" type="submit">Submit</button>
                     </div>
                 </form>
             </>
@@ -134,7 +136,8 @@ export default function NoteForm(props) {
     } else {
         return (
             <>
-                <h4>Update note {noteId} for client: {props.thisClient}</h4>
+                <h4 class="note-text">Update note {noteId} for client: {props.thisClient}</h4>
+                <br></br>
                 <form onSubmit={e => updateNoteHandler(e)}>
                     Title: <input type="text" name="title" value={title} required onChange={(e) => { setTitle(e.target.value) }} />
                     <br></br>
@@ -158,7 +161,8 @@ export default function NoteForm(props) {
                         <br></br>
                         Revision Log: <input type="text" name="revisionLog" value={revisionLog} required onChange={e => setRevisionLog(e.target.value)} />
                         <br></br>
-                        <button type="submit">Submit</button>
+                        <br></br>
+                        <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
                 </form>
             </>

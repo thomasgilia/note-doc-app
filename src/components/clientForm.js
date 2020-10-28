@@ -33,6 +33,7 @@ export default function ClientForm() {
 
     return (
         <>
+        <br></br>
             <form onSubmit={e => newClientHandler(e)}>
                 Client Name: <input type="text" name="clientName" required onChange={e => setClientName(e.target.value)} />
                 <br></br>
@@ -74,7 +75,8 @@ export default function ClientForm() {
                     <br></br>
                  Revision Log: <input type="text" name="revisionLog" required onChange={e => setRevisionLog(e.target.value)} />
                     <br></br>
-                    <button type="submit">Submit</button>
+                    <br></br>
+                    <button class="btn btn-dark" type="submit">Submit</button>
                 </div>
             </form>
         </>

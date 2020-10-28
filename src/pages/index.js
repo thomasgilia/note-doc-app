@@ -68,7 +68,7 @@ export default function Home() {
           {newClient !== null && (<> <BlockContainer><h4>New Client form</h4>
             <ClientForm></ClientForm></BlockContainer></>)}
           <BlockContainer>
-            <button onClick={(e) => callClientForm(e)}>Create New Client</button>
+            <button class="btn btn-dark" onClick={(e) => callClientForm(e)}>Create New Client</button>
             {/* <button onClick={(e) => callAllNotes(e)}>All notes</button> */}
             <SortListLayout list={list} resource="clients" clientId={clientId} noteId={noteId}></SortListLayout>
           </BlockContainer>

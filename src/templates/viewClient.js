@@ -82,12 +82,15 @@ export default function ViewClient({ pageContext }) {
                             <SortListLayout {...shuttle} ></SortListLayout>}
                         {/* <SortListLayout list={client} resource="client"></SortListLayout> */}
                         <br></br>
-                        <button onClick={(e) => callClientNotes(e)}>Get Client Notes</button>
-                        <button onClick={(e) => callClientForm(e)}>New Client form</button>
-                        <button onClick={(e) => callNoteForm(e)}>New Note form</button>
-                        {/* <button onClick={(e) => callEditClient(e)}>Edit Client</button> */}
-                        <button class="btn-danger" onClick={(e) => callDeleteClient(e)}>Delete Client</button>
-                        {/* <NoteForm clientId={id} thisClient={thisClient} resource="note"></NoteForm> */}
+                        <div class="d-flex justify-content-around">
+                            <button class="btn btn-primary btn-lg" onClick={(e) => callClientNotes(e)}>Get Client Notes</button>
+
+                            <button class="btn btn-primary btn-sm" onClick={(e) => callNoteForm(e)}>New Note form</button>
+                            {/* <button onClick={(e) => callEditClient(e)}>Edit Client</button> */}
+                            <button class="btn btn-dark btn-sm" onClick={(e) => callClientForm(e)}>New Client form</button>
+                            <button class="btn btn-danger btn-sm" onClick={(e) => callDeleteClient(e)}>Delete Client</button>
+                            {/* <NoteForm clientId={id} thisClient={thisClient} resource="note"></NoteForm> */}
+                        </div>
                     </BlockContainer>
                     {newClient !== null && (<> <BlockContainer resource="client"><h4>Create new Client</h4>
                         <ClientForm></ClientForm></BlockContainer></>)}
@@ -95,7 +98,7 @@ export default function ViewClient({ pageContext }) {
                         <NoteForm thisClient={thisClient} clientId={hardcodeClientId} resource="notes"></NoteForm></BlockContainer></>)}
                     {/* {callNotes !== null && (<><BlockContainer><h4>Notes for client: {thisClient}</h4>
                             <NoteForm thisClient={thisClient} clientId={id} resource="notes"></NoteForm></BlockContainer></>)} */}
-                    {callNotes !== null && (<><BlockContainer resource="note"><h4>Notes for client: {thisClient}</h4>
+                    {callNotes !== null && (<><BlockContainer resource="note"><h4 className="note-text">Notes for client: {thisClient}</h4>
                         <SortListLayout list={callNotes} resource="notes" clientId={hardcodeClientId}></SortListLayout></BlockContainer></>)}
                     {/* need to update client here */}
 

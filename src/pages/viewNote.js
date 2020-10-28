@@ -65,7 +65,7 @@ export default function Home({ location }) {
     //     e.preventDefault()
     // // editNote(note)
     // }
-                                // if(note){console.log(note[0][2][1])}
+    // if(note){console.log(note[0][2][1])}
     // let x = location.state.stateData
     // console.log(props) // array of arrays repping 1 clinet with pretty titles [["Client", "Stucky's], ["Client Id", 1]]
     // if (note !== null) 
@@ -75,25 +75,27 @@ export default function Home({ location }) {
     // console.log(ids)
     let callDeleteNote = async function (e) {
         e.preventDefault()
-        let response = await deleteNote(ids)    
+        let response = await deleteNote(ids)
     }
-    
+
     return (
         <>
             <AllPageLayout>
                 <BlockContainer resource="note">
-                    <h2>Note Subject: {note !== null && note[0][2][1]}</h2>
-                    <h4>Note Id: {id}</h4>
-                    <h4>For Client: {thisClient !== null && thisClient}</h4>
+                    <h2 class="note-text">Note Subject: {note !== null && note[0][2][1]}</h2>
+                    <h4 class="note-text">Note Id: {id}</h4>
+                    <h4 class="note-text">For Client: {thisClient !== null && thisClient}</h4>
                 </BlockContainer>
                 <BlockContainer resource="note">
                     <SortListLayout thisClient={thisClient} clientId={clientId} list={note} noteId={id}
                         resource="note"></SortListLayout>
                     <br></br>
-                    <button onClick={(e) => callClientForm(e)}>New Client form</button>
-                    <button onClick={(e) => callNoteForm(e)}>New Note form</button>
-                    <button onClick={(e) => callEditNoteForm(e)}>Edit Note</button>
-                    <button class="btn-danger" onClick={(e) => callDeleteNote(e)}>Delete Note</button>
+                    <div class="d-flex justify-content-around">
+                        <button class="btn btn-primary btn-lg" onClick={(e) => callEditNoteForm(e)}>Edit Note</button>
+                        <button class="btn btn-primary btn-sm" onClick={(e) => callNoteForm(e)}>New Note form</button>
+                        <button class="btn btn-dark btn-sm" onClick={(e) => callClientForm(e)}>New Client form</button>
+                        <button class="btn btn-danger btn-sm" onClick={(e) => callDeleteNote(e)}>Delete Note</button>
+                    </div>
                 </BlockContainer>
                 {newNote !== null && (<> <BlockContainer resource="note">
                     <NoteForm thisClient={thisClient} clientId={clientId} resource="notes"></NoteForm></BlockContainer></>)}

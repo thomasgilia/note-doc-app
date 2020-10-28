@@ -62,11 +62,11 @@ export default function ListItemSingle(props) {
             <>
                 {(props.listCount === null && resourceDisplay === "Client") && <td>
                     {/* {(props.listCount === null || props.resource === "notes") && <td> */}
-                    <Link to={route + clientIdHolder} className="btn btn-secondary btn-sm">View {resourceDisplay}</Link>
+                    <Link to={route + clientIdHolder} className="btn btn-dark btn-sm">View {resourceDisplay}</Link>
                 </td>}
 
                 {(props.resource === "notes") && <td>
-                    <button onClick={(e) => {
+                    <button class="btn btn-primary btn-sm" onClick={(e) => {
                         e.preventDefault()
                         navigate("/viewNote", {
                             state: { stateData },

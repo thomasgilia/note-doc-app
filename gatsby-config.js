@@ -9,7 +9,7 @@ module.exports = {
         {
             resolve: "gatsby-plugin-page-progress",
             options: {
-                height: 10,
+                height: 8,
                 prependToBody: true,
                 color: `#ffe2d6`,
             }

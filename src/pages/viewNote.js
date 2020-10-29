@@ -9,11 +9,24 @@ import { getNote, getClient, deleteNote } from "../../backendHookup"
 export default function Home({ location }) {
     const [note, setNote] = useState(null)
     const [thisClient, setThisClient] = useState(null)
-    const [id] = useState(location.state.stateData.noteId);
     const [newNote, setNewNote] = useState(null)
     const [editNote, setEditNote] = useState(null)
     const [newClient, setNewClient] = useState(null)
-    const clientId = location.state.stateData.clientId;
+
+    const [id, setId] = useState(null);
+    const [clientId, setClientId] = useState(null);
+
+    useEffect(() => {
+        if (location.state !== null) {
+            return setId(location.state.stateData.noteId)
+        }
+    })
+
+    useEffect(() => {
+        if (location.state !== null) {
+            return setClientId(location.state.stateData.clientId)
+        }
+    })
 
     useEffect(() => {
         getNote(id).then(transferArr => {
@@ -26,14 +39,14 @@ export default function Home({ location }) {
     let clientName = null
     useEffect(() => {
         let id = clientId
-        getClient(id).then(transferArr => {
-            let response = transferArr[1].response;
-            clientName = response[0][1][1]
-            setThisClient(clientName)
-        }
-        )
+        // getClient(id).then(transferArr => {
+        //     let response = transferArr[1].response;
+        //     clientName = response[0][1][1]
+        //     setThisClient(clientName)
+        // }
+        // )
     }, [setThisClient]);
-    
+
     let callClientForm = async function (e) {
         e.preventDefault()
         let newClientRequested = true;

@@ -9,7 +9,7 @@ export default function FlagBarLayout() {
         getAllNotes().then((sorted) => {
             return setFlaggedNotes(sorted)
         })
-        console.log(flaggedNotes)
+        // console.log(flaggedNotes)
     }, [setFlaggedNotes])
 
     return (

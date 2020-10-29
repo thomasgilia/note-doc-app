@@ -81,8 +81,8 @@ function toNoteArray(incoming) {
 }
 
 export function getClients() {
-  const endpoint = `http://localhost:3000/getallclients`;
-  // const endpoint = `https://client-note-app.herokuapp.com/getallclients`;
+  // const endpoint = `http://localhost:3000/getallclients`;
+  const endpoint = `https://client-note-app.herokuapp.com/getallclients`;
   let resource = "clients"
   return (axios.get(endpoint).then(function (response) {
     let newArr = response.data.map((element) => {
@@ -97,8 +97,8 @@ export function getClients() {
 };
 
 export function getAllNotes() {
-  const endpoint = `http://localhost:3000/getallnotes`;
-  // const endpoint = `https://client-note-app.herokuapp.com/getallnotes`;
+  // const endpoint = `http://localhost:3000/getallnotes`;
+  const endpoint = `https://client-note-app.herokuapp.com/getallnotes`;
   return (axios.get(endpoint).then(function (response) {
     let flagged = response.data.filter((element) => {
       if (element.flagUrgent === true) {
@@ -123,8 +123,8 @@ export function getAllNotes() {
 };
 
 export async function createClient(input) {
-  const endpoint = `http://localhost:3000/clients`;
-  // const endpoint = `https://client-note-app.herokuapp.com/clients`;
+  // const endpoint = `http://localhost:3000/clients`;
+  const endpoint = `https://client-note-app.herokuapp.com/clients`;
   axios.post(endpoint, input
   ).then((res) => {
     console.log("RESPONSE RECEIVED: ", res.data);
@@ -140,8 +140,8 @@ export async function createClient(input) {
 export async function createNote(transferObj) {
   let transferObjData = { ...transferObj }
   let clientId = transferObjData.clientId
-  const endpoint = `http://localhost:3000/notes/client${clientId}`;
-  // const endpoint = `https://client-note-app.herokuapp.com/notes/client${clientId}`;
+  // const endpoint = `http://localhost:3000/notes/client${clientId}`;
+  const endpoint = `https://client-note-app.herokuapp.com/notes/client${clientId}`;
   return axios.post(endpoint, transferObjData
   ).then((res) => {
     console.log("RESPONSE RECEIVED: ", res.data);
@@ -161,8 +161,8 @@ export async function createNote(transferObj) {
 
 
 export function getClient(id) {
-  const endpoint = `http://localhost:3000/clients/client${id}`;
-  // const endpoint = `https://client-note-app.herokuapp.com/clients/client${id}`;
+  // const endpoint = `http://localhost:3000/clients/client${id}`;
+  const endpoint = `https://client-note-app.herokuapp.com/clients/client${id}`;
   let resource = "client"
   return (axios.get(endpoint).then(function (response) {
     let newArr = [toArray(response.data)]
@@ -175,8 +175,8 @@ export function getClient(id) {
 };
 
 export function deleteClient(id) {
-  const endpoint = `http://localhost:3000/delete/client${id}`;
-  // const endpoint = `https://client-note-app.herokuapp.com/delete/client${id}`;
+  // const endpoint = `http://localhost:3000/delete/client${id}`;
+  const endpoint = `https://client-note-app.herokuapp.com/delete/client${id}`;
   axios.get(endpoint).then(function (res) {
     if (res.data === 'client was deleted') {
       window.location = "http://localhost:8000/";
@@ -190,8 +190,8 @@ export function deleteClient(id) {
 };
 
 export function getNote(id) {
-  const endpoint = `http://localhost:3000/notes/note${id}`;
-  // const endpoint = `https://client-note-app.herokuapp.com/notes/note${id}`;
+  // const endpoint = `http://localhost:3000/notes/note${id}`;
+  const endpoint = `https://client-note-app.herokuapp.com/notes/note${id}`;
   let resource = "note"
   return (axios.get(endpoint).then(function (response) {
     let newArr = [toNoteArray(response.data)]
@@ -202,8 +202,8 @@ export function getNote(id) {
 };
 
 export function getClientNotes(id) {
-  const endpoint = `http://localhost:3000/notes/client${id}`;
-  // const endpoint = `https://client-note-app.herokuapp.com/notes/client${id}`;  //check
+  // const endpoint = `http://localhost:3000/notes/client${id}`;
+  const endpoint = `https://client-note-app.herokuapp.com/notes/client${id}`;  
   let resource = "notes"
   return axios.get(endpoint).then(function (response) {
     let newArr = response.data.map((element) =>
@@ -223,11 +223,11 @@ export function deleteNote(ids) {
   let theIds = { ...ids }
   let clientId = theIds.clientId
   let id = theIds.id
-  const endpoint = `http://localhost:3000/delete/note${id}`;
-  // const endpoint = `https://client-note-app.herokuapp.com/delete/note${id}`;
+  // const endpoint = `http://localhost:3000/delete/note${id}`;
+  const endpoint = `https://client-note-app.herokuapp.com/delete/note${id}`;
   axios.get(endpoint).then(function (res) {
     if (res.data === 'note was deleted') {
-      window.location = `http://localhost:8000/clients/client${clientId}`;    //3000?
+      window.location = `http://localhost:8000/clients/client${clientId}`;    
       alert("Note was deleted")
     }
     return res.data
@@ -241,12 +241,12 @@ export function editNote(transferObj) {
   let transferObjData = { ...transferObj }
   let clientId = transferObjData.input.clientId
   let noteId = transferObjData.id
-  const endpoint = `http://localhost:3000/edit/Note${noteId}`;
-  // const endpoint = `https://client-note-app.herokuapp.com/edit/Note${id}`;
+  // const endpoint = `http://localhost:3000/edit/Note${noteId}`;
+  const endpoint = `https://client-note-app.herokuapp.com/edit/Note${noteId}`;
 
   axios.post(endpoint, transferObjData).then(function (res) {
     if (res.data === 'note was updated') {
-      window.location = `http://localhost:8000/clients/client${clientId}`;    //3000?
+      window.location = `http://localhost:8000/clients/client${clientId}`;    
     }
     return res.data
   }

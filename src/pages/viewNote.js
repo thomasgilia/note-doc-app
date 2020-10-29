@@ -39,12 +39,12 @@ export default function Home({ location }) {
     let clientName = null
     useEffect(() => {
         let id = clientId
-        // getClient(id).then(transferArr => {
-        //     let response = transferArr[1].response;
-        //     clientName = response[0][1][1]
-        //     setThisClient(clientName)
-        // }
-        // )
+        getClient(id).then(transferArr => {
+            let response = transferArr[1].response;
+            clientName = response[0][1][1]
+            setThisClient(clientName)
+        }
+        )
     }, [setThisClient]);
 
     let callClientForm = async function (e) {

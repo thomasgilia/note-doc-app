@@ -10,9 +10,7 @@ $color-cobalty-navy: #0a0147;
 .bgCustomDark {
   background-color: $color-custom-dark;
 }
-// .transparent {
-//   background-color: transparent !important;
-// }
+
 .bgCustomMed {
   background-color: $color-custom-med;
 }
@@ -21,7 +19,6 @@ $color-cobalty-navy: #0a0147;
 }
 
 body {
-  // background-color: #fff;
   background-color: $color-primaryBg;
 }
 
@@ -43,13 +40,11 @@ body {
   font-weight: bold;
 }
 .flag {
-  // background-color: $color-custom-dark;
   padding: 30px;
   border-width: 300px;
   border-color: black;
 }
 .heading {
-  // background-color: $color-custom-dark;
   padding-left: 30px;
 }
 .gradient {

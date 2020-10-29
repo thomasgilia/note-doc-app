@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react"
-import { createNote, editNote, deleteNote } from "../../backendHookup"
+import { createNote, editNote } from "../../backendHookup"
 
 export default function NoteForm(props) {
-    // console.log(props) //has thisclient, clientID, the note data passed from viewnote, resources
     const [title, setTitle] = useState("")
     const [note, setNote] = useState(null)
-    const [clientId, setClientId] = useState(props.clientId)
+    const [clientId] = useState(props.clientId)
     const [category, setCategory] = useState(null)
     const [flagUrgent, setFlagUrgent] = useState(null)
     const [revisionLog, setRevisionLog] = useState(null)
@@ -13,7 +12,6 @@ export default function NoteForm(props) {
 
     const newNoteHandler = async e => {
         e.preventDefault()
-        // let id = clientId
 
         let input = {
             title: title,
@@ -26,16 +24,12 @@ export default function NoteForm(props) {
             clientId: clientId,
             input
         }
-        // setVisitor("")       //resetting values after form sent
-        // setMessage("")
         createNote(transferObj)
     }
 
-    //---------------------------------------------------------------------------
     const updateNoteHandler = async e => {
         e.preventDefault()
         let id = parseInt(noteId)
-        // console.log("note Id is " + note)
         let input = {
             id: id,
             title: title,
@@ -52,7 +46,7 @@ export default function NoteForm(props) {
         }
         editNote(transferObj)
     }
-    //-----------------------------------------------
+
     let originalNoteObj;
     useEffect(() => {
         if ((props.note !== null) && (props.note !== undefined)) {
@@ -74,28 +68,18 @@ export default function NoteForm(props) {
 
             let fixedArray = []
             fixedArray = originalNoteZero.map((element, index) => {
-                // console.log(element[1])
-                // fixedArray.push([forgoodnesssake[index][0], element[index][1]]) 
                 return [titleMaps[index][0], element[1]]
             })
-            // let obj = []
-            // fixedArray.map(element => {
-            //     let pairs = Object.fromEntries(element)
-            //     // obj.push(pairs)
-            //     console.log(pairs)
-            // });
-            // let originalNoteObj = obj[0]
+
             originalNoteObj = Object.fromEntries(fixedArray)
-            // console.log(originalNoteObj)
-            setTitle(originalNoteObj.title)//build out rest of field states to update like title here
+            setTitle(originalNoteObj.title)
             setNote(originalNoteObj.note)
-            // setClientId(originalNoteObj.clientId)   //dont need unless decide to hookup change client functionality
             setCategory(originalNoteObj.category)
             setFlagUrgent(originalNoteObj.flagUrgent)
             setRevisionLog(originalNoteObj.revisionLog)
             setNoteId(originalNoteObj.id)
         }
-    }, [])//bare minimum second param to useeffect. otherwise it can end up in loops.
+    }, [])
 
     if ((props.note === null) || (props.note === undefined)) {
         return (

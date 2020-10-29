@@ -1,6 +1,4 @@
 import axios from "axios";
-import SortListLayout from "./src/components/sortListLayout";
-import React from "react"
 
 let titleMap = {
   id: "Client Id",
@@ -13,7 +11,7 @@ let titleMap = {
   standardDiscount: "Standard discount (%)",
   revisionLog: "Revision Log",
   createdAt: "Created",
-  updatedAt: "Last update"     //ends up "" i think update populates afterwards...deal with it later
+  updatedAt: "Last update"
 };
 let titleMapArr = Object.entries(titleMap);
 
@@ -27,8 +25,6 @@ let titleMapNotes = {
   createdAt: "Created",
   updatedAt: "Last Update",
   clientId: "Client Id",
-  // clientName: "Client"
-
 };
 let titleMapNotesArr = Object.entries(titleMapNotes);
 
@@ -43,13 +39,12 @@ export function titleMapper(resource) {
   }
   return titleList
 }
-//reusable module to turn data list object to array, then modify titles per map
+
 function toArray(incoming) {
   let arr = Object.entries(incoming)
-  arr.map((item) => {       //item is [id, 2] or ["created at", "2-22-2020"] etc
+  arr.map((item) => {
     let key = item[0]
-    let value = item[1].toString()    //without this, the boolean populated blank in table
-    // let value = item[1].toString()    //without this, the boolean populated blank in table
+    let value = item[1].toString()
     let newKey = ""
     titleMapArr.forEach((item, index, arr) => {
       if (arr[index][0] === key) {
@@ -63,17 +58,13 @@ function toArray(incoming) {
   })
   return arr
 }
-//reusable module to turn data list object to array, then modify titles per map
+
 function toNoteArray(incoming) {
   let arr = Object.entries(incoming)
-  // console.log(arr)
-  arr.map((item) => {       //item is [id, 2] or ["created at", "2-22-2020"] etc
-    // let key = item[0].toString()
+  arr.map((item) => {
     let key = item[0]
-    // console.log(item[1])
     let value
     if (item[1] !== null) { value = item[1].toString() }
-    // let value = item[1].toString()    //without this, the boolean populated blank in table
 
     let newKey = ""
     titleMapNotesArr.forEach((item, index, arr) => {
@@ -88,28 +79,15 @@ function toNoteArray(incoming) {
   })
   return arr
 }
-//need separate/additional fucntionality for getting mulitiple objects
-//back from axios call (i.e. a list of clients or multiple notes for a 
-//client). i think mapping within main function to call toArray
-//for each of the individual objects (like a single client) that are received
-//but then will have to add another mapping on the consumer
-//side to handle the extra level of nesting
-//...alternative is to build a new array with only the items
-//needed...
-//...or do a separate sortlistlayout - one with search for multiple 
-//results and handlign the nesting, one for simpler and not nested
-
 
 export function getClients() {
   const endpoint = `http://localhost:3000/getallclients`;
   // const endpoint = `https://client-note-app.herokuapp.com/getallclients`;
   let resource = "clients"
   return (axios.get(endpoint).then(function (response) {
-    // let dbConnectionCheck = response.data;
-    // let responseData = response.data
     let newArr = response.data.map((element) => {
       return toArray(element)
-    })                                            //prop need a bug fix - if there is only one client in db, need to add null
+    })
     let transferArr = [{ resource: resource }, { response: newArr }]
     return (transferArr);
   })
@@ -118,50 +96,9 @@ export function getClients() {
     }))
 };
 
-// export function getAllNotes() {
-//   const endpoint = `http://localhost:3000/getallnotes`;
-//   // const endpoint = `https://client-note-app.herokuapp.com/getallnotes`;
-//   // let resource = "notes"
-//   return (axios.get(endpoint).then(function (response) {
-//     let flagged = response.data.filter((element) => {
-//       if (element.flagUrgent === true) {
-//         return element
-//       }
-//     })
-//     let sorted = flagged.sort((a, b) => 0 - (a.updatedAt > b.updatedAt ? 1 : -1))
-//     let newArr = []
-//     sorted.map((el) => {
-//       let thisClientId = el.clientId
-//       // ----working except name problem
-//       return getClient(thisClientId).then((res) => {
-//         el.clientName = res[1].response[0][1][1]
-//         // console.log(res)
-//         // console.log(response[1].response[0][1][1])
-//         // return Promise.resolve(el)
-//         // let obj = {
-//         //   clientId: thisClientId,
-//         //   clientName: res[1].response[0][1][1]
-//         // }
-//         let obj = [
-//           ["clientId", thisClientId],
-//           ["clientName", res[1].response[0][1][1]]
-//         ]
-//         newArr.push(obj)
-//       })
-
-//     })
-//     console.log(newArr)
-//     //-------
-//     return newArr
-//   }
-//   )
-//   )
-// };
-
 export function getAllNotes() {
   const endpoint = `http://localhost:3000/getallnotes`;
   // const endpoint = `https://client-note-app.herokuapp.com/getallnotes`;
-  // let resource = "notes"
   return (axios.get(endpoint).then(function (response) {
     let flagged = response.data.filter((element) => {
       if (element.flagUrgent === true) {
@@ -172,39 +109,13 @@ export function getAllNotes() {
 
     sorted.forEach((element) => {
       let thisDate = element.updatedAt
-      // thisDate.parseISO
       let x = thisDate.split("T")
       let dateSection = x[0]
       let parts = dateSection.split('-')
       let mydate = `${parts[1]}-${parts[2]}-${parts[0]}`;
       element.updatedAt = mydate
-      // console.log(element)
     })
 
-
-    // let newArr = []
-    // sorted.forEach((el) => {
-    //   let thisClientId = el.clientId
-    //   // ----working except name problem
-    //   return getClient(thisClientId).then((res) => {
-    //     el.clientName = res[1].response[0][1][1]
-    //     // console.log(res)
-    //     // console.log(response[1].response[0][1][1])
-    //     // return Promise.resolve(el)
-    //     // let obj = {
-    //     //   clientId: thisClientId,
-    //     //   clientName: res[1].response[0][1][1]
-    //     // }
-    //     let obj = [
-    //       ["clientId", thisClientId],
-    //       ["clientName", res[1].response[0][1][1]]
-    //     ]
-    //     newArr.push(obj)
-    //   })
-
-    // })
-    // console.log(sorted)
-    //-------
     return sorted
   }
   )
@@ -217,7 +128,6 @@ export async function createClient(input) {
   axios.post(endpoint, input
   ).then((res) => {
     console.log("RESPONSE RECEIVED: ", res.data);
-    // getClient(res.data.id)    //need to return anything?  this gives me the transfer arr but i need to redirect
     alert("Client was created. Please allow a few moments for the client page to be created")
     if (res.data === 'client was created') {
       window.location = `http://localhost:8000/`;
@@ -229,22 +139,15 @@ export async function createClient(input) {
 
 export async function createNote(transferObj) {
   let transferObjData = { ...transferObj }
-  // let input = transferObjData.input
   let clientId = transferObjData.clientId
-  // console.log(transferObj)
-  // export async function createNote(input, id) {
   const endpoint = `http://localhost:3000/notes/client${clientId}`;
   // const endpoint = `https://client-note-app.herokuapp.com/notes/client${clientId}`;
-  // console.log("clientId passed from Note form is: " + id)
   return axios.post(endpoint, transferObjData
   ).then((res) => {
     console.log("RESPONSE RECEIVED: ", res.data);
     console.log(transferObjData)
-    // getClient(res.data)    //needed? but may use in redirect. howvefr, as is, it erroes out if anything other
-    //than the client's id is passed back
     if (res.data) {
       let clientId = res.data
-      // console.log(res.data)
       window.location = `http://localhost:8000/clients/client${clientId}`;
       alert("Note was created")
     }
@@ -260,15 +163,10 @@ export async function createNote(transferObj) {
 export function getClient(id) {
   const endpoint = `http://localhost:3000/clients/client${id}`;
   // const endpoint = `https://client-note-app.herokuapp.com/clients/client${id}`;
-  // console.log(id)
   let resource = "client"
   return (axios.get(endpoint).then(function (response) {
-    // console.log(response.data)
-    // let clientArr = Object.entries(response.data)
     let newArr = [toArray(response.data)]
-    // console.log(newArr)
     let transferArr = [{ resource: resource }, { response: newArr }]
-    // console.log(transferArr)
     return (transferArr);
   })
   ).catch((err) => {
@@ -276,32 +174,10 @@ export function getClient(id) {
   })
 };
 
-// export function editClient(id) {
-//   const endpoint = `http://localhost:3000/delete/client${id}`;
-//   // const endpoint = `https://client-note-app.herokuapp.com/delete/client${id}`;
-//   // console.log(id)
-//   // let resource = "client"
-//   axios.get(endpoint).then(function (res) {
-//     // console.log(newArr)
-//     console.log(res.data)
-//     if (res.data === 'client was deleted') {
-//       window.location = "http://localhost:8000/";
-//     }
-//     return res.data
-//   }
-//   ).catch((err) => {
-//     console.log("AXIOS ERROR: ", err);
-//   })
-// };
-
 export function deleteClient(id) {
   const endpoint = `http://localhost:3000/delete/client${id}`;
   // const endpoint = `https://client-note-app.herokuapp.com/delete/client${id}`;
-  // console.log(id)
-  // let resource = "client"
   axios.get(endpoint).then(function (res) {
-    // console.log(newArr)
-    // console.log(res.data)
     if (res.data === 'client was deleted') {
       window.location = "http://localhost:8000/";
       alert("Client was deleted")
@@ -313,23 +189,13 @@ export function deleteClient(id) {
   })
 };
 
-
 export function getNote(id) {
   const endpoint = `http://localhost:3000/notes/note${id}`;
   // const endpoint = `https://client-note-app.herokuapp.com/notes/note${id}`;
   let resource = "note"
   return (axios.get(endpoint).then(function (response) {
-    // console.log(response.data)
-    // let clientArr = Object.entries(response.data)
-
-    // let newArr = [[toArray(response.data)], [null]]
     let newArr = [toNoteArray(response.data)]
-    // console.log(newArr)
-    //   if (response.length < 2) {
-    //     response.push([null])
-    // }
     let transferArr = [{ resource: resource }, { response: newArr }]
-    // console.log(newArr)
     return (transferArr);
   })
   )
@@ -338,21 +204,12 @@ export function getNote(id) {
 export function getClientNotes(id) {
   const endpoint = `http://localhost:3000/notes/client${id}`;
   // const endpoint = `https://client-note-app.herokuapp.com/notes/client${id}`;  //check
-  // console.log("this is client's id: " + id)
   let resource = "notes"
   return axios.get(endpoint).then(function (response) {
-
-    // console.log(response.data[0].id)
     let newArr = response.data.map((element) =>
       Object.entries(element))
     let transferArr = [{ resource: resource }, { response: newArr }, { clientId: id }]
-    // console.log()
-    // if (response.data[0].id > 1) {
-    //   alert("See notes below")
-    // }else{
-    //   alert("No notes yet. Use \"New Note Form\" to add note for this client.")
 
-    // }
     if (response.data[0] === undefined) {
       alert("No notes yet. Use \"New Note Form\" to add note for this client.")
     }
@@ -368,9 +225,7 @@ export function deleteNote(ids) {
   let id = theIds.id
   const endpoint = `http://localhost:3000/delete/note${id}`;
   // const endpoint = `https://client-note-app.herokuapp.com/delete/note${id}`;
-  // console.log(id)
   axios.get(endpoint).then(function (res) {
-    // console.log(res.data)
     if (res.data === 'note was deleted') {
       window.location = `http://localhost:8000/clients/client${clientId}`;    //3000?
       alert("Note was deleted")
@@ -378,7 +233,6 @@ export function deleteNote(ids) {
     return res.data
   }
   )
-    // .then((clientId)=>{getClientNotes(clientId)}).
     .catch((err) => {
       console.log("AXIOS ERROR: ", err);
     })
@@ -391,7 +245,6 @@ export function editNote(transferObj) {
   // const endpoint = `https://client-note-app.herokuapp.com/edit/Note${id}`;
 
   axios.post(endpoint, transferObjData).then(function (res) {
-
     if (res.data === 'note was updated') {
       window.location = `http://localhost:8000/clients/client${clientId}`;    //3000?
     }

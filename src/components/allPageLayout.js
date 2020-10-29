@@ -5,7 +5,6 @@ import FlagBarLayout from "./flagBarLayout"
 import Helmet from "react-helmet"
 
 export default function AllPageLayout(props) {
-    // console.log(props)
     return (
         <>
         <Helmet>
@@ -14,8 +13,6 @@ export default function AllPageLayout(props) {
             </title>
             <meta name="description" content="Keep your company's client notes organized and easy to access"/>
         </Helmet>
-            {/* <NavBar></NavBar> */}
-            {/* <div class="container-fluid"> */}
             <div class="row nav-text bgCustomDark heading">
                 <h1 class="nav-text">Client-Note App</h1>
             </div>
@@ -30,8 +27,6 @@ export default function AllPageLayout(props) {
                 </div>
                 <div class="col-md-8 col-lg-9">
                     <br></br>
-                    {/* <BlockContainer>{children}</BlockContainer>      what to put here if we want to reserve space
-                    and control overall spacing of the main data area but dont know what mini-layout we need yet? */}
                     {props.children}
                 </div>
                 <div class="col-md-1 col-lg-1">

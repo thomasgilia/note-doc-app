@@ -25,9 +25,6 @@ export default function ClientForm() {
             standardDiscount: standardDiscount,
             revisionLog: revisionLog
         }
-
-        // setVisitor("")       //resetting values after form sent
-        // setMessage("")
         createClient(input)
     }
 

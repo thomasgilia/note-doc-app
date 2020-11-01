@@ -5,7 +5,6 @@ import FlagBarLayout from "./flagBarLayout"
 import Helmet from "react-helmet"
 
 export default function AllPageLayout(props) {
-    // console.log(window)
     const [thisWindow, setThisWindow] = useState(null)
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -13,12 +12,6 @@ export default function AllPageLayout(props) {
         }
     }, [])
 
-    // if (typeOf window === 'undefined') {
-    //     thisWindow = null
-    //     console.log("window does not exist")
-    // }else {
-    //     thisWindow = window
-    // }
     return (
         <>
             <Helmet>
@@ -26,7 +19,7 @@ export default function AllPageLayout(props) {
                     Client-Note App
                 </title>
                 <meta name="description" content="Keep your company's client notes organized and easy to access" />
-                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
             </Helmet>
             <div class="row nav-text bgCustomDark heading">
                 <h1 class="nav-text">Client-Note App</h1>

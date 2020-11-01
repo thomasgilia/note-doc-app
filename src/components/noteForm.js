@@ -17,7 +17,7 @@ export default function NoteForm(props) {
             title: title,
             note: note,
             category: category,
-            flagUrgent: flagUrgent === "true", //check for boolean
+            flagUrgent: flagUrgent === "true",
             revisionLog: revisionLog
         }
         let transferObj = {
@@ -35,7 +35,7 @@ export default function NoteForm(props) {
             title: title,
             note: note,
             category: category,
-            flagUrgent: flagUrgent === "true", //check for boolean
+            flagUrgent: flagUrgent === "true",
             revisionLog: revisionLog,
             clientId: clientId
         }

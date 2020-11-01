@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react"
 import BlockContainer from "../components/blockContainer"
 import SortListLayout from "../components/sortListLayout"
 import AllPageLayout from "../components/allPageLayout"
-// import NotePageLayout from "../components/notePageLayout"
 import ClientForm from "../components/clientForm"
 import NoteForm from "../components/noteForm"
 import { getNote, getClient, deleteNote } from "../../backendHookup"
 
 export default function Home({ location }) {
-    // console.log(location)
     const [arrow1, setArrow1] = useState(false);
     const [arrow2, setArrow2] = useState(false);
     const [arrow3, setArrow3] = useState(false);
@@ -16,10 +14,9 @@ export default function Home({ location }) {
     const [id, setId] = useState(null);
     useEffect(() => {
         if ((location.state !== null) && (location.state !== undefined)) {
-            // console.log(location)
             return setId(location.state.stateData.noteId)
         } else {
-            console.log("error in setting id")
+            console.log("stateData not available")
         }
     }, [setId])
 
@@ -28,27 +25,24 @@ export default function Home({ location }) {
         if ((location.state.stateData !== null) && (location.state.stateData !== undefined)) {
             return setClientId(location.state.stateData.clientId)
         } else {
-            console.log("error in setting id")
+            console.log("stateData not available")
         }
     }, [setClientId])
 
     const [note, setNote] = useState(null)
     useEffect(() => {
-        // console.log("get note effect is being hit and has id available: " + id)
         getNote(id).then(transferArr => {
             let response = transferArr[1].response;
-            // console.log("interior of getNote is being hit")
             return setNote(response)
         }
         )
-    }, [id]);       //"only run this effect if the id changes between renders"
+    }, [id]);
 
     const [thisClient, setThisClient] = useState(null)
     useEffect(() => {
         getClient(clientId).then(transferArr => {
-            // console.log(transferArr)
             if (transferArr === undefined) {
-                console.log("client is undefined")
+                console.log("client is not defined")
             } else {
                 let response = transferArr[1].response;
                 let clientName = response[0][1][1]
@@ -57,29 +51,6 @@ export default function Home({ location }) {
         }
         )
     }, [clientId]);
-
-    // const [locationKey, setLocationKey] = useState(null)
-    // useEffect(() => {
-    //     // console.log(location)
-    //     if ((location.state !== null) && (location.state !== undefined)) {
-    //         // console.log(location.key)
-    //         // window.location.reload()
-    //         return setLocationKey(location.key)
-    //     } else {
-    //         console.log("error in setting key")
-    //     }
-    // }, [locationKey]);
-
-    // useEffect(() => {
-    //     if ((location.state.stateData !== null) && (location.state.stateData !== undefined)) {
-    //         console.log(location.state.stateData)
-    //     }
-    //     // if ((location.state !== null) && (location.state !== undefined) && (location.state.stateData.reloadCommand)) {
-    //     //     window.location.reload()
-    //     // } else {
-    //     //     console.log("error in setting reload command")
-    //     // }
-    // }, []);
 
     const [newNote, setNewNote] = useState(null)
     const [editNote, setEditNote] = useState(null)
@@ -101,7 +72,7 @@ export default function Home({ location }) {
 
     let callEditNoteForm = async function (e) {
         e.preventDefault()
-               let updateNoteRequested = true;
+        let updateNoteRequested = true;
         setEditNote(updateNoteRequested)
         setArrow1(true)
     }

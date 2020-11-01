@@ -19,7 +19,7 @@ export default function ClientForm() {
             clientName: clientName,
             ownedByUser: ownedByUser === "true",
             ownedBy: ownedBy,
-            keyClient: keyClient === "true", //check for boolean
+            keyClient: keyClient === "true", 
             reqQuote: reqQuote === "true",
             reqQuoteApproval: reqQuoteApproval === "true",
             standardDiscount: standardDiscount,

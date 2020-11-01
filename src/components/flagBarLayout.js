@@ -3,14 +3,12 @@ import { navigate } from "gatsby"
 import { getAllNotes } from "../../backendHookup"
 
 export default function FlagBarLayout({location}) {
-// console.log(location)
     const [flaggedNotes, setFlaggedNotes] = useState([])
 
     useEffect(() => {
         getAllNotes().then((sorted) => {
             return setFlaggedNotes(sorted)
         })
-        // console.log(flaggedNotes)
     }, [setFlaggedNotes])
 
     let currentpath
@@ -19,7 +17,6 @@ export default function FlagBarLayout({location}) {
     }else{
         currentpath = "/"
     }
-    // console.log(currentpath)
 
     return (
         <>

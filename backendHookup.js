@@ -145,7 +145,7 @@ export async function createNote(transferObj) {
   return axios.post(endpoint, transferObjData
   ).then((res) => {
     console.log("RESPONSE RECEIVED: ", res.data);
-    console.log(transferObjData)
+    // console.log(transferObjData)
     if (res.data) {
       let clientId = res.data
       window.location = `http://localhost:8000/clients/client${clientId}`;
@@ -164,8 +164,8 @@ export function getClient(clientId) {
   // const endpoint = `http://localhost:3000/clients/client${id}`;  //?
   const endpoint = `https://client-note-app.herokuapp.com/clients/client${clientId}`;
   let resource = "client"
-  console.log("hittign get client in backend")
-  console.log(clientId)
+  // console.log("hittign get client in backend")
+  // console.log(clientId)
   return (axios.get(endpoint).then(function (response) {
     let newArr = [toArray(response.data)]
     let transferArr = [{ resource: resource }, { response: newArr }]
@@ -195,7 +195,7 @@ export function getNote(id) {
   // const endpoint = `http://localhost:3000/notes/note${id}`;
   const endpoint = `https://client-note-app.herokuapp.com/notes/note${id}`;
   let resource = "note"
-  console.log("noteId received from viewnote: " + id)
+  // console.log("noteId received from viewnote: " + id)
   return (axios.get(endpoint).then(function (response) {
     let newArr = [toNoteArray(response.data)]
     let transferArr = [{ resource: resource }, { response: newArr }]

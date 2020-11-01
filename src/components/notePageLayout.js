@@ -1,24 +1,10 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import "./layouts.scss"
 import NavBar from "./navBar"
-import FlagBarLayout from "./flagBarLayout"
+import FlagBarNotePage from "./flagBarNotePage"
 import Helmet from "react-helmet"
 
-export default function AllPageLayout(props) {
-    // console.log(window)
-    const [thisWindow, setThisWindow] = useState(null)
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            return setThisWindow(window)
-        }
-    }, [])
-
-    // if (typeOf window === 'undefined') {
-    //     thisWindow = null
-    //     console.log("window does not exist")
-    // }else {
-    //     thisWindow = window
-    // }
+export default function NotePageLayout(props) {
     return (
         <>
             <Helmet>
@@ -37,8 +23,7 @@ export default function AllPageLayout(props) {
 
             <div class="row">
                 <div class="col-md-3 col-lg-2">
-                    {(thisWindow !== null) && <FlagBarLayout location={thisWindow.location}></FlagBarLayout>}
-                    {(thisWindow === null) && <FlagBarLayout location={null}></FlagBarLayout>}
+                    <FlagBarNotePage></FlagBarNotePage>
                 </div>
                 <div class="col-md-8 col-lg-9">
                     <br></br>

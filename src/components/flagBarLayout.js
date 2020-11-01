@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react"
 import { navigate } from "gatsby"
 import { getAllNotes } from "../../backendHookup"
 
-export default function FlagBarLayout() {
+export default function FlagBarLayout({location}) {
+console.log(location)
     const [flaggedNotes, setFlaggedNotes] = useState([])
 
     useEffect(() => {
@@ -11,6 +12,14 @@ export default function FlagBarLayout() {
         })
         // console.log(flaggedNotes)
     }, [setFlaggedNotes])
+
+    let currentpath
+    if ((location !== null) && (location !== undefined)) {
+        currentpath = location.pathname
+    }else{
+        currentpath = "/"
+    }
+    console.log(currentpath)
 
     return (
         <>
@@ -22,21 +31,41 @@ export default function FlagBarLayout() {
                                 <li class="list-group-item bold">
                                     Urgent Flags in order of update:
                                 </li>
-                                {((flaggedNotes !== null) && (flaggedNotes !== undefined)) &&
+                                {((flaggedNotes !== null) && (flaggedNotes !== undefined) && (currentpath !== "/viewNote")) &&
                                     flaggedNotes.map((element) => {
                                         let stateData = { clientId: element.clientId, noteId: element.id }
                                         return (
                                             <>
-                                            <li class="list-group-item">
-                                                <button class="btn btn-sm btn-primary nav-item" onClick={(e) => {
-                                                    e.preventDefault()
-                                                    navigate("/viewNote", {
-                                                        state: { stateData },
-                                                    })
-                                                }}>
-                                                    Flag</button>
+                                                <li class="list-group-item">
+                                                    <button class="btn btn-sm btn-primary nav-item" onClick={(e) => {
+                                                        e.preventDefault()
+                                                        navigate("/viewNote", {
+                                                            state: { stateData },
+                                                        })
+                                                    }}>
+                                                        Flag</button>
                                             Note {element.id} / {element.updatedAt}
-                                            </li>
+                                                </li>
+                                            </>
+                                        )
+                                    }
+                                    )
+                                }
+                                {((flaggedNotes !== null) && (flaggedNotes !== undefined) && (currentpath === "/viewNote")) &&
+                                    flaggedNotes.map((element) => {
+                                        let stateData = { clientId: element.clientId, noteId: element.id, reloadCommand: true }
+                                        return (
+                                            <>
+                                                <li class="list-group-item">
+                                                    <button class="btn btn-sm btn-primary nav-item" onClick={(e) => {
+                                                        e.preventDefault()
+                                                        navigate("/workaround", {
+                                                            state: { stateData },
+                                                        })
+                                                    }}>
+                                                        Flag</button>
+                                            Note {element.id} / {element.updatedAt}
+                                                </li>
                                             </>
                                         )
                                     }

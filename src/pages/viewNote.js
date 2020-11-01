@@ -7,45 +7,101 @@ import NoteForm from "../components/noteForm"
 import { getNote, getClient, deleteNote } from "../../backendHookup"
 
 export default function Home({ location }) {
+    const [id, setId] = useState(null);
+    useEffect(() => {
+        if ((location.state !== null) && (location.state !== undefined)) {
+            console.log(location.state.stateData)
+           return setId(location.state.stateData.noteId)
+        } else {
+            console.log("error in setting id")
+        }
+    }, [setId])
+
+    const [clientId, setClientId] = useState(null);
+    useEffect(() => {
+        if ((location.state !== null) && (location.state !== undefined)) {
+            console.log(location.state.stateData)
+           return setClientId(location.state.stateData.clientId)
+        } else {
+            console.log("error in setting id")
+        }
+    }, [setClientId])
+
     const [note, setNote] = useState(null)
+    useEffect(() => {
+       console.log("get note effect is being hit and has id available: " + id)
+        getNote(id).then(transferArr => {
+            let response = transferArr[1].response;
+            console.log("interior of getNote is being hit")
+            return setNote(response)
+        }
+        )
+    }, [id]);       //"only run this effect if the id changes between renders"
+
     const [thisClient, setThisClient] = useState(null)
+    
+    useEffect(() => {
+        getClient(clientId).then(transferArr => {
+            let response = transferArr[1].response;
+            let clientName = response[0][1][1]
+            setThisClient(clientName)
+        }
+        )
+    }, [clientId]);
+
     const [newNote, setNewNote] = useState(null)
     const [editNote, setEditNote] = useState(null)
     const [newClient, setNewClient] = useState(null)
 
-    const [id, setId] = useState(null);
-    const [clientId, setClientId] = useState(null);
+    // useEffect(() => {
+    //     if ((location.state !== null)&&(location.state !== undefined)) {
+    //         console.log(location.state.stateData)
+    //         return setId(location.state.stateData.noteId)
+    //     }
+    // })
 
-    useEffect(() => {
-        if (location.state !== null) {
-            return setId(location.state.stateData.noteId)
-        }
-    })
+    // useEffect(() => {
+    //     if (location.state !== null) {
+    //         return setClientId(location.state.stateData.clientId)
+    //     }
+    // })
 
-    useEffect(() => {
-        if (location.state !== null) {
-            return setClientId(location.state.stateData.clientId)
-        }
-    })
+    // useEffect(() => {
+    //     if ((location.state !== null) && (location.state !== undefined)) {
+    //         console.log(location.state.stateData)
+    //         setId(location.state.stateData.noteId)
+    //         setClientId(location.state.stateData.clientId)
+    //     }else{
+    //         console.log("error in setting ids")
+    //     }
+    //     getNote(id).then(transferArr => {
+    //         console.log(id)
 
-    useEffect(() => {
-        getNote(id).then(transferArr => {
-            let response = transferArr[1].response;
-            return setNote(response)
-        }
-        )
-    }, [setNote]);
-
-    let clientName = null
-    useEffect(() => {
-        let id = clientId
-        getClient(id).then(transferArr => {
-            let response = transferArr[1].response;
-            clientName = response[0][1][1]
-            setThisClient(clientName)
-        }
-        )
-    }, [setThisClient]);
+    //         let response = transferArr[1].response;
+    //         return setNote(response)
+    //     }
+    //     )
+    //     // .then(
+    //     // getClient(clientId).then(transferArr2 => {
+    //     //     let response = transferArr2[1].response;
+    //     //     let clientName = response[0][1][1]
+    //     //     console.log(clientName)
+    //     //    return setThisClient(clientName)
+    //     // }
+    //     // )
+    //     // )
+    // }, [setNote, setClientId, setId]);
+    // , setThisClient, setClientId, setId
+    // let clientName = null
+    // useEffect(() => {
+    //     let id = clientId
+    //     getClient(id).then(transferArr => {
+    //         let response = transferArr[1].response;
+    //         let clientName = response[0][1][1]
+    //         setThisClient(clientName)
+    //     }
+    //     )
+    // }, [setThisClient]);
 
     let callClientForm = async function (e) {
         e.preventDefault()
@@ -73,6 +129,9 @@ export default function Home({ location }) {
 
     return (
         <>
+        {console.log("jsx is receiving id: " + id)}
+        {console.log("jsx is receiving ClientId: " + clientId)}
+            {note !== null && console.log("jsx is receiving: " + id)}
             <AllPageLayout>
                 <BlockContainer resource="note">
                     <h2 class="note-text">Note Subject: {note !== null && note[0][2][1]}</h2>

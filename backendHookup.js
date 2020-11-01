@@ -160,10 +160,12 @@ export async function createNote(transferObj) {
 
 
 
-export function getClient(id) {
-  // const endpoint = `http://localhost:3000/clients/client${id}`;
-  const endpoint = `https://client-note-app.herokuapp.com/clients/client${id}`;
+export function getClient(clientId) {
+  // const endpoint = `http://localhost:3000/clients/client${id}`;  //?
+  const endpoint = `https://client-note-app.herokuapp.com/clients/client${clientId}`;
   let resource = "client"
+  console.log("hittign get client in backend")
+  console.log(clientId)
   return (axios.get(endpoint).then(function (response) {
     let newArr = [toArray(response.data)]
     let transferArr = [{ resource: resource }, { response: newArr }]
@@ -193,6 +195,7 @@ export function getNote(id) {
   // const endpoint = `http://localhost:3000/notes/note${id}`;
   const endpoint = `https://client-note-app.herokuapp.com/notes/note${id}`;
   let resource = "note"
+  console.log("noteId received from viewnote: " + id)
   return (axios.get(endpoint).then(function (response) {
     let newArr = [toNoteArray(response.data)]
     let transferArr = [{ resource: resource }, { response: newArr }]
@@ -203,7 +206,7 @@ export function getNote(id) {
 
 export function getClientNotes(id) {
   // const endpoint = `http://localhost:3000/notes/client${id}`;
-  const endpoint = `https://client-note-app.herokuapp.com/notes/client${id}`;  
+  const endpoint = `https://client-note-app.herokuapp.com/notes/client${id}`;
   let resource = "notes"
   return axios.get(endpoint).then(function (response) {
     let newArr = response.data.map((element) =>
@@ -227,7 +230,7 @@ export function deleteNote(ids) {
   const endpoint = `https://client-note-app.herokuapp.com/delete/note${id}`;
   axios.get(endpoint).then(function (res) {
     if (res.data === 'note was deleted') {
-      window.location = `http://localhost:8000/clients/client${clientId}`;    
+      window.location = `http://localhost:8000/clients/client${clientId}`;
       alert("Note was deleted")
     }
     return res.data
@@ -246,7 +249,7 @@ export function editNote(transferObj) {
 
   axios.post(endpoint, transferObjData).then(function (res) {
     if (res.data === 'note was updated') {
-      window.location = `http://localhost:8000/clients/client${clientId}`;    
+      window.location = `http://localhost:8000/clients/client${clientId}`;
     }
     return res.data
   }

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react"
 import { navigate } from "gatsby"
 
 export default function Home({ location }) {
-    console.log("hitting workaround")
-    console.log(location)
+    // console.log("hitting workaround")
+    // console.log(location)
     const [stateData, setStateData] = useState(null);
     useEffect(() => {
         if ((location.state !== null) && (location.state !== undefined)) {

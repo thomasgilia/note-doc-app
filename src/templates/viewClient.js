@@ -14,6 +14,9 @@ export default function ViewClient({ pageContext }) {
     const [callNotes, setCallNotes] = useState(null)
     const [newClient, setNewClient] = useState(null)
     const [newNote, setNewNote] = useState(null)
+    const [arrow1, setArrow1] = useState(false);
+    const [arrow2, setArrow2] = useState(false);
+    const [arrow3, setArrow3] = useState(false);
 
     useEffect(() => {
         getClient(id).then(transferArr => {
@@ -22,25 +25,28 @@ export default function ViewClient({ pageContext }) {
         }
         )
     }, [setClient]);
+
     let hardcodeClientId = id
     let callClientNotes = async function (e) {
         e.preventDefault()
         let transferArr = await getClientNotes(id)
         let response = transferArr[1].response;
-
         setCallNotes(response)
+        setArrow1(true)
     }
 
     let callClientForm = async function (e) {
         e.preventDefault()
         let newClientRequested = true;
         setNewClient(newClientRequested)
+        setArrow3(true)
     }
 
     let callNoteForm = async function (e) {
         e.preventDefault()
         let newNoteRequested = true;
         setNewNote(newNoteRequested)
+        setArrow2(true)
     }
 
     let callDeleteClient = async function (e) {
@@ -63,9 +69,21 @@ export default function ViewClient({ pageContext }) {
                             <SortListLayout {...shuttle} ></SortListLayout>}
                         <br></br>
                         <div class="d-flex justify-content-around">
-                            <button class="btn btn-primary btn-lg" onClick={(e) => callClientNotes(e)}>Get Client Notes</button>
-                            <button class="btn btn-primary btn-sm" onClick={(e) => callNoteForm(e)}>New Note form</button>
-                            <button class="btn btn-dark btn-sm" onClick={(e) => callClientForm(e)}>New Client form</button>
+                            {(arrow1 !== true) && (<button class="btn btn-primary btn-lg"
+                                onClick={(e) => callClientNotes(e)}>Get Client Notes</button>)}
+                            {(arrow1 === true) && (<button class="btn btn-primary btn-lg"
+                                onClick={(e) => callClientNotes(e)}>Get Client Notes <i class="fa fa-arrow-down" aria-hidden="true" /></button>)}
+
+                            {(arrow2 !== true) && (<button class="btn btn-primary btn-sm"
+                                onClick={(e) => callNoteForm(e)}>New Note form</button>)}
+                            {(arrow2 === true) && (<button class="btn btn-primary btn-sm"
+                                onClick={(e) => callNoteForm(e)}>New Note form <i class="fa fa-arrow-down" aria-hidden="true" /></button>)}
+
+                            {(arrow3 !== true) && (<button class="btn btn-dark btn-sm"
+                                onClick={(e) => callClientForm(e)}>New Client form</button>)}
+                            {(arrow3 === true) && (<button class="btn btn-dark btn-sm"
+                                onClick={(e) => callClientForm(e)}>New Client form <i class="fa fa-arrow-down" aria-hidden="true" /></button>)}
+
                             <button class="btn btn-danger btn-sm" onClick={(e) => callDeleteClient(e)}>Delete Client</button>
                         </div>
                     </BlockContainer>
@@ -73,7 +91,7 @@ export default function ViewClient({ pageContext }) {
                         <ClientForm></ClientForm></BlockContainer></>)}
                     {newNote !== null && (<> <BlockContainer resource="note">
                         <NoteForm thisClient={thisClient} clientId={hardcodeClientId} resource="notes"></NoteForm></BlockContainer></>)}
-                    {callNotes !== null && (<><BlockContainer resource="note"><h4 className="note-text">Notes for client: {thisClient}</h4>
+                    {callNotes !== null && (<><BlockContainer resource="note"><h4 className="note-text"><i class="fa fa-file-text-o" aria-hidden="true" /> Notes for client: {thisClient}</h4>
                         <SortListLayout list={callNotes} resource="notes" clientId={hardcodeClientId}></SortListLayout></BlockContainer></>)}
                 </AllPageLayout>
             </>)

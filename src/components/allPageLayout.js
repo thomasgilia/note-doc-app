@@ -26,6 +26,7 @@ export default function AllPageLayout(props) {
                     Client-Note App
                 </title>
                 <meta name="description" content="Keep your company's client notes organized and easy to access" />
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
             </Helmet>
             <div class="row nav-text bgCustomDark heading">
                 <h1 class="nav-text">Client-Note App</h1>

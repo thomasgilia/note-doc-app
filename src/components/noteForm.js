@@ -84,7 +84,7 @@ export default function NoteForm(props) {
     if ((props.note === null) || (props.note === undefined)) {
         return (
             <>
-                <h4 class="note-text">New note for client: {props.thisClient}</h4>
+                <h4 class="note-text"><i class="fa fa-file-text-o" aria-hidden="true" /> New note for client: {props.thisClient}</h4>
                 <form onSubmit={e => newNoteHandler(e)}>
                     <div class="form-group">
                         Title: <input type="text" name="title" class="form-control" required onChange={e => setTitle(e.target.value)} />
@@ -119,7 +119,7 @@ export default function NoteForm(props) {
     } else {
         return (
             <>
-                <h4 class="note-text">Update note {noteId} for client: {props.thisClient}</h4>
+                <h4 class="note-text"><i class="fa fa-file-text-o" aria-hidden="true" /> Update note {noteId} for client: {props.thisClient}</h4>
                 <form onSubmit={e => updateNoteHandler(e)}>
                     <div class="form-group">
                         Title: <input type="text" name="title" class="form-control" value={title} required onChange={(e) => { setTitle(e.target.value) }} />

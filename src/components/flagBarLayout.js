@@ -3,7 +3,7 @@ import { navigate } from "gatsby"
 import { getAllNotes } from "../../backendHookup"
 
 export default function FlagBarLayout({location}) {
-console.log(location)
+// console.log(location)
     const [flaggedNotes, setFlaggedNotes] = useState([])
 
     useEffect(() => {
@@ -19,7 +19,7 @@ console.log(location)
     }else{
         currentpath = "/"
     }
-    console.log(currentpath)
+    // console.log(currentpath)
 
     return (
         <>
@@ -43,8 +43,8 @@ console.log(location)
                                                             state: { stateData },
                                                         })
                                                     }}>
-                                                        Flag</button>
-                                            Note {element.id} / {element.updatedAt}
+                                                        Flag</button> 
+                                             Note {element.id} / {element.updatedAt}
                                                 </li>
                                             </>
                                         )

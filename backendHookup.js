@@ -130,7 +130,8 @@ export async function createClient(input) {
     console.log("RESPONSE RECEIVED: ", res.data);
     alert("Client was created. Please allow a few moments for the client page to be created")
     if (res.data === 'client was created') {
-      window.location = `http://localhost:8000/`;
+      window.location = `https://client-note-app.netlify.app/`;
+      // window.location = `http://localhost:8000/`;
     }
   }).catch((err) => {
     console.log("AXIOS ERROR: ", err);
@@ -148,7 +149,8 @@ export async function createNote(transferObj) {
     // console.log(transferObjData)
     if (res.data) {
       let clientId = res.data
-      window.location = `http://localhost:8000/clients/client${clientId}`;
+      // window.location = `http://localhost:8000/clients/client${clientId}`;
+      window.location = `https://client-note-app.netlify.app/clients/client${clientId}`;
       alert("Note was created")
     }
 
@@ -181,7 +183,8 @@ export function deleteClient(id) {
   const endpoint = `https://client-note-app.herokuapp.com/delete/client${id}`;
   axios.get(endpoint).then(function (res) {
     if (res.data === 'client was deleted') {
-      window.location = "http://localhost:8000/";
+      // window.location = "http://localhost:8000/";
+      window.location = `https://client-note-app.netlify.app/`;
       alert("Client was deleted")
     }
     return res.data
@@ -230,7 +233,8 @@ export function deleteNote(ids) {
   const endpoint = `https://client-note-app.herokuapp.com/delete/note${id}`;
   axios.get(endpoint).then(function (res) {
     if (res.data === 'note was deleted') {
-      window.location = `http://localhost:8000/clients/client${clientId}`;
+      // window.location = `http://localhost:8000/clients/client${clientId}`;
+      window.location = `https://client-note-app.netlify.app/clients/client${clientId}`;
       alert("Note was deleted")
     }
     return res.data
@@ -249,7 +253,8 @@ export function editNote(transferObj) {
 
   axios.post(endpoint, transferObjData).then(function (res) {
     if (res.data === 'note was updated') {
-      window.location = `http://localhost:8000/clients/client${clientId}`;
+      // window.location = `http://localhost:8000/clients/client${clientId}`;
+      window.location = `https://client-note-app.netlify.app/clients/client${clientId}`;
     }
     return res.data
   }
